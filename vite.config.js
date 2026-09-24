@@ -49,7 +49,18 @@ function seo() {
           ).replaceAll('%SITE_URL%', site),
       },
       generateBundle() {
-        const robots = ['User-agent: *', 'Allow: /', ...(site ? ['', `Sitemap: ${site}/sitemap.xml`] : []), ''].join('\n');
+        // /icons/ holds the app's UI icons and mouth drawings: kept out of the
+        // image index so Google can't pick a mouth as the result thumbnail
+        // (the favicon files sit at the root and stay crawlable)
+        const robots = [
+          'User-agent: *',
+          'Allow: /',
+          '',
+          'User-agent: Googlebot-Image',
+          'Disallow: /icons/',
+          ...(site ? ['', `Sitemap: ${site}/sitemap.xml`] : []),
+          '',
+        ].join('\n');
         this.emitFile({ type: 'asset', fileName: 'robots.txt', source: robots });
         if (!site) return;
         const today = new Date().toISOString().slice(0, 10);

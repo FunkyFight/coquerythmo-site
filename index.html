@@ -25,8 +25,10 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="La fenêtre de Coquerythmo : une bande rythmo, et les lignes de téléchargement sous la barre de lecture rouge." />
     <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/app-icon.png" />
+    <!-- square icons: Google drops a favicon that isn't 1:1 and shows a globe -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <style>
       /* Boot veil: a small band that covers the page until the site's
          stylesheet applies, then base.css fades it out. In dev, Vite injects
@@ -133,7 +135,7 @@
             "author": { "@type": "Person", "name": "FunkyFight" },
             "downloadUrl": "https://github.com/FunkyFight/coquerythmo-releases/releases",
             "url": "%SITE_URL%/",
-            "image": "%SITE_URL%/og-image.png",
+            "image": { "@id": "%SITE_URL%/#logo" },
             "screenshot": "%SITE_URL%/og-image.png",
             "featureList": [
               "Bande rythmo sur quatre pistes, lue sous une barre de lecture fixe",
@@ -145,7 +147,24 @@
               "Lecteur d’écran et pilotage au clavier sous Windows"
             ]
           },
-          { "@type": "WebSite", "name": "Coquerythmo", "url": "%SITE_URL%/", "inLanguage": "fr" }
+          { "@type": "WebSite", "@id": "%SITE_URL%/#site", "name": "Coquerythmo", "url": "%SITE_URL%/", "inLanguage": "fr" },
+          {
+            "@type": "WebPage",
+            "url": "%SITE_URL%/",
+            "name": "Coquerythmo : logiciel de bande rythmo gratuit, doublage et fandub",
+            "inLanguage": "fr",
+            "isPartOf": { "@id": "%SITE_URL%/#site" },
+            "primaryImageOfPage": { "@id": "%SITE_URL%/#logo" }
+          },
+          {
+            "@type": "ImageObject",
+            "@id": "%SITE_URL%/#logo",
+            "url": "%SITE_URL%/logo.png",
+            "contentUrl": "%SITE_URL%/logo.png",
+            "width": 256,
+            "height": 256,
+            "caption": "Logo de Coquerythmo"
+          }
         ]
       }
     </script>

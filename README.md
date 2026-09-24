@@ -21,6 +21,8 @@ Le site est publié sur https://coquelicot.world. `npm run build` utilise cette 
 
 Il écrit aussi `robots.txt` et `sitemap.xml` dans `dist/`. L'image d'aperçu `public/og-image.png` (1200 × 630) est une capture de la fenêtre du site.
 
+Les icônes du site (`favicon.ico`, `icon-192.png`, `apple-touch-icon.png`, `logo.png`) sont des carrés tirés de `app-icon.png` : Google ignore un favicon qui n'est pas carré. `logo.png` est l'image principale déclarée à Google dans les données structurées, et `robots.txt` interdit `/icons/` à Googlebot-Image pour qu'une bouche dessinée ne serve pas de miniature dans les résultats.
+
 Pour publier ailleurs, la variable `SITE_URL` remplace l'adresse :
 
 ```sh
