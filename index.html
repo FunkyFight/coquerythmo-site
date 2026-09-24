@@ -27,6 +27,93 @@
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/app-icon.png" />
+    <style>
+      /* Boot veil: a small band that covers the page until the site's
+         stylesheet applies, then base.css fades it out. In dev, Vite injects
+         the CSS from JS a moment after the HTML; in a build the stylesheet
+         blocks the first paint, so the veil is never seen. If the stylesheet
+         never comes, the veil still lifts after 6 s on light-on-dark text. */
+      html {
+        background: #0b0b0e;
+        color: #e0e0e0;
+      }
+      .boot {
+        position: fixed;
+        inset: 0;
+        z-index: 2147483647;
+        display: grid;
+        place-content: center;
+        background: #0b0b0e;
+        animation: boot-lift 0s 6s forwards;
+      }
+      @keyframes boot-lift {
+        to {
+          visibility: hidden;
+        }
+      }
+      .boot__band {
+        position: relative;
+        width: 280px;
+        height: 56px;
+        padding: 12px;
+        overflow: hidden;
+        background: #050508;
+        border: 1px solid #16161c;
+        border-radius: 4px;
+      }
+      .boot__band::before {
+        /* ruler ticks, drifting left with the time */
+        content: '';
+        position: absolute;
+        inset: 0 -12px auto 0;
+        height: 10px;
+        background: linear-gradient(90deg, rgb(100 100 115 / 0.5) 1px, transparent 1px) 0 0 / 12px 10px repeat-x;
+        animation: boot-ticks 0.5s linear infinite;
+      }
+      .boot__band::after {
+        /* the reading bar */
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 50%;
+        width: 3px;
+        translate: -1px 0;
+        background: #ff050d;
+        box-shadow: 0 0 10px rgb(255 0 8 / 0.55);
+      }
+      .boot__line {
+        position: absolute;
+        top: 20px;
+        left: 100%;
+        padding: 3px 8px;
+        border: 1px solid rgb(128 128 140 / 0.3);
+        border-radius: 2px;
+        color: #fff;
+        font: 500 14px/1 'Segoe UI', system-ui, sans-serif;
+        white-space: nowrap;
+        animation: boot-line 2.4s linear infinite;
+      }
+      @keyframes boot-ticks {
+        to {
+          translate: -12px 0;
+        }
+      }
+      @keyframes boot-line {
+        to {
+          left: 0;
+          translate: -100% 0;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .boot__band::before,
+        .boot__line {
+          animation: none;
+        }
+        .boot__line {
+          left: 50%;
+          translate: -50% 0;
+        }
+      }
+    </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -64,6 +151,9 @@
     </script>
   </head>
   <body>
+    <div class="boot" aria-hidden="true">
+      <div class="boot__band"><span class="boot__line">Chargement…</span></div>
+    </div>
     <a class="skip-link" href="#telecharger">Aller au téléchargement</a>
     <a class="skip-link" href="#bande">Aller aux chapitres</a>
     <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
@@ -308,6 +398,15 @@
             <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
           </button>
         </aside>
+
+        <!-- the window's bottom edge sits on the fold: it says there is more below -->
+        <a class="window__more" href="#bande">
+          <svg class="window__more-arrow" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+            <path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Lire la suite</span>
+          <span class="window__more-list" aria-hidden="true">anatomie d’une bande, détection, projet, export, à plusieurs, accessibilité, tutoriels</span>
+        </a>
       </section>
 
       <!-- @include sections/anatomie/anatomie.html -->

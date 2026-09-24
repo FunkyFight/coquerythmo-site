@@ -23,6 +23,17 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* The boot veil of index.html covers the page until this stylesheet applies.
+   html .boot outranks the inline .boot rule wherever the stylesheet lands. */
+html .boot {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--t-med) ease-out,
+    visibility 0s var(--t-med);
+}
+
 img,
 svg,
 canvas,

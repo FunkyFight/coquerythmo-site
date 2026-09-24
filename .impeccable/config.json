@@ -21,6 +21,15 @@
         ],
         "createdAt": "2026-09-24T07:38:36.991Z",
         "reason": "model triage: the flagged rule is transition: stroke-width on 3px SVG node-graph wires, not a box width"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-09-24T12:55:45.022Z",
+        "reason": "model triage: the only glow in index.html is the boot veil's red reading bar, sanctioned by DESIGN.md (One Reading Bar Rule, canvas shadowBlur 10 rgb(255 0 8 / 0.55))"
       }
     ]
   }

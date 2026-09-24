@@ -90,7 +90,7 @@
 .window {
   position: relative;
   display: grid;
-  grid-template-rows: var(--tabbar-h) minmax(0, 1fr);
+  grid-template-rows: var(--tabbar-h) minmax(0, 1fr) auto;
   height: calc(100svh - var(--topbar-h));
   min-height: 620px;
   max-height: 1080px;
@@ -145,6 +145,63 @@
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto auto;
   min-height: 0;
+}
+
+/* ═══════════ « Lire la suite »: the window's last row, on the fold ═══════════ */
+.window__more {
+  /* on phones the window is taller than the screen: the row rides the
+     bottom edge until the window ends */
+  position: sticky;
+  bottom: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s2);
+  min-height: 32px;
+  padding: 0 var(--gutter);
+  background: var(--tabbar);
+  border-top: 1px solid #202027;
+  color: var(--text);
+  font-size: var(--fs-ui);
+  font-weight: 600;
+  text-decoration: none;
+  transition: color var(--t-fast);
+}
+.window__more:hover {
+  color: #fff;
+}
+.window__more:focus-visible {
+  outline-offset: -2px;
+}
+.window__more-arrow {
+  flex: none;
+  animation: more-nudge 1.8s var(--ease-out) infinite;
+}
+.window__more-list {
+  overflow: hidden;
+  color: var(--text-faint);
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.window__more-list::before {
+  content: '· ';
+}
+@keyframes more-nudge {
+  0%,
+  60%,
+  100% {
+    translate: 0 0;
+  }
+  30% {
+    translate: 0 3px;
+  }
+}
+@media (max-width: 720px) {
+  .window__more-list {
+    display: none;
+  }
 }
 .ws[hidden] {
   display: none;
