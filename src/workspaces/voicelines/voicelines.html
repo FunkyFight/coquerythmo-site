@@ -1,0 +1,117 @@
+<!-- Voicelines: one long recording cut into named clips. Layout of
+     src/ui/voicelines_workspace.rs (sidebar « Audios », header buttons,
+     playback toolbar, waveform, « Zones de découpe »). The site takes no
+     files and exports nothing: it cuts one example recording made by the page. -->
+<div class="vl" data-vl data-state="empty">
+  <div class="vl-side">
+    <div class="vl-intro">
+      <h2 class="vl-intro__title" id="vl-title">Voicelines</h2>
+      <p class="vl-intro__lede">
+        Coupez un long enregistrement en répliques nommées&nbsp;: la détection auto repère les silences, vous renommez,
+        raccordez, puis exportez chaque zone.
+      </p>
+    </div>
+    <section class="vl-audios" aria-labelledby="vl-audios-title">
+      <h3 class="vl-panel-title" id="vl-audios-title">Audios</h3>
+      <ul class="vl-audios__list" role="list" data-audios></ul>
+      <p class="vl-audios__empty" data-audios-empty>Aucun audio. Dans l’app, chaque fichier ajouté garde ses propres zones.</p>
+      <p class="vl-audios__hint" data-audios-hint hidden>
+        Clic droit sur un audio&nbsp;: <em>Envoyer les voicelines vers</em> Comic Dubs ou Enregistrement.
+      </p>
+    </section>
+  </div>
+
+  <div class="vl-head" role="toolbar" aria-label="Voicelines">
+    <button class="ui-btn ui-btn--lg ui-btn--accent" type="button" id="vl-detect" disabled
+      data-tip="Couper aux silences de 200 ms ou plus, avec 40 ms de marge">Détection auto</button>
+    <div class="vl-naming">
+      <button class="ui-btn ui-btn--lg vl-naming__btn" type="button" id="vl-naming" data-tip="Modifier le nom de base des zones">
+        <span>Nom auto&nbsp;: <span data-naming>voiceline</span></span>
+      </button>
+      <label class="vl-naming__edit" data-naming-edit hidden>
+        <span>Nom auto&nbsp;:</span>
+        <input class="vl-input" type="text" id="vl-naming-input" maxlength="120" spellcheck="false" autocomplete="off" />
+      </label>
+    </div>
+    <div class="vl-actions" data-actions-wrap data-tip="Ctrl+clic sur au moins deux zones">
+      <button class="menu__btn vl-actions__btn" type="button" id="vl-actions-btn" aria-expanded="false" aria-controls="vl-actions" disabled>
+        Actions
+      </button>
+      <div class="dropdown vl-actions__menu" id="vl-actions" hidden>
+        <button class="dropdown__item" type="button" id="vl-join">Raccorder les zones sélectionnées</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="vl-bar" role="toolbar" aria-label="Lecture de l'audio">
+    <button class="icon-btn" type="button" id="vl-play" data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false" disabled>
+      <span class="icon" data-play-icon style="--src: url(/icons/resume.svg)"></span>
+    </button>
+    <input class="ui-slider vl-bar__seek" type="range" id="vl-seek" min="0" max="1" step="10" value="0" aria-label="Position dans l'audio" disabled />
+    <output class="vl-bar__time tnum" data-time for="vl-seek">00:00.000 / 00:00.000</output>
+    <button class="icon-btn" type="button" id="vl-mute" data-tip="Couper le son" aria-label="Couper le son" aria-pressed="false">
+      <span class="icon" data-mute-icon style="--src: url(/icons/sound.svg)"></span>
+    </button>
+    <input class="ui-slider vl-bar__vol" type="range" id="vl-vol" min="0" max="100" step="1" value="80" aria-label="Volume" />
+  </div>
+
+  <div class="vl-stage" data-stage>
+    <div class="vl-drop" data-drop>
+      <p class="vl-drop__label">Dans Coquerythmo, vous glissez ici vos enregistrements.<br />Ici, découpez celui d’exemple.</p>
+      <div class="vl-drop__actions">
+        <button class="ui-btn ui-btn--lg ui-btn--accent" type="button" id="vl-example">Ouvrir l’enregistrement d’exemple</button>
+      </div>
+      <p class="vl-drop__note">
+        Dans l’app&nbsp;: FLAC, WAV, MP3, OGG, M4A, AAC ou OPUS. L’exemple est une voix de synthèse fabriquée par la page.
+      </p>
+    </div>
+
+    <div class="vl-wave" id="vl-wave" data-wave tabindex="-1" hidden>
+      <div class="vl-wave__ticks" data-ticks aria-hidden="true"></div>
+      <canvas class="vl-wave__canvas" data-canvas aria-hidden="true"></canvas>
+      <div class="vl-wave__scan" data-scan aria-hidden="true"><span class="vl-wave__scanline"></span></div>
+      <div class="vl-wave__regions" data-overlay aria-hidden="true"></div>
+      <div class="vl-wave__playhead" data-playhead aria-hidden="true"></div>
+    </div>
+    <div class="vl-view" data-view role="scrollbar" tabindex="0" aria-controls="vl-wave" aria-orientation="horizontal"
+      aria-label="Portion visible de la forme d'onde" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+      data-tip="Flèches : défiler · + et − : zoomer" hidden>
+      <span class="vl-view__thumb" data-view-thumb></span>
+    </div>
+  </div>
+
+  <section class="vl-regions" aria-labelledby="vl-regions-title">
+    <div class="vl-regions__head">
+      <h3 class="vl-panel-title" id="vl-regions-title">Zones de découpe</h3>
+      <p class="vl-regions__hint" data-hint>
+        <span>Ctrl+clic pour sélectionner</span><span>double-clic pour renommer</span><span>clic droit pour écouter</span><span>Ctrl+molette pour zoomer</span>
+      </p>
+      <p class="vl-regions__keys" id="vl-keys">
+        <span class="kbd">↑</span><span class="kbd">↓</span> parcourir · <span class="kbd">Ctrl</span><span class="kbd">Espace</span> ajouter à la
+        sélection · <span class="kbd">Espace</span> écouter · <span class="kbd">F2</span> renommer · <span class="kbd">Suppr</span> effacer
+      </p>
+      <button class="ui-btn vl-regions__multi" type="button" id="vl-multi" aria-pressed="false">Sélection multiple</button>
+    </div>
+    <ul class="vl-regions__list" role="listbox" id="vl-list" tabindex="0" aria-multiselectable="true"
+      aria-labelledby="vl-regions-title" aria-describedby="vl-keys" data-regions></ul>
+    <p class="vl-regions__empty" data-regions-empty>Aucune zone pour l'instant.</p>
+  </section>
+
+  <section class="vl-export" aria-labelledby="vl-export-title">
+    <div class="vl-export__head">
+      <h3 class="vl-panel-title" id="vl-export-title">À l'export</h3>
+      <span class="vl-export__count tnum" data-files-count></span>
+    </div>
+    <ol class="vl-export__files" role="list" data-files></ol>
+    <p class="vl-export__empty" data-files-empty>Un fichier par zone, nommé comme elle.</p>
+    <p class="vl-export__note">Dans Coquerythmo&nbsp;: un fichier OGG Vorbis (qualité 6) par zone.</p>
+  </section>
+
+  <div class="dropdown vl-ctx" id="vl-ctx" role="menu" aria-labelledby="vl-ctx-label" hidden>
+    <p class="vl-ctx__label" id="vl-ctx-label">Envoyer les voicelines vers</p>
+    <button class="dropdown__item" type="button" role="menuitem" tabindex="-1" data-send="Comic Dubs">Comic Dubs</button>
+    <button class="dropdown__item" type="button" role="menuitem" tabindex="-1" data-send="Enregistrement">Enregistrement</button>
+  </div>
+
+  <div class="vl-toasts" data-toasts></div>
+</div>

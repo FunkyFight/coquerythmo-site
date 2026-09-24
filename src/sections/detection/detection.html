@@ -1,0 +1,162 @@
+<section class="chapter" id="detection" aria-labelledby="detection-title">
+  <header class="strip">
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>2</span></p>
+    <h2 class="strip__title" id="detection-title">
+      <span class="char-label" aria-hidden="true" style="--c: var(--c-cyan)">Détection</span>
+      <span class="strip__line">Effectuez facilement le travail de détection.</span>
+    </h2>
+  </header>
+
+  <div class="chapter__inner det">
+    <p class="chapter__lede">
+      La détection note sur la bande ce que font les lèvres à l’image. Choisissez un signe dans la palette&nbsp;: il se pose
+      sous la barre de lecture, et sa fiche montre la bouche dessinée.
+    </p>
+
+    <!-- ═══════════ The palette, working: band + palette + fiche ═══════════ -->
+    <div class="det-bench">
+      <div class="band-host det-bench__band" id="det-band" aria-describedby="det-band-help"></div>
+      <p class="sr-only" id="det-band-help">
+        Bande de démonstration, réplique fictive de Théo. Faites glisser la bande ou utilisez les flèches pour placer la barre
+        de lecture, puis choisissez un signe dans la palette qui suit. Alt D : aller à la palette. Contrôle Majuscule Espace :
+        créer un point de synchronisation sur la lettre à la barre de lecture.
+      </p>
+
+      <div class="det-bench__dock">
+        <div class="det-pal-wrap">
+          <div class="det-pal" role="toolbar" aria-label="Palette de détection" aria-controls="det-band" data-palette data-roving="own">
+            <button class="det-pal__item" type="button" data-sign="labial" aria-label="Labiale (P, B, M)" data-current>
+              <span class="icon" style="--src: url(/icons/detection/labial.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="semi" aria-label="Semi-labiale (F, V)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/semi_labial.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="open" aria-label="Bouche ouverte" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/mouth_open.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="closed" aria-label="Bouche fermée (fermetures, consonnes occlusives)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/mouth_closed.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="teeth" aria-label="Dents visibles (F, V, S, T, EE)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/teeth_visible.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="th" aria-label="TH (TH, T, S appuyés)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/th.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="breath" aria-label="Respiration (souffle, aspiration)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/breath.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="neutral" aria-label="Neutre / parenthèses (CH, dentales, neutre)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/neutral.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="reaction" aria-label="Réaction (rires, exclamations, bruits vocaux)" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/detection/reaction.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="pucker" aria-label="Cul de poule" tabindex="-1">
+              <span class="icon" style="--src: url(/icons/cul_de_poule.svg)"></span>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="openWave" aria-label="Vague d'ouverture" tabindex="-1">
+              <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5Q12 21 21 8.5" /></svg>
+            </button>
+            <button class="det-pal__item" type="button" data-sign="forwardWave" aria-label="Vague d'avancée" tabindex="-1">
+              <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15.5Q12 3 21 15.5" /></svg>
+            </button>
+            <!-- Line marks: only while the reading bar is on the line (palette_signs) -->
+            <button class="det-pal__item" type="button" data-mark="off" aria-label="Marquer la réplique comme OFF (hors caméra)" tabindex="-1" hidden>
+              <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12" stroke-width="1.6" opacity=".6" /><path d="M3 15.5h18" stroke-width="2.6" /></svg>
+            </button>
+            <button class="det-pal__item" type="button" data-mark="back" aria-label="Marquer la réplique comme de dos" tabindex="-1" hidden>
+              <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12" stroke-width="1.6" opacity=".6" /><path d="M3 15.5h3.5M10.25 15.5h3.5M17.5 15.5h3.5" stroke-width="2.6" /></svg>
+            </button>
+            <button class="det-pal__item" type="button" data-mark="on" aria-label="Retirer le soulignage" tabindex="-1" hidden>
+              <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5L4.5 9.5 9 14" /><path d="M4.5 9.5H14a5.5 5.5 0 010 11h-3" /></svg>
+            </button>
+          </div>
+          <p class="det-pal__tip" aria-hidden="true" data-pal-tip>Labiale (P, B, M)</p>
+          <p class="det-pal__hint">Faites glisser la bande pour choisir l’instant.</p>
+        </div>
+
+        <div class="det-card" role="region" aria-label="Fiche de détection" data-card>
+          <figure class="det-card__mouth">
+            <img src="/icons/detection/rhubarb_lips/P_B_M.png" width="408" height="334" alt="Bouche dessinée : lèvres fermées." data-card-img />
+          </figure>
+          <div class="det-card__body">
+            <p class="det-card__title" data-card-title>Labiale</p>
+            <dl class="det-card__facts">
+              <dt>Description</dt>
+              <dd data-card-desc>Fermeture nette des lèvres.</dd>
+              <dt>Sons correspondants</dt>
+              <dd class="det-card__sounds" data-card-sounds>P, B, M</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <details class="boucle" id="detection-suite" data-close-label="Enrouler la boucle 2">
+      <summary class="boucle__head">
+        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>2</span>
+        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 2</span><span class="boucle__verb--close">Enrouler la boucle 2</span></span>
+        <span class="boucle__list">Les raccourcis de la palette · Bientôt&nbsp;: les signes posés depuis le texte</span>
+      </summary>
+      <div class="boucle__body">
+        <!-- ═══════════ Keyboard: the palette without the mouse ═══════════ -->
+        <div class="det-keys-block">
+          <h3 class="h3" id="det-keys-title">Au clavier</h3>
+          <dl class="det-keys" aria-labelledby="det-keys-title">
+            <div><dt><kbd class="kbd">Alt</kbd> <kbd class="kbd">D</kbd></dt><dd>Ouvrir la palette au pointeur</dd></div>
+            <div><dt><kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd> <kbd class="kbd">Entrée</kbd></dt><dd>Parcourir la palette, poser le signe</dd></div>
+            <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd></dt><dd>Décaler le signe sélectionné d’une image</dd></div>
+            <div><dt><kbd class="kbd">Suppr</kbd></dt><dd>Supprimer le signe sélectionné</dd></div>
+            <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Espace</kbd></dt><dd>Auditionner la détection : deux secondes autour du signe, avec un bip dessus</dd></div>
+            <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">Espace</kbd></dt><dd>Créer un point de synchronisation sur la lettre à la barre de lecture</dd></div>
+          </dl>
+        </div>
+
+        <!-- ═══════════ Text → signs (illustration: the entry is dev-mode only) ═══════════ -->
+        <div class="det-conv">
+          <h3 class="h3 det-conv__title">Bientôt&nbsp;: les signes posés depuis le texte</h3>
+          <div class="prose det-conv__prose">
+            <p>
+              Coquerythmo découpera la réplique en syllabes et posera un signe sur chacune, en français, anglais ou espagnol. Tout
+              part du texte&nbsp;: l’audio n’est jamais analysé. Pas encore dans la version publiée&nbsp;; la bande ci-dessous en
+              montre le principe.
+            </p>
+          </div>
+
+          <div class="det-lane">
+            <div class="det-lane__bar">
+              <div class="det-lane__lang">
+                <span class="det-lane__label" id="det-lang-label">Langue de découpe des syllabes</span>
+                <div class="det-seg" role="radiogroup" aria-labelledby="det-lang-label" data-langs>
+                  <button class="det-seg__opt" type="button" role="radio" aria-checked="true" data-lang="fr">Français</button>
+                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="en" tabindex="-1">Anglais</button>
+                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="es" tabindex="-1">Espagnol</button>
+                </div>
+                <span class="det-lane__accent" data-accent></span>
+              </div>
+              <div class="det-lane__actions">
+                <button class="ui-btn ui-btn--lg" type="button" data-convert>
+                  <span class="icon" style="--src: url(/icons/detection.svg)"></span>Convertir en signes de détection
+                </button>
+                <button class="ui-btn ui-btn--lg" type="button" data-undo data-tip="Annuler la génération" data-kbd="Ctrl Z" disabled>Annuler</button>
+              </div>
+            </div>
+
+            <div class="band-host det-lane__band" id="det-lane-band" aria-describedby="det-lane-help"></div>
+            <p class="sr-only" id="det-lane-help">
+              Bande d’illustration : une réplique fictive de Théo. Les signes générés sont listés juste après, syllabe par syllabe.
+            </p>
+
+            <div class="det-lane__foot">
+              <p class="det-toast" role="status" data-lane-status>Illustration préparée pour cette page, un signe par syllabe.</p>
+              <ol class="det-legend" role="list" aria-label="Signes générés, par syllabe" data-legend>
+                <li class="det-legend__empty">Aucun signe pour l’instant&nbsp;: lancez la conversion.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>

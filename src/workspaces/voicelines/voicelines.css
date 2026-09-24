@@ -1,0 +1,927 @@
+/* Voicelines workspace — geometry and colours of src/ui/voicelines_workspace.rs:
+   sidebar 270 (« Audios »), header 54 (buttons), playback toolbar 42, the
+   waveform in between, « Zones de découpe » at the bottom. Toasts follow
+   src/ui/toast.rs. */
+
+.vl {
+  /* voicelines_workspace.rs:19-25 */
+  --vl-bg: rgb(14 15 18);
+  --vl-panel: rgb(22 23 28);
+  --vl-panel-alt: rgb(29 31 38);
+  --vl-border: rgb(61 64 79 / 0.9);
+  --vl-accent: rgb(97 79 224);
+  --vl-text: rgb(228 230 238);
+  --vl-muted: rgb(150 154 170);
+  --vl-sel: rgb(41 36 77);
+  --vl-sel-border: rgb(209 199 255);
+  --vl-well: rgb(9 10 13);
+  --vl-head: rgb(242 64 77);
+  --vl-side: 270px;
+  --vl-zones: 196px;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--vl-side) minmax(0, 1fr);
+  grid-template-rows: auto 42px minmax(0, 1fr) var(--vl-zones);
+  grid-template-areas:
+    'side head'
+    'side bar'
+    'side stage'
+    'export zones';
+  min-width: 0;
+  min-height: 0;
+  background: var(--vl-bg);
+  color: var(--vl-text);
+  font-size: var(--fs-ui);
+  line-height: 1.4;
+}
+.vl [hidden] {
+  display: none !important;
+}
+
+.vl-panel-title {
+  color: var(--vl-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+}
+
+/* ═══════════ Sidebar: title, « Audios » ═══════════ */
+.vl-side {
+  grid-area: side;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--vl-panel);
+  border-right: 1px solid var(--vl-border);
+}
+.vl-intro {
+  padding: var(--s5) 14px var(--s4);
+  border-bottom: 1px solid var(--panel-border);
+}
+.vl-intro__title {
+  color: #fff;
+  font-size: 1.375rem;
+  font-weight: 700;
+  font-variation-settings: 'wdth' 86;
+  letter-spacing: -0.01em;
+}
+.vl-intro__lede {
+  max-width: 40ch;
+  margin-top: var(--s2);
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+.vl-audios {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  flex: 1;
+  padding: 14px 10px 12px;
+}
+.vl-audios .vl-panel-title {
+  padding: 0 4px 4px;
+}
+.vl-audios__list {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-height: 0;
+  margin: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a46 transparent;
+}
+.vl-audio {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 46px;
+  background: var(--vl-panel-alt);
+  border: 1px solid var(--vl-border);
+  border-radius: 7px;
+  transition:
+    background-color var(--t-fast),
+    border-color var(--t-fast);
+}
+.vl-audio:hover {
+  border-color: var(--btn-border-hover);
+}
+.vl-audio.is-active {
+  background: var(--vl-sel);
+  border-color: var(--vl-accent);
+}
+.vl-audio__pick {
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+  padding: 5px 4px 5px 10px;
+  background: none;
+  border: 0;
+  border-radius: 6px 0 0 6px;
+  color: inherit;
+  text-align: left;
+}
+.vl-audio__pick:focus-visible {
+  outline-offset: -2px;
+}
+.vl-audio__name {
+  overflow: hidden;
+  color: var(--vl-text);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vl-audio__meta {
+  overflow: hidden;
+  color: var(--vl-muted);
+  font-size: 0.6875rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vl-audio__remove {
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
+  color: var(--vl-muted);
+}
+.vl-audios__empty,
+.vl-audios__hint {
+  padding: 2px 4px;
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+.vl-audios__hint {
+  margin-top: auto;
+  padding-top: var(--s3);
+}
+.vl-audios__hint em {
+  color: var(--vl-text);
+  font-style: normal;
+}
+
+/* ═══════════ Header buttons (« + Ajouter » … « Charger ») ═══════════ */
+.vl-head {
+  grid-area: head;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 54px;
+  padding: 8px 10px;
+  background: var(--vl-panel);
+  border-bottom: 1px solid var(--vl-border);
+}
+.vl-head .ui-btn[disabled] {
+  opacity: 0.4;
+}
+.vl-naming {
+  display: flex;
+}
+.vl-naming__edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 4px 0 12px;
+  background: #13131a;
+  border: 1px solid var(--focus);
+  border-radius: var(--r-sm);
+  color: var(--btn-text);
+  font-size: var(--fs-small);
+  font-weight: 500;
+}
+.vl-naming__edit input {
+  width: 15ch;
+  height: 30px;
+  padding: 0 6px;
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  color: #fff;
+  font-size: var(--fs-small);
+  caret-color: var(--accent-strong);
+}
+.vl-naming__edit input:focus-visible {
+  outline: none;
+}
+.vl-actions {
+  position: relative;
+  margin-left: auto;
+}
+.vl-actions__btn {
+  height: 30px;
+}
+.vl-actions__btn:disabled {
+  color: var(--text-faint);
+  cursor: default;
+  pointer-events: none; /* lets the wrapper show its tooltip */
+}
+.vl-actions.is-ready .vl-actions__btn {
+  background: var(--selected);
+  box-shadow: inset 0 0 0 1px rgb(115 102 217 / 0.6);
+  color: #fff;
+}
+.vl-actions.is-ready .vl-actions__btn:hover {
+  background: var(--selected-hover);
+}
+.vl-actions__menu {
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 280px;
+}
+
+/* ═══════════ Playback toolbar ═══════════ */
+.vl-bar {
+  grid-area: bar;
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-width: 0;
+  padding: 0 var(--s2);
+  background: var(--toolbar);
+  border-bottom: 1px solid var(--toolbar-border);
+}
+.vl-bar .icon-btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+.vl-bar__seek {
+  flex: 1;
+  width: auto;
+  min-width: 80px;
+  margin: 0 var(--s2);
+}
+.vl-bar__seek:disabled {
+  opacity: 0.5;
+}
+.vl-bar__time {
+  min-width: 19ch;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.vl-bar__vol {
+  width: 100px;
+}
+
+/* ═══════════ Stage: drop zone, then the waveform ═══════════ */
+.vl-stage {
+  grid-area: stage;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+  padding: 12px;
+}
+.vl-drop {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--s5);
+  flex: 1;
+  min-height: 0;
+  padding: var(--s6) var(--s5);
+  background: var(--vl-well);
+  border: 1px solid var(--vl-border);
+  border-radius: var(--r);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background-color var(--t-med),
+    border-color var(--t-med);
+}
+.vl-drop:hover {
+  border-color: var(--btn-border-hover);
+}
+.vl-drop__label {
+  color: var(--vl-muted);
+  font-size: 1.3125rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+.vl-drop__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s2);
+}
+.vl-drop__note {
+  max-width: 56ch;
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.vl-wave {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--vl-well);
+  border: 1px solid var(--vl-border);
+  border-radius: var(--r);
+  cursor: crosshair;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.vl-wave:focus {
+  outline: none;
+}
+.vl-wave:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.vl-wave__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.vl-wave__ticks {
+  position: absolute;
+  inset: 2px 0 auto;
+  height: 17px;
+  pointer-events: none;
+}
+.vl-wave__ticks span {
+  position: absolute;
+  top: 0;
+  color: var(--vl-muted);
+  font-size: 0.6875rem;
+  line-height: 17px;
+  white-space: nowrap;
+  translate: -50% 0;
+}
+.vl-wave__ticks span:first-child {
+  padding-left: 8px;
+  translate: 0 0;
+}
+.vl-wave__ticks span:last-child {
+  padding-right: 8px;
+  translate: -100% 0;
+}
+
+/* zones on the waveform: region_color, 7 px accent handles */
+.vl-wave__regions {
+  position: absolute;
+  inset: 22px 0 8px;
+  pointer-events: none;
+}
+.vl-region {
+  --rc: rgb(80 66 158 / 0.48);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--rc);
+  border: 1px solid var(--rc);
+  border-radius: 5px;
+}
+.vl-region::before,
+.vl-region::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  background: var(--vl-accent);
+  border-radius: 3px;
+}
+.vl-region::before {
+  left: 0;
+}
+.vl-region::after {
+  right: 0;
+}
+.vl-region.is-selected {
+  border-color: var(--vl-sel-border);
+}
+.vl-region__name {
+  position: absolute;
+  inset: 4px 9px auto;
+  overflow: hidden;
+  color: var(--vl-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vl-region.is-selected .vl-region__name {
+  color: #fff;
+}
+.vl-region--draft {
+  background: rgb(97 79 224 / 0.38);
+  border-color: var(--vl-accent);
+}
+.vl-region--draft::before,
+.vl-region--draft::after {
+  content: none;
+}
+
+.vl-wave__playhead {
+  position: absolute;
+  top: 16px;
+  bottom: 1px;
+  left: 0;
+  width: 2px;
+  background: var(--vl-head);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Détection auto: the scan line crosses the view, zones draw behind it */
+.vl-wave__scan {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms var(--ease-out);
+}
+.vl-wave__scan::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(115 102 217 / 0.1);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.vl-wave__scanline {
+  position: absolute;
+  inset: 0;
+}
+.vl-wave__scanline::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -1px;
+  width: 2px;
+  background: var(--accent-strong);
+}
+.vl-wave__scan.is-running {
+  opacity: 1;
+  transition: none;
+}
+.vl-wave__scan.is-running::before {
+  animation: vl-wash var(--scan-ms, 900ms) linear both;
+}
+.vl-wave__scan.is-running .vl-wave__scanline {
+  animation: vl-scan var(--scan-ms, 900ms) linear both;
+}
+.vl-wave__scan.is-fading {
+  opacity: 0;
+  transition: opacity 320ms var(--ease-out);
+}
+@keyframes vl-wash {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes vl-scan {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.vl-region.is-born {
+  animation: vl-draw var(--born-dur, 300ms) linear var(--born-delay, 0ms) both;
+}
+@keyframes vl-draw {
+  from {
+    clip-path: inset(0 100% 0 0 round 5px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 5px);
+  }
+}
+
+/* visible-window scrollbar (Ctrl+molette zooms, the bar pans) */
+.vl-view {
+  position: relative;
+  flex: none;
+  height: 10px;
+  background: rgb(18 18 23);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  touch-action: none;
+}
+.vl-view__thumb {
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  min-width: 12px;
+  background: rgb(92 94 112);
+  border-radius: var(--r-sm);
+  transition: background-color var(--t-fast);
+}
+.vl-view:hover .vl-view__thumb {
+  background: rgb(120 122 142);
+}
+
+/* ═══════════ « Zones de découpe » ═══════════ */
+.vl-regions {
+  grid-area: zones;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 0;
+  padding: 6px 10px 8px 12px;
+  background: var(--vl-panel);
+  border-top: 1px solid var(--vl-border);
+}
+.vl-regions__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s4);
+  min-height: 28px;
+  padding: 0 2px 4px;
+}
+.vl-regions__hint,
+.vl-regions__keys {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 4px;
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+}
+.vl-regions__hint span + span::before {
+  content: '•';
+  margin: 0 8px 0 4px;
+  color: rgb(92 94 112);
+}
+.vl-regions__keys .kbd {
+  font-size: 0.6875rem;
+}
+.vl-regions:focus-within .vl-regions__hint,
+.vl-regions:not(:focus-within) .vl-regions__keys,
+.vl[data-state='empty'] .vl-regions__hint {
+  display: none;
+}
+.vl-regions__multi {
+  display: none;
+  margin-left: auto;
+}
+.vl-regions__multi[aria-pressed='true'] {
+  background: var(--selected);
+  border-color: var(--accent);
+  color: #fff;
+}
+.vl-regions__list {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 3px;
+  min-height: 0;
+  margin: 0;
+  padding: 2px 6px 2px 2px;
+  list-style: none;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(92 94 112) rgb(18 18 23);
+  border-radius: var(--r-sm);
+}
+.vl-regions__list:focus {
+  outline: none;
+}
+.vl-regions__list:focus-visible:not(:has(.is-active)) {
+  outline: 2px solid var(--focus);
+  outline-offset: 0;
+}
+.vl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3);
+  min-height: 30px;
+  padding: 0 10px 0 8px;
+  background: var(--vl-panel-alt);
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: background-color var(--t-fast);
+}
+.vl-row:hover {
+  background: rgb(36 38 47);
+}
+.vl-row[aria-selected='true'] {
+  background: var(--vl-sel);
+  border-color: var(--vl-accent);
+}
+.vl-regions__list:focus-visible .vl-row.is-active {
+  outline: 2px solid var(--focus);
+  outline-offset: -1px;
+}
+.vl-row__name {
+  overflow: hidden;
+  color: var(--vl-text);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vl-row.is-playing .vl-row__name {
+  color: #fff;
+}
+.vl-row.is-playing .vl-row__time {
+  color: rgb(255 138 146);
+}
+.vl-row__time {
+  flex: none;
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+  white-space: pre;
+}
+.vl-input {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  margin: 0;
+  padding: 0 6px;
+  background: #13131a;
+  border: 1px solid var(--focus);
+  border-radius: var(--r-sm);
+  color: #fff;
+  font-size: 0.8125rem;
+  caret-color: var(--accent-strong);
+}
+.vl-input:focus-visible {
+  outline: none;
+}
+.vl-regions__empty {
+  padding: 6px 4px;
+  color: var(--vl-muted);
+  font-size: 0.8125rem;
+}
+.vl-row.is-born,
+.vl-export__files li.is-born {
+  animation: vl-row-in 260ms var(--ease-out) var(--born-delay, 0ms) both;
+}
+/* a list that scrolls further fades its last visible row */
+.vl-regions__list.is-clipped,
+.vl-export__files.is-clipped {
+  -webkit-mask-image: linear-gradient(#000 calc(100% - 22px), transparent);
+  mask-image: linear-gradient(#000 calc(100% - 22px), transparent);
+}
+@keyframes vl-row-in {
+  from {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+/* ═══════════ « À l'export » (bottom of the sidebar) ═══════════ */
+.vl-export {
+  grid-area: export;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto auto;
+  gap: 6px;
+  min-height: 0;
+  padding: 10px 12px 10px 14px;
+  background: var(--vl-panel);
+  border-top: 1px solid var(--vl-border);
+  border-right: 1px solid var(--vl-border);
+}
+.vl-export__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s2);
+}
+.vl-export__count {
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+}
+.vl-export__files {
+  display: grid;
+  align-content: start;
+  gap: 1px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a46 transparent;
+}
+.vl-export__files li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s3);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+.vl-export__file {
+  overflow: hidden;
+  color: var(--vl-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.vl-export__dur {
+  flex: none;
+  color: var(--vl-muted);
+}
+.vl-export__empty {
+  align-self: start;
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+}
+.vl-export__note {
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* ═══════════ Context menu, toasts ═══════════ */
+.vl-ctx {
+  min-width: 220px;
+}
+.vl-ctx__label {
+  padding: 6px 12px 4px;
+  color: var(--vl-muted);
+  font-size: 0.75rem;
+}
+
+.vl-toasts {
+  /* bottom centre of the waveform stage, clear of the zone list */
+  position: absolute;
+  bottom: calc(var(--vl-zones) + 26px);
+  left: calc(var(--vl-side) + (100% - var(--vl-side)) / 2);
+  z-index: 20;
+  display: grid;
+  gap: 6px;
+  width: min(520px, calc(100% - 24px));
+  translate: -50% 0;
+  pointer-events: none;
+}
+.vl-toast {
+  padding: 10px 16px;
+  background: linear-gradient(rgb(36 36 46 / 0.92), rgb(26 26 36 / 0.92));
+  border: 1px solid rgb(102 97 140 / 0.6);
+  border-radius: var(--r);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.4);
+  color: var(--vl-text);
+  font-size: var(--fs-ui);
+  line-height: 1.35;
+  text-align: center;
+  cursor: pointer;
+  pointer-events: auto;
+  animation: vl-toast-in 300ms linear both;
+  transition: opacity 500ms linear;
+}
+.vl-toast:hover {
+  background: linear-gradient(rgb(51 51 66 / 0.95), rgb(41 41 56 / 0.95));
+  border-color: rgb(140 128 191 / 0.8);
+}
+.vl-toast.is-out {
+  opacity: 0;
+}
+@keyframes vl-toast-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ═══════════ Touch: a toggle stands in for Ctrl+clic ═══════════ */
+@media (pointer: coarse) {
+  .vl-regions__multi {
+    display: inline-flex;
+  }
+}
+
+/* ═══════════ Narrower windows ═══════════ */
+@media (max-width: 1100px) {
+  .vl {
+    --vl-side: 230px;
+  }
+  .vl-head .ui-btn--lg {
+    min-height: 30px;
+    padding: 0 var(--s3);
+    font-size: var(--fs-ui);
+  }
+  .vl-naming__edit {
+    min-height: 30px;
+  }
+}
+
+/* ═══════════ Phone: the workspace stacks ═══════════ */
+@media (max-width: 720px) {
+  .vl {
+    display: flex;
+    flex-direction: column;
+  }
+  .vl-side {
+    border-right: 0;
+    border-bottom: 1px solid var(--vl-border);
+  }
+  .vl-intro {
+    padding: var(--s5) var(--s4) var(--s4);
+  }
+  .vl-intro__title {
+    font-size: 1.5rem;
+  }
+  .vl-intro__lede {
+    font-size: 0.875rem;
+  }
+  .vl-audios {
+    padding: var(--s3) var(--s3) var(--s4);
+  }
+  .vl[data-state='empty'] .vl-audios {
+    display: none;
+  }
+  .vl-audios__hint {
+    display: none;
+  }
+  .vl-head {
+    padding: var(--s3);
+  }
+  .vl-head .ui-btn--lg {
+    flex: 1 1 auto;
+    min-height: 36px;
+  }
+  .vl-naming {
+    flex: 1 1 auto;
+  }
+  .vl-naming__btn {
+    width: 100%;
+  }
+  .vl-actions {
+    flex: 1 1 100%;
+    margin-left: 0;
+  }
+  .vl-actions:not(.is-ready) {
+    display: none;
+  }
+  .vl-actions__menu {
+    right: auto;
+    left: 0;
+  }
+  .vl-bar {
+    min-height: 44px;
+    gap: 4px;
+  }
+  .vl-bar__seek {
+    margin: 0 4px;
+  }
+  .vl-bar__time {
+    min-width: 0;
+    font-size: 0.6875rem;
+  }
+  .vl-bar__vol {
+    width: 64px;
+  }
+  .vl-stage {
+    padding: var(--s3);
+  }
+  .vl-drop {
+    min-height: 320px;
+    padding: var(--s6) var(--s4);
+  }
+  .vl-drop__label {
+    font-size: 1.125rem;
+  }
+  .vl-drop__label br {
+    display: none;
+  }
+  .vl-wave {
+    flex: none;
+    height: 220px;
+  }
+  .vl-regions {
+    padding: var(--s3);
+  }
+  .vl-regions__list {
+    max-height: 340px;
+  }
+  .vl-row {
+    min-height: 40px;
+  }
+  .vl-export {
+    border-right: 0;
+    padding: var(--s3) var(--s4) var(--s4);
+  }
+  .vl-export__files {
+    max-height: 160px;
+  }
+  .vl-toasts {
+    position: fixed;
+    bottom: var(--s3);
+    left: 50%;
+    z-index: 70;
+  }
+}

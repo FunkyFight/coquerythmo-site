@@ -1,0 +1,588 @@
+/* Section « Détection ». The palette and the fiche are rebuilt from
+   src/detection_foreground.rs (palette 9 × 2 cells of 30 px, 4 px gap, 6 px
+   padding, selection #2e5294; fiche 470 × 176, mouth well 136 px). Signs on
+   the band follow src/workspaces/rythmo/detection_ui.rs: an 18 px icon sitting
+   just above the line, stretched over its duration, light blue when
+   selected. The site scales the popups up so they read at page distance. */
+
+.det {
+  --det-sign: rgb(235 235 242 / 0.94);
+  --det-sign-sel: #c7e0ff;
+  --det-handle: #add1ff;
+  --det-guide: rgb(140 186 255 / 0.82);
+  --det-sync: rgb(122 184 255 / 0.96);
+  --det-pop: #090a0d;
+  --det-pop-card: #07080b;
+  --det-pop-border: rgb(77 77 92 / 0.5);
+  --det-key: #8ea4ca;
+  --det-cell: 44px;
+}
+
+/* ─── Bench: a slice of the window, band on top, popups docked below ─── */
+.det-bench,
+.det-lane {
+  margin: var(--s6) calc(var(--gutter) * -1) 0;
+  background: var(--band);
+  border-block: 1px solid #16161c;
+}
+.det-bench__dock {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'pal card'
+    'keys keys';
+  align-items: start;
+  gap: var(--s5) var(--s6);
+  padding: var(--s4) var(--gutter) var(--s6);
+  border-top: 1px solid #111117;
+}
+
+/* ─── Signs overlaid on a Band (both bands of this section) ─── */
+.det-signs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.det-sign {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 2px;
+  color: var(--det-sign);
+  pointer-events: auto;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.det-sign::before {
+  /* hit area ≥ 24 px around a sign drawn 18 px high */
+  content: '';
+  position: absolute;
+  inset: -6px -4px;
+}
+.det-sign svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.det-sign svg path {
+  vector-effect: non-scaling-stroke;
+}
+.det-sign:hover {
+  color: #fff;
+}
+.det-sign[aria-pressed='true'] {
+  color: var(--det-sign-sel);
+}
+.det-sign:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+.det-sign--static {
+  pointer-events: none;
+  cursor: default;
+}
+/* resize handles of the selected sign (4 × 12, #add1ff) */
+.det-sign__handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 2px;
+  background: var(--det-handle);
+  pointer-events: none;
+}
+/* OFF / De dos: 1.5 px underline 3 px above the line's bottom edge */
+.det-underline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  pointer-events: none;
+}
+.det-underline[data-kind='back'] {
+  background: repeating-linear-gradient(90deg, #fff 0 var(--dash), transparent var(--dash) var(--gap));
+}
+.det-sync {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: var(--det-sync);
+  pointer-events: none;
+}
+/* Ctrl+Espace: the ±2 s window the app plays, with the beep on the sign */
+.det-audition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgb(140 186 255 / 0.09);
+  border-inline: 1px solid rgb(140 186 255 / 0.45);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms linear;
+}
+.det-audition[data-on] {
+  opacity: 1;
+  transition-duration: 80ms;
+}
+.det-audition::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 var(--beep, 50%);
+  width: 2px;
+  translate: -1px 0;
+  background: var(--det-guide);
+}
+/* conversion sweep: the reading of the text, left to right, linear */
+.det-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  background: var(--det-guide);
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ─── Palette (Alt+D) ─── */
+.det-pal-wrap {
+  grid-area: pal;
+  display: grid;
+  gap: var(--s3);
+  width: max-content;
+  max-width: 100%;
+}
+.det-pal {
+  display: grid;
+  grid-template-columns: repeat(9, var(--det-cell));
+  grid-auto-rows: var(--det-cell);
+  gap: 4px;
+  width: max-content;
+  padding: 6px;
+  background: var(--det-pop);
+  border: 1px solid var(--det-pop-border);
+  border-radius: var(--r);
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
+}
+.det-pal__item {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  color: #f4f6fc;
+}
+.det-pal__item[hidden] {
+  display: none;
+}
+.det-pal__item:hover {
+  background: rgb(255 255 255 / 0.06);
+}
+.det-pal__item[data-current] {
+  background: #2e5294;
+}
+.det-pal__item:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+.det-pal__item:active {
+  background: #24467f;
+}
+.det-pal__item .icon {
+  --size: 24px;
+}
+.det-glyph {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+/* the palette's own tooltip: quick label of the highlighted cell */
+.det-pal__tip {
+  min-height: 40px;
+  padding: 10px var(--s4);
+  background: #06070a;
+  border: 1px solid var(--det-pop-border);
+  border-radius: 6px;
+  color: #f5f7fc;
+  font-size: var(--fs-small);
+  line-height: 1.35;
+  text-align: center;
+}
+.det-pal__hint {
+  max-width: 52ch;
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+}
+.det-pal__hint strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ─── Fiche de détection ─── */
+.det-card {
+  grid-area: card;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 18px;
+  max-width: 580px;
+  padding: 16px;
+  background: var(--det-pop-card);
+  border: 1px solid var(--det-pop-border);
+  border-radius: 11px;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
+}
+.det-card__mouth {
+  display: grid;
+  place-items: center;
+  width: 196px;
+  aspect-ratio: 1;
+  background: #1a1c24;
+  border-radius: var(--r);
+}
+.det-card__mouth img {
+  width: 100%;
+  height: auto;
+}
+.det-card__title {
+  color: #f6f8fd;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.det-card__facts {
+  margin-top: var(--s3);
+}
+.det-card__facts dt {
+  margin-top: var(--s3);
+  color: var(--det-key);
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+.det-card__facts dd {
+  margin: 2px 0 0;
+  color: #dee3ee;
+  font-size: 1rem;
+  line-height: 1.45;
+}
+.det-card__facts .det-card__sounds {
+  color: #f2f4f9;
+}
+
+/* ─── Shortcut panel (the app's contextual controls, bottom left) ─── */
+.det-keys {
+  grid-area: keys;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr) max-content minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--s3) var(--s4);
+  margin: 0;
+  padding-top: var(--s5);
+  border-top: 1px solid #111117;
+  font-size: var(--fs-small);
+}
+.det-keys div {
+  display: contents;
+}
+.det-keys dt {
+  white-space: nowrap;
+}
+.det-keys dd {
+  margin: 0;
+  color: var(--text-dim);
+  line-height: 1.4;
+}
+
+/* ─── Convertir en signes de détection ─── */
+.det-conv {
+  margin-top: var(--s8);
+}
+.det-conv__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+}
+.det-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 var(--s2);
+  border: 1px solid rgb(140 186 255 / 0.5);
+  border-radius: var(--r-sm);
+  color: #b9d3ff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.det-conv__prose {
+  margin-top: var(--s4);
+}
+.det-conv__prose .kbd {
+  font-size: 0.8em;
+}
+
+.det-lane__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s3) var(--s5);
+  padding: var(--s3) var(--gutter);
+  background: var(--toolbar);
+  border-bottom: 1px solid var(--toolbar-border);
+}
+.det-lane__lang {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+}
+.det-lane__label {
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+}
+.det-lane__accent {
+  color: var(--text-faint);
+  font-size: 0.75rem;
+}
+.det-lane__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+}
+.det-lane__actions .icon {
+  --size: 18px;
+}
+.det-seg {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  background: #13131a;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--r-sm);
+}
+.det-seg__opt {
+  min-height: 28px;
+  padding: 0 var(--s3);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+  font-weight: 500;
+  transition:
+    background-color var(--t-fast),
+    color var(--t-fast);
+}
+.det-seg__opt:hover {
+  background: var(--veil-hover);
+  color: var(--text);
+}
+.det-seg__opt[aria-checked='true'] {
+  background: var(--selected);
+  border-color: rgb(115 102 217 / 0.6);
+  color: #fff;
+}
+.det-seg__opt:focus-visible {
+  outline-offset: 1px;
+}
+
+.det-lane__foot {
+  display: grid;
+  gap: var(--s4);
+  padding: var(--s4) var(--gutter) var(--s5);
+  border-top: 1px solid #111117;
+}
+/* the app's toast (show_toast), kept in place as a status line */
+.det-toast {
+  justify-self: start;
+  max-width: 100%;
+  padding: var(--s2) var(--s4);
+  background: linear-gradient(var(--tooltip-top), var(--tooltip-bot));
+  border: 1px solid rgb(77 77 92 / 0.6);
+  border-radius: var(--r);
+  color: var(--text);
+  font-size: var(--fs-ui);
+  line-height: 1.45;
+}
+.det-toast[data-tone='done'] {
+  border-color: rgb(140 186 255 / 0.55);
+}
+.det-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.det-legend__empty {
+  color: var(--text-faint);
+  font-size: var(--fs-small);
+}
+.det-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 32px;
+  padding: 0 var(--s3) 0 var(--s2);
+  background: var(--line-bg);
+  border: 1px solid var(--line-border);
+  border-radius: 2px;
+  font-size: var(--fs-ui);
+}
+.det-legend__syl {
+  min-width: 2.2em;
+  color: #fff;
+  font-weight: 600;
+  font-variation-settings: 'wdth' 110;
+}
+.det-legend__sign {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-dim);
+}
+.det-legend__sign .icon,
+.det-legend__sign .det-glyph {
+  --size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--det-sign);
+}
+
+/* ─── Narrow screens: the dock stacks, the palette keeps its 9 columns ─── */
+@media (max-width: 1000px) {
+  .det-bench__dock {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'pal'
+      'card';
+  }
+  .det-keys {
+    grid-template-columns: max-content minmax(0, 1fr);
+    max-width: 64ch;
+  }
+}
+
+@media (max-width: 720px) {
+  .det {
+    --det-cell: 34px;
+  }
+  .det-pal__item .icon {
+    --size: 20px;
+  }
+  .det-pal__item .det-glyph {
+    width: 20px;
+    height: 20px;
+  }
+  .det-pal-wrap {
+    width: 100%;
+  }
+  .det-pal {
+    justify-self: start;
+  }
+  .det-card {
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: start;
+    gap: var(--s4);
+    padding: var(--s3);
+  }
+  .det-card__mouth {
+    width: 112px;
+  }
+  .det-card__title {
+    font-size: 1.25rem;
+  }
+  .det-card__facts dd {
+    font-size: 0.9375rem;
+  }
+  .det-keys {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .det-keys dd {
+    margin-bottom: var(--s2);
+  }
+  .det-lane__bar {
+    padding-block: var(--s3);
+  }
+  .det-lane__actions {
+    width: 100%;
+  }
+  .det-lane__actions .ui-btn {
+    flex: 1 1 auto;
+  }
+}
+
+/* ─── Simplified reading (layout pass) ───
+   The card already names the chosen sign: the palette's name box is not
+   repeated. Shortcuts run as one quiet line instead of a table. */
+.det-pal__tip {
+  display: none;
+}
+.det-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2) var(--s6);
+  padding-top: var(--s4);
+  border-top: 0;
+  font-size: 0.8125rem;
+}
+.det-keys div {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s2);
+}
+.det-keys dd {
+  color: var(--text-faint);
+}
+.det-conv {
+  margin-top: var(--s9);
+}
+.det-conv__prose {
+  margin-top: var(--s3);
+}
+
+/* ─── Boucle 2 ───
+   The bench keeps the band, the palette and the card; its shortcuts moved
+   into the boucle under their own heading. */
+@media (min-width: 1001px) {
+  .det-bench__dock {
+    grid-template-areas: 'pal card';
+  }
+}
+.det-keys-block .det-keys {
+  margin-top: var(--s4);
+  padding-top: 0;
+  font-size: var(--fs-small);
+}
+.det-keys-block .det-keys dd {
+  color: var(--text-dim);
+}
+.boucle .det-conv {
+  margin-top: var(--s8);
+}
+@media (max-width: 400px) {
+  /* nine cells no longer fit a 320px screen: the palette wraps at seven */
+  .det-pal {
+    grid-template-columns: repeat(7, var(--det-cell));
+  }
+}

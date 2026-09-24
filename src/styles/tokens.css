@@ -1,0 +1,129 @@
+/* Coquerythmo design tokens — lifted from src/ui/theme.rs and the widget
+   sources of the desktop app (wgpu). Values are the app's own; only the
+   names are web-side. */
+:root {
+  color-scheme: dark;
+
+  /* Zones */
+  --topbar: #1c1c21;
+  --topbar-shadow: rgb(51 51 61 / 0.8);
+  --tabbar: #17171c;
+  --video: #0f0f12;
+  --toolbar: #1a1a1f;
+  --toolbar-border: rgb(46 46 56 / 0.6);
+  --band: #050508;
+  --panel: #17171c;
+  --panel-border: rgb(46 46 56 / 0.6);
+  --page: #0b0b0e;
+
+  /* TextButton */
+  --btn: #2e2e36;
+  --btn-hover: #383842;
+  --btn-press: #24242b;
+  --btn-border: rgb(89 89 107 / 0.6);
+  --btn-border-hover: rgb(115 115 140 / 0.8);
+  --btn-text: #dcdce6;
+
+  /* Accent TextButton, slider fill, dropdown selection */
+  --accent: #7366d9;
+  --accent-strong: #8c80ff;
+  --accent-bg: #29263f;
+  --accent-bg-hover: #3b3361;
+  --accent-bg-press: #211f38;
+  --accent-text: #d2cdf5;
+  --slider-fill: #5952bf;
+  --slider-track: #33333d;
+  --selected: rgb(77 69 191 / 0.3);
+  --selected-hover: rgb(77 69 191 / 0.5);
+
+  /* Tabs */
+  --tab-hover: #26262e;
+  --tab-active: #2b2b36;
+  --tab-underline: #6b8cff;
+
+  /* Icon tints */
+  --icon: #bfbfcc;
+  --icon-hover: #ffffff;
+  --icon-press: #8c8c99;
+  --veil-hover: rgb(255 255 255 / 0.08);
+  --veil-press: rgb(255 255 255 / 0.04);
+
+  /* Dropdowns, tooltips */
+  --dropdown-top: #262629;
+  --dropdown-bot: #1f1f24;
+  --dropdown-border: rgb(77 77 92 / 0.6);
+  --tooltip-top: rgb(46 46 51 / 0.97);
+  --tooltip-bot: rgb(36 36 41 / 0.97);
+
+  /* Focus (side panel focus ring) */
+  --focus: #6194f5;
+
+  /* Text */
+  --text: #e0e0e0;
+  --text-dim: #a3a3b3;
+  --text-faint: #8a8a99;
+
+  /* Bande rythmo */
+  --playhead: #ff050d;
+  --playhead-glow: rgb(255 0 8 / 0.55);
+  --tick: rgb(100 100 115 / 0.5);
+  --boucle: rgb(230 38 38 / 0.9);
+  --out: rgb(217 115 115 / 0.7);
+  --scene: rgb(230 230 240 / 0.78);
+  --ambiance: #338cff;
+  --ambiance-text: #f21f29;
+  --read-word: #ffe14d;
+  --line-border: rgb(128 128 140 / 0.3);
+  --line-border-hover: rgb(153 153 166 / 0.5);
+  --line-bg: rgb(20 20 26 / 0.3);
+  --handle: rgb(230 230 242 / 0.8);
+
+  /* Brush presets (src/ui/mod.rs) — also the demo character colours */
+  --c-white: #ffffff;
+  --c-red: #ff4d4d;
+  --c-green: #4dff4d;
+  --c-blue: #4d80ff;
+  --c-yellow: #ffff4d;
+  --c-orange: #ff8033;
+  --c-purple: #cc4dff;
+  --c-cyan: #33cccc;
+
+  /* Work copy (lip drawings: paper #dddddd, ink #344c66) */
+  --paper: #dddddd;
+  --ink: #344c66;
+  --ink-soft: #4d627a;
+
+  /* Geometry */
+  --r: 8px;
+  --r-sm: 4px;
+  --topbar-h: 32px;
+  --tabbar-h: 36px;
+  --toolbar-h: 76px;
+
+  /* Type */
+  --font: 'Archivo Variable', 'Segoe UI', system-ui, sans-serif;
+  --fs-ui: 0.8125rem;
+  --fs-small: 0.875rem;
+  --fs-body: 1.0625rem;
+  --fs-lede: clamp(1.0625rem, 0.95rem + 0.4vw, 1.25rem);
+  --fs-h3: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem);
+  --fs-h2: clamp(1.75rem, 1.2rem + 2vw, 3rem);
+  --fs-h1: clamp(2.25rem, 1.1rem + 3.4vw, 4.25rem);
+
+  /* Spacing rhythm (4px base) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+  --gutter: clamp(16px, 4vw, 48px);
+
+  /* Motion: app-like, quick and linear-feeling for chrome */
+  --t-fast: 80ms;
+  --t-med: 180ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

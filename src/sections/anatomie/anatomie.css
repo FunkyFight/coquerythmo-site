@@ -1,0 +1,561 @@
+/* Anatomie d'une bande rythmo (#bande). Only what is specific to this
+   section: the widgets (icon-btn, ui-btn, dropdown, kbd) come from chrome.css. */
+
+.anat {
+  padding-top: var(--s5);
+}
+.anat__lede {
+  max-width: 74ch;
+  margin-bottom: var(--s5);
+}
+
+/* ═══════════ Specimen: a toolbar strip over a zoomed band ═══════════ */
+.anat-spec__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: 0 var(--s2);
+  background: var(--toolbar);
+  border: 1px solid var(--toolbar-border);
+  border-bottom: 0;
+  border-radius: var(--r) var(--r) 0 0;
+}
+.anat-spec__tc {
+  margin-left: var(--s2);
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+}
+.anat-spec__hint {
+  margin-left: auto;
+  padding-right: var(--s2);
+  color: var(--text-faint);
+  font-size: 0.75rem;
+}
+/* the chosen element, named in the app's words, right above the band */
+.anat-spec__caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s1) var(--s3);
+  min-height: 44px;
+  margin: 0;
+  padding: var(--s3) var(--s4);
+  background: var(--panel);
+  border-inline: 1px solid var(--toolbar-border);
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  line-height: 1.4;
+}
+.anat-spec__caption-name {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s1);
+  color: #fff;
+  font-weight: 600;
+}
+.anat-spec__caption-name .kbd {
+  color: var(--text-dim);
+  font-size: 0.6875rem;
+}
+.anat-spec__caption-name .kbd:first-of-type {
+  margin-left: var(--s1);
+}
+.anat-spec__stage {
+  position: relative;
+  overflow: hidden;
+  background: var(--band);
+  border: 1px solid var(--toolbar-border);
+  border-top-color: #16161c;
+  border-radius: 0 0 var(--r) var(--r);
+}
+.anat-spec__band {
+  background: var(--band);
+}
+
+/* Spotlight overlay: dim everything but the element, ring it in the app's
+   focus blue, name it with an app tooltip. Drawn from the band's geometry. */
+.anat-spec__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.anat-spec__svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: none;
+  overflow: visible;
+}
+.anat-spec__dim {
+  fill: rgb(5 5 8 / 0.74);
+  opacity: 0;
+  transition: opacity var(--t-med) var(--ease-out);
+}
+.anat-spec__svg.is-dim .anat-spec__dim {
+  opacity: 1;
+}
+.anat-spec__rings rect {
+  fill: none;
+  stroke: var(--focus);
+  stroke-width: 2;
+}
+.anat-spec__tags {
+  position: absolute;
+  inset: 0;
+}
+.anat-spec__tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 4px 10px;
+  background: linear-gradient(var(--tooltip-top), var(--tooltip-bot));
+  border: 1px solid rgb(77 77 92 / 0.6);
+  border-radius: var(--r-sm);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.5);
+  color: var(--text);
+  font-size: var(--fs-ui);
+  font-weight: 600;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.anat-spec__tag--track {
+  padding: 1px 6px;
+  box-shadow: none;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* ═══════════ Legend: the band's own marks as the key ═══════════ */
+.anat-key {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s5) var(--s6);
+  margin-top: var(--s6);
+}
+.anat-key__title {
+  margin: 0 0 var(--s1) var(--s2);
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.anat-key__list {
+  display: grid;
+  gap: 2px;
+}
+.anat-key__item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-areas: 'glyph name';
+  column-gap: var(--s3);
+  align-items: center;
+  width: 100%;
+  padding: 6px var(--s2);
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-sm);
+  color: var(--text);
+  text-align: left;
+  transition:
+    background-color var(--t-fast),
+    box-shadow var(--t-fast);
+}
+.anat-key__item:hover,
+.anat-key__item.is-hot {
+  background: rgb(255 255 255 / 0.06);
+}
+.anat-key__item[aria-pressed='true'] {
+  background: var(--selected);
+  box-shadow: inset 0 0 0 1px rgb(115 102 217 / 0.6);
+}
+.anat-key__item:focus-visible {
+  outline-offset: 0;
+}
+.anat-key__glyph {
+  grid-area: glyph;
+  width: 48px;
+  height: 32px;
+  margin-top: 2px;
+  background: var(--band);
+  border: 1px solid #25252e;
+  border-radius: var(--r-sm);
+}
+.anat-key__glyph text {
+  font-family: var(--font);
+}
+.anat-key__item.is-hot .anat-key__glyph,
+.anat-key__item[aria-pressed='true'] .anat-key__glyph {
+  border-color: var(--focus);
+}
+.anat-key__name {
+  grid-area: name;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px var(--s1);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.anat-key__name .kbd:first-of-type {
+  margin-left: var(--s1);
+}
+.anat-key__name .kbd,
+.anat-codes__head .kbd,
+.anat-table__keys .kbd {
+  color: var(--text-dim);
+  font-size: 0.6875rem;
+}
+/* kept for assistive tech (aria-describedby), shown in the caption instead */
+.anat-key__desc {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.anat-key__name .kbd {
+  display: none;
+}
+
+/* ═══════════ Codes and emotions ═══════════ */
+/* two separate tools: Respirations held to the left edge, Émotions to the
+   right edge, with the widest gap of the chapter between them */
+.anat-more {
+  display: grid;
+  grid-template-columns: minmax(0, 440px) minmax(0, 440px);
+  justify-content: space-between;
+  gap: var(--s7) var(--s9);
+  margin-top: var(--s9);
+}
+.anat-more__text {
+  max-width: 62ch;
+  margin-top: var(--s2);
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+}
+.anat-more__text .kbd {
+  font-size: 0.75rem;
+}
+.anat .kbd + .kbd {
+  margin-left: 2px;
+}
+
+.anat-codes__band {
+  margin-top: var(--s4);
+  overflow: hidden;
+  background: var(--band);
+  border: 1px solid var(--toolbar-border);
+  border-radius: var(--r-sm);
+}
+.anat-codes__lists {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: var(--s4);
+  margin-top: var(--s4);
+}
+.anat-codes__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  margin: 0 0 var(--s2) var(--s1);
+  color: var(--text);
+  font-size: var(--fs-ui);
+  font-weight: 600;
+}
+.anat-codes__head .icon {
+  --size: 18px;
+  color: var(--icon);
+}
+.anat-codes__head .kbd {
+  margin-left: auto;
+}
+.anat-codes__dd,
+.anat-emo__dd {
+  position: static;
+  min-width: 0;
+  margin: 0;
+}
+.anat-codes__dd {
+  list-style: none;
+}
+.anat-codes__dd .dropdown__item,
+.anat-emo__dd .dropdown__item {
+  line-height: 1.3;
+}
+.anat-codes__dd .dropdown__item[aria-pressed='true'],
+.anat-emo__dd .dropdown__item[aria-pressed='true'] {
+  background: var(--selected);
+}
+.anat-codes__dd .dropdown__item[aria-pressed='true']:hover,
+.anat-emo__dd .dropdown__item[aria-pressed='true']:hover {
+  background: var(--selected-hover);
+}
+.anat-codes__dd .dropdown__code {
+  min-width: 3.3em;
+}
+
+.anat-emo__stage {
+  margin-top: var(--s4);
+  overflow: hidden;
+  background: var(--band);
+  border: 1px solid var(--toolbar-border);
+  border-radius: var(--r-sm);
+}
+.anat-emo__canvas {
+  display: block;
+}
+.anat-emo__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 36px;
+  padding: 2px var(--s1) 2px var(--s3);
+  background: var(--toolbar);
+  border-top: 1px solid var(--toolbar-border);
+}
+.anat-emo__readout {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+}
+.anat-emo__pause {
+  width: 28px;
+  height: 28px;
+}
+.anat-emo__pause[aria-pressed='true'] {
+  background: transparent;
+  box-shadow: none;
+  color: var(--icon);
+}
+.anat-emo__pause .icon {
+  --size: 16px;
+}
+.anat-emo__menu {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s2);
+  max-width: 480px;
+  margin-top: var(--s4);
+}
+.anat-emo__dd-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s2);
+  min-height: 28px;
+  margin-bottom: var(--s1);
+  padding: 0 var(--s3);
+  border-bottom: 1px solid var(--dropdown-border);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.anat-emo__dd-head .dropdown__hint {
+  margin-left: 0;
+}
+.anat-emo__fam {
+  justify-content: space-between;
+}
+.anat-emo__fam.is-open {
+  background: rgb(255 255 255 / 0.07);
+}
+.anat-emo__chev {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  color: var(--text-faint);
+  transform: rotate(45deg);
+}
+.anat-emo__fam.is-open .anat-emo__chev {
+  color: var(--text);
+}
+
+/* ═══════════ The two tables (side_panel.rs colours) ═══════════ */
+.anat-tables {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: start;
+  gap: var(--s5);
+  margin-top: var(--s9);
+}
+.anat-tables__try {
+  margin-top: var(--s3);
+}
+.anat-table {
+  overflow: hidden;
+  background: #111115;
+  border: 1px solid #3d404f;
+  border-radius: var(--r);
+}
+.anat-table__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  min-height: 44px;
+  padding: 0 var(--s3) 0 var(--s4);
+  background: #17181d;
+  border-bottom: 1px solid rgb(56 59 71 / 0.8);
+}
+.anat-table__title {
+  color: #eeeff5;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.anat-table__keys {
+  display: flex;
+  margin-left: auto;
+}
+.anat-table__cols {
+  display: grid;
+  grid-template-columns: 38% minmax(0, 1fr);
+  align-items: center;
+  min-height: 28px;
+  padding: 0 var(--s4);
+  background: #131418;
+  color: #969aaa;
+  font-size: 0.6875rem;
+  font-weight: 500;
+}
+.anat-table__cols--roles {
+  grid-template-columns: 1fr;
+  padding-left: 50px;
+}
+.anat-table__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.anat-table__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 38% minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  min-height: 40px;
+  padding: 0 var(--s4);
+  background: transparent;
+  border: 0;
+  color: #dcdee8;
+  font-size: var(--fs-ui);
+  text-align: left;
+  transition: background-color var(--t-fast);
+}
+.anat-table__row::after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 0;
+  left: 10px;
+  height: 1px;
+  background: rgb(46 47 56 / 0.55);
+}
+.anat-table__row:hover {
+  background: rgb(255 255 255 / 0.04);
+}
+.anat-table__row.is-selected {
+  background: #1f2440;
+}
+.anat-table__row:focus-visible {
+  outline-offset: -4px;
+  border-radius: 6px;
+}
+.anat-table__role {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.anat-table__text {
+  overflow: hidden;
+  color: #cdcfda;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.anat-table__row--role {
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: var(--s3);
+  font-size: var(--fs-small);
+}
+.anat-table__swatch {
+  width: 22px;
+  height: 22px;
+  background: var(--c);
+  border: 1px solid #8c8f9e;
+  border-radius: var(--r-sm);
+}
+
+/* ═══════════ Responsive: the band stays a band, the key stacks ═══════════ */
+@media (max-width: 1100px) {
+  .anat-spec__hint {
+    display: none;
+  }
+  .anat-key {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s5) var(--s4);
+  }
+  .anat-more {
+    gap: var(--s7) var(--s8);
+  }
+  .anat-tables {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+  .anat-tables__text {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .anat-more {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .anat {
+    padding-top: var(--s5);
+  }
+  /* the band stays pinned under the menus while the key scrolls beneath it,
+     so a tapped item is always spotlighted in view */
+  .anat-spec {
+    position: sticky;
+    top: var(--topbar-h);
+    z-index: 4;
+    padding-top: var(--s2);
+    background: var(--page);
+    box-shadow: 0 8px 12px -6px rgb(0 0 0 / 0.6);
+  }
+  .anat-spec__bar {
+    padding-right: var(--s1);
+  }
+  .anat-spec__tc {
+    margin-left: auto;
+  }
+  .anat-key {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* keep keyboard focus clear of the pinned band above */
+  .anat-key__item {
+    scroll-margin-top: calc(var(--topbar-h) + 320px);
+  }
+  .anat-more {
+    margin-top: var(--s8);
+  }
+  .anat-codes__lists,
+  .anat-tables {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .anat-tables {
+    margin-top: var(--s8);
+  }
+}

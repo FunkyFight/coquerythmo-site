@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coquerythmo : logiciel de bande rythmo gratuit, doublage et fandub</title>
+    <meta
+      name="description"
+      content="Logiciel de bande rythmo gratuit pour le doublage et le fandub : détection, karaoké, enregistrement, séances à plusieurs, export vidéo et sous-titres."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="FunkyFight" />
+    <meta name="application-name" content="Coquerythmo" />
+    <meta name="theme-color" content="#1c1c21" />
+    <!-- the site address comes from the SITE_URL build variable (see vite.config.js) -->
+    <link rel="canonical" href="%SITE_URL%/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coquerythmo" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:url" content="%SITE_URL%/" />
+    <meta property="og:title" content="Coquerythmo, la bande rythmo gratuite pour le doublage et le fandub" />
+    <meta property="og:description" content="Bande rythmo simple, épurée, optimisée et accessible aux personnes malvoyantes. Tout ça, gratuitement." />
+    <meta property="og:image" content="%SITE_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="La fenêtre de Coquerythmo : une bande rythmo, et les lignes de téléchargement sous la barre de lecture rouge." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/app-icon.png" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareApplication",
+            "name": "Coquerythmo",
+            "description": "Logiciel de bande rythmo gratuit pour le doublage et le fandub : détection, karaoké, enregistrement, séances à plusieurs en ligne, export vidéo avec la bande rythmo et sous-titres.",
+            "applicationCategory": "MultimediaApplication",
+            "applicationSubCategory": "Bande rythmo",
+            "keywords": "bande rythmo, logiciel bande rythmo gratuit, fandub, fan dub, doublage amateur, doublage, détection labiale, rythmo band",
+            "operatingSystem": "Windows, macOS, Linux",
+            "inLanguage": ["fr", "en", "es"],
+            "isAccessibleForFree": true,
+            "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+            "author": { "@type": "Person", "name": "FunkyFight" },
+            "downloadUrl": "https://github.com/FunkyFight/coquerythmo-releases/releases",
+            "url": "%SITE_URL%/",
+            "image": "%SITE_URL%/og-image.png",
+            "screenshot": "%SITE_URL%/og-image.png",
+            "featureList": [
+              "Bande rythmo sur quatre pistes, lue sous une barre de lecture fixe",
+              "Détection et signes labiaux",
+              "Karaoké, respirations, réactions et marqueurs",
+              "Enregistrement solo ou en ligne",
+              "Bande rythmo à plusieurs, en salon",
+              "Export vidéo MP4 avec la bande rythmo, sous-titres SRT, ASS, DETX et JSON, audio MP3, WAV et stems BWF",
+              "Lecteur d’écran et pilotage au clavier sous Windows"
+            ]
+          },
+          { "@type": "WebSite", "name": "Coquerythmo", "url": "%SITE_URL%/", "inLanguage": "fr" }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#telecharger">Aller au téléchargement</a>
+    <a class="skip-link" href="#bande">Aller aux chapitres</a>
+    <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <div id="announcer-assertive" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+    <!-- ═══════════ Topbar: the app's menu bar is the site navigation ═══════════ -->
+    <header class="topbar" id="topbar">
+      <a class="topbar__brand" href="#top">
+        <img src="/app-icon.png" alt="" width="24" height="20" />
+        <span>Coquerythmo</span>
+      </a>
+
+      <nav class="menubar" aria-label="Navigation principale">
+        <button class="menubar__toggle menu__btn" type="button" aria-expanded="false" aria-controls="menubar-list">
+          Menus
+        </button>
+        <ul class="menubar__list" id="menubar-list" role="list">
+          <li class="menu">
+            <button class="menu__btn" type="button" aria-expanded="false" aria-controls="m-projet">Projet</button>
+            <div class="dropdown menu__panel" id="m-projet" hidden>
+              <a class="dropdown__item" href="#telecharger" data-action="goto-downloads">
+                <span class="icon" style="--src: url(/icons/project.svg)"></span>Télécharger Coquerythmo
+                <span class="dropdown__hint" data-os-hint></span>
+              </a>
+              <a class="dropdown__item" href="https://github.com/FunkyFight/coquerythmo-releases/releases" target="_blank" rel="noopener">
+                Toutes les versions sur GitHub
+              </a>
+              <a class="dropdown__item" href="#nouveautes">Nouveautés de la dernière version</a>
+              <div class="dropdown__sep" role="separator"></div>
+              <button class="dropdown__item" type="button" data-action="reset-demo">Réinitialiser la bande de démo</button>
+            </div>
+          </li>
+          <li class="menu">
+            <button class="menu__btn" type="button" aria-expanded="false" aria-controls="m-export">Export</button>
+            <div class="dropdown menu__panel" id="m-export" hidden>
+              <a class="dropdown__item" href="#export" data-export-page="video">Vidéo MP4 avec bande rythmo</a>
+              <a class="dropdown__item" href="#export" data-export-page="subs">Sous-titres : SRT, ASS, DETX, JSON</a>
+              <a class="dropdown__item" href="#export" data-export-page="audio">Audio : MP3, WAV, stems BWF</a>
+              <a class="dropdown__item" href="#export" data-export-page="refs">Références : croisées PDF et CSV</a>
+            </div>
+          </li>
+          <li class="menu">
+            <button class="menu__btn" type="button" aria-expanded="false" aria-controls="m-outils">Outils</button>
+            <div class="dropdown menu__panel" id="m-outils" hidden>
+              <a class="dropdown__item" href="#bande">Anatomie d'une bande rythmo</a>
+              <a class="dropdown__item" href="#detection">Détection et signes labiaux</a>
+              <a class="dropdown__item" href="#projets">Import, projets et automatisation</a>
+              <div class="dropdown__sep" role="separator"></div>
+              <button class="dropdown__item" type="button" data-tab="recording">Espace Enregistrement</button>
+              <button class="dropdown__item" type="button" data-tab="voicelines">Espace Voicelines</button>
+              <button class="dropdown__item" type="button" data-tab="comicdubs">Espace Comic Dubs</button>
+            </div>
+          </li>
+          <li class="menu">
+            <button class="menu__btn" type="button" aria-expanded="false" aria-controls="m-connexion">Connexion</button>
+            <div class="dropdown menu__panel" id="m-connexion" hidden>
+              <a class="dropdown__item" href="#ensemble">Bande rythmo ensemble</a>
+              <a class="dropdown__item" href="#serveur">Héberger son propre serveur</a>
+            </div>
+          </li>
+          <li class="menu">
+            <a class="menu__btn menu__link" href="#accessibilite">Accessibilité</a>
+          </li>
+          <li class="menu">
+            <a class="menu__btn menu__link" href="#tutoriels">Tutoriels</a>
+          </li>
+        </ul>
+      </nav>
+
+      <p class="topbar__file" aria-hidden="true">demo_episode_12.coquerythmo</p>
+
+      <div class="topbar__right">
+        <a class="ui-btn topbar__discord" href="https://discord.gg/fpdsUyWuwN" target="_blank" rel="noopener">Discord</a>
+        <a class="ui-btn ui-btn--accent" href="#telecharger" data-action="goto-downloads">Télécharger</a>
+        <button class="icon-btn" type="button" data-action="open-settings" data-tip="Paramètres de la bande rythmo" aria-label="Paramètres de la bande rythmo">
+          <span class="icon" style="--src: url(/icons/settings.svg)"></span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- ═══════════ The window: tabs, video, toolbar, band ═══════════ -->
+      <section class="window" id="top" aria-labelledby="hero-title">
+        <div class="tabbar" role="tablist" aria-label="Espaces de travail">
+          <button class="tab" role="tab" type="button" id="tab-rythmo" aria-selected="true" aria-controls="ws-rythmo" data-ws="rythmo">Bande rythmo</button>
+          <button class="tab" role="tab" type="button" id="tab-recording" aria-selected="false" aria-controls="ws-recording" data-ws="recording" tabindex="-1">Enregistrement</button>
+          <button class="tab" role="tab" type="button" id="tab-voicelines" aria-selected="false" aria-controls="ws-voicelines" data-ws="voicelines" tabindex="-1">Voicelines</button>
+          <button class="tab" role="tab" type="button" id="tab-comicdubs" aria-selected="false" aria-controls="ws-comicdubs" data-ws="comicdubs" tabindex="-1">Comic Dubs</button>
+        </div>
+
+        <div class="ws ws--rythmo" id="ws-rythmo" role="tabpanel" aria-labelledby="tab-rythmo">
+          <div class="video">
+            <div class="workcopy">
+              <p class="workcopy__tc tnum" aria-hidden="true"><span data-tc>01:00:00:00</span></p>
+              <div class="workcopy__copy">
+                <h1 class="workcopy__title" id="hero-title">
+                  La bande rythmo <span class="workcopy__free">gratuite</span>, pour tout&nbsp;le&nbsp;monde.
+                </h1>
+                <p class="workcopy__lede">
+                  Du fandub au doublage pro, Coquerythmo fait défiler vos dialogues sous la barre de lecture, place boucles,
+                  respirations et signes de détection, puis exporte vidéo, sous-titres et audio. Simple, épuré, et accessible
+                  aux personnes malvoyantes.
+                </p>
+              </div>
+              <figure class="workcopy__mouth" aria-hidden="true">
+                <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+              </figure>
+              <p class="workcopy__tag">Copie de travail · projet de démonstration, dialogues fictifs</p>
+            </div>
+          </div>
+
+          <div class="toolbar" role="toolbar" aria-label="Outils de la bande rythmo" aria-controls="hero-band">
+            <div class="toolbar__row">
+              <div class="toolbar__group">
+                <button class="icon-btn" type="button" data-cmd="prev" data-tip="Image précédente" data-kbd="Ctrl ←" aria-label="Image précédente">
+                  <span class="icon" style="--src: url(/icons/goto.svg)"></span>
+                </button>
+                <button class="icon-btn" type="button" data-cmd="play" data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false">
+                  <span class="icon" data-play-icon style="--src: url(/icons/resume.svg)"></span>
+                </button>
+                <button class="icon-btn" type="button" data-cmd="next" data-tip="Image suivante" data-kbd="Ctrl →" aria-label="Image suivante">
+                  <span class="icon icon--flip" style="--src: url(/icons/goto.svg)"></span>
+                </button>
+              </div>
+              <div class="toolbar__group">
+                <button class="icon-btn" type="button" data-cmd="boucle" data-tip="Ajouter une boucle" data-kbd="Numpad 1" aria-label="Ajouter une boucle">
+                  <span class="icon" style="--src: url(/icons/boucle.svg)"></span>
+                </button>
+                <button class="icon-btn" type="button" data-cmd="out" data-tip="Ajouter un out" data-kbd="Numpad 2" aria-label="Ajouter un out">
+                  <span class="icon" style="--src: url(/icons/out.svg)"></span>
+                </button>
+                <button class="icon-btn" type="button" data-cmd="scene" data-tip="Changement de scène" data-kbd="Numpad 3" aria-label="Changement de scène">
+                  <span class="icon" style="--src: url(/icons/changement_scene.svg)"></span>
+                </button>
+              </div>
+              <div class="toolbar__group">
+                <div class="toolbar__drop">
+                  <button class="icon-btn" type="button" data-cmd="respirations" data-tip="Respirations" data-kbd="Numpad 4" aria-label="Respirations" aria-expanded="false" aria-controls="dd-resp">
+                    <span class="icon" style="--src: url(/icons/respirations.svg)"></span>
+                  </button>
+                  <div class="dropdown" id="dd-resp" hidden>
+                    <button class="dropdown__item" type="button" data-insert="↑" data-kind="breath"><span class="dropdown__code">↑</span>Inspiration</button>
+                    <button class="dropdown__item" type="button" data-insert="↓" data-kind="breath"><span class="dropdown__code">↓</span>Expiration</button>
+                    <button class="dropdown__item" type="button" data-insert="(H)"><span class="dropdown__code">(H)</span>Bouche ouverte, inspiration</button>
+                    <button class="dropdown__item" type="button" data-insert="(HH)"><span class="dropdown__code">(HH)</span>Bouche ouverte, expiration</button>
+                    <button class="dropdown__item" type="button" data-insert="(mH)"><span class="dropdown__code">(mH)</span>Bouche fermée, inspiration</button>
+                    <button class="dropdown__item" type="button" data-insert="(mHH)"><span class="dropdown__code">(mHH)</span>Bouche fermée, expiration</button>
+                  </div>
+                </div>
+                <div class="toolbar__drop">
+                  <button class="icon-btn" type="button" data-cmd="reactions" data-tip="Réactions" data-kbd="Numpad 5" aria-label="Réactions" aria-expanded="false" aria-controls="dd-react">
+                    <span class="icon" style="--src: url(/icons/reactions.svg)"></span>
+                  </button>
+                  <div class="dropdown dropdown--tall" id="dd-react" hidden>
+                    <button class="dropdown__item" type="button" data-insert="(X)"><span class="dropdown__code">(X)</span>Bruit de bouche</button>
+                    <button class="dropdown__item" type="button" data-insert="(mts)"><span class="dropdown__code">(mts)</span>Claquement de langue à l'ouverture</button>
+                    <button class="dropdown__item" type="button" data-insert="(tsc)"><span class="dropdown__code">(tsc)</span>Claquement de bouche, bouche ouverte</button>
+                    <button class="dropdown__item" type="button" data-insert="(ah)"><span class="dropdown__code">(ah)</span>Surprise</button>
+                    <button class="dropdown__item" type="button" data-insert="(oh)"><span class="dropdown__code">(oh)</span>Étonnement</button>
+                    <button class="dropdown__item" type="button" data-insert="(ih)"><span class="dropdown__code">(ih)</span>Dégoût</button>
+                    <button class="dropdown__item" type="button" data-insert="(mhm)"><span class="dropdown__code">(mhm)</span>Acquiescement</button>
+                    <button class="dropdown__item" type="button" data-insert="(hm)"><span class="dropdown__code">(hm)</span>Hésitation</button>
+                    <button class="dropdown__item" type="button" data-insert="(ptt)"><span class="dropdown__code">(ptt)</span>Dédain</button>
+                    <button class="dropdown__item" type="button" data-insert="(pff)"><span class="dropdown__code">(pff)</span>Exaspération</button>
+                    <button class="dropdown__item" type="button" data-insert="(unh)"><span class="dropdown__code">(unh)</span>Effort</button>
+                    <button class="dropdown__item" type="button" data-insert="(hun)"><span class="dropdown__code">(hun)</span>Interrogation</button>
+                    <button class="dropdown__item" type="button" data-insert="(psst)"><span class="dropdown__code">(psst)</span>Interpellation</button>
+                  </div>
+                </div>
+              </div>
+              <div class="toolbar__group">
+                <button class="icon-btn" type="button" data-cmd="note" data-tip="Ajouter une note" data-kbd="Numpad 6" aria-label="Ajouter une note">
+                  <span class="icon" style="--src: url(/icons/note.svg)"></span>
+                </button>
+              </div>
+              <div class="toolbar__group">
+                <button class="icon-btn" type="button" data-cmd="amb-end" data-tip="Fin d'ambiance" data-kbd="Numpad 7" aria-label="Fin d'ambiance">
+                  <span class="icon" style="--src: url(/icons/liason.svg)"></span>
+                </button>
+                <button class="icon-btn" type="button" data-cmd="amb-start" data-tip="Début d'ambiance" data-kbd="Numpad 8" aria-label="Début d'ambiance">
+                  <span class="icon icon--flip" style="--src: url(/icons/liason.svg)"></span>
+                </button>
+              </div>
+              <div class="toolbar__group">
+                <button class="icon-btn" type="button" data-cmd="karaoke" data-tip="Activer/désactiver le karaoké" data-kbd="Numpad 9" aria-label="Activer ou désactiver le karaoké">
+                  <span class="icon" style="--src: url(/icons/karaoke.svg)"></span>
+                </button>
+              </div>
+              <div class="toolbar__progress">
+                <input class="ui-slider toolbar__scrub" type="range" min="0" max="400" step="1" value="0" aria-label="Position dans la scène" data-scrub />
+                <span class="toolbar__tc tnum" data-tc-out aria-hidden="true">00:00:00</span>
+              </div>
+            </div>
+            <div class="toolbar__row toolbar__row--2">
+              <div class="toolbar__group">
+                <button class="icon-btn" type="button" data-tool="select" data-tip="Mode sélection" data-kbd="C" aria-label="Mode sélection" aria-pressed="true">
+                  <span class="icon" style="--src: url(/icons/select-mode.svg)"></span>
+                </button>
+                <button class="icon-btn" type="button" data-tool="draw" data-tip="Mode dessin" data-kbd="Ctrl D" aria-label="Mode dessin" aria-pressed="false">
+                  <span class="icon" style="--src: url(/icons/draw-mode.svg)"></span>
+                </button>
+                <button class="icon-btn toolbar__swatch" type="button" data-cmd="brush-color" data-tip="Couleur du pinceau" aria-label="Couleur du pinceau : blanc">
+                  <span class="toolbar__swatch-chip" data-swatch></span>
+                </button>
+                <div class="toolbar__sizes" role="radiogroup" aria-label="Taille du pinceau">
+                  <button class="toolbar__size" type="button" role="radio" aria-checked="false" data-size="S" data-tip="Taille du pinceau : petit">S</button>
+                  <button class="toolbar__size" type="button" role="radio" aria-checked="true" data-size="M" data-tip="Taille du pinceau : moyen">M</button>
+                  <button class="toolbar__size" type="button" role="radio" aria-checked="false" data-size="L" data-tip="Taille du pinceau : grand">L</button>
+                </div>
+                <button class="icon-btn" type="button" data-tool="erase" data-tip="Gomme" aria-label="Gomme" aria-pressed="false">
+                  <span class="icon" style="--src: url(/icons/eraser.svg)"></span>
+                </button>
+              </div>
+              <p class="toolbar__hint" data-toolbar-hint>Glissez sur la bande pour la faire défiler.</p>
+            </div>
+          </div>
+
+          <div class="band-host" id="hero-band" aria-describedby="band-help"></div>
+          <p class="sr-only" id="band-help">
+            Bande de démonstration. Espace : lecture ou pause. Flèches gauche et droite : image par image. Majuscule et flèches :
+            ligne précédente ou suivante. Entrée : sélectionner la ligne à la tête de lecture. Les lignes de téléchargement sont des
+            liens accessibles avec Tabulation.
+          </p>
+        </div>
+
+        <div class="ws ws--recording" id="ws-recording" role="tabpanel" aria-labelledby="tab-recording" hidden>
+          <!-- @include workspaces/enregistrement/enregistrement.html -->
+        </div>
+        <div class="ws ws--voicelines" id="ws-voicelines" role="tabpanel" aria-labelledby="tab-voicelines" hidden>
+          <!-- @include workspaces/voicelines/voicelines.html -->
+        </div>
+        <div class="ws ws--comicdubs" id="ws-comicdubs" role="tabpanel" aria-labelledby="tab-comicdubs" hidden>
+          <!-- @include workspaces/comicdubs/comicdubs.html -->
+        </div>
+
+        <aside class="welcome-toast" data-welcome hidden>
+          <p>
+            Cette application est gratuite pour que quiconque puisse faire ses bandes rythmos. Créditez le logiciel s'il vous
+            sert dans vos projets s'il vous plait&nbsp;!
+          </p>
+          <button class="icon-btn welcome-toast__close" type="button" aria-label="Fermer le message">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+          </button>
+        </aside>
+      </section>
+
+      <!-- @include sections/anatomie/anatomie.html -->
+      <!-- @include sections/detection/detection.html -->
+      <!-- @include sections/projets/projets.html -->
+      <!-- @include sections/export/export.html -->
+      <!-- @include sections/ensemble/ensemble.html -->
+      <!-- @include sections/accessibilite/accessibilite.html -->
+      <!-- @include sections/tutoriels/tutoriels.html -->
+      <!-- @include sections/telecharger/telecharger.html -->
+    </main>
+
+    <!-- @include sections/telecharger/footer.html -->
+
+    <dialog class="settings ui-panel" id="settings" aria-labelledby="settings-title">
+      <form method="dialog" class="settings__form">
+        <header class="ui-panel__head">
+          <h2 id="settings-title" class="settings__title">Paramètres de la bande rythmo</h2>
+          <button class="icon-btn settings__close" value="close" aria-label="Fermer les paramètres">
+            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+          </button>
+        </header>
+        <div class="ui-panel__body settings__body">
+          <label class="settings__field">
+            <span class="settings__label">Vitesse de défilement <output class="tnum" data-speed-out>×1</output></span>
+            <input class="ui-slider settings__speed" type="range" min="0" max="7" step="1" value="3" data-speed />
+          </label>
+          <label class="ui-check"><input type="checkbox" data-setting="highlightWord" />Illuminer en jaune le mot à la ligne de lecture</label>
+          <label class="ui-check"><input type="checkbox" data-setting="charColorText" />Définir la couleur du texte à la couleur de l'étiquette de personnage</label>
+          <label class="ui-check"><input type="checkbox" data-setting="reduceMotion" />Réduire les animations du site</label>
+          <p class="settings__note">Les trois premiers réglages existent dans Coquerythmo. Ils s'appliquent ici à la bande de démonstration.</p>
+        </div>
+      </form>
+    </dialog>
+
+    <div class="tooltip" role="tooltip" id="tooltip"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

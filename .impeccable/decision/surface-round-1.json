@@ -1,0 +1,252 @@
+{
+  "title": "Composition de la page Coquerythmo",
+  "question": "L'univers visuel est déjà fixé : c'est l'UI de Coquerythmo elle-même, et les éléments de bande rythmo (lignes, étiquettes de personnage, marqueurs, barre de lecture rouge) servent de boutons. Il reste à choisir la structure de la page. Garde celle tirée au sort, prends une alternative, oriente, ou relance.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Le centre d'export",
+      "kicker": "THE ROLL",
+      "lineage": "La modale « Exporter… » (Ctrl+M) de l'app",
+      "thesis": "Télécharger Coquerythmo, c'est lancer un export : on règle ses livrables, la bande défile sous la barre rouge, le fichier sort.",
+      "palette": [
+        "#050508",
+        "#1C1C21",
+        "#FF050D",
+        "#7366D9",
+        "#E0E0E0"
+      ],
+      "materials": [
+        "UI wgpu de l'app : dégradés de boutons, bordures 8 px",
+        "bande rythmo en canvas, texte étiré sur la durée"
+      ],
+      "viewport": "La modale d'export occupe l'écran : rail de pages à gauche (Bande rythmo, Enregistrement, Voicelines, Comic Dubs, Accessibilité, Télécharger), aperçu de bande en direct en haut, réglages-fonctionnalités au centre, bouton Exporter en bas.",
+      "risk": "Peut ressembler à un formulaire si l'aperçu de bande n'est pas le vrai héros du premier écran.",
+      "raised": [
+        {
+          "from": "Tempête d'alphabet",
+          "raise": "Le texte se comporte comme de la matière : chaque réplique s'étire ou se tasse physiquement selon sa durée, exactement comme dans la bande."
+        },
+        {
+          "from": "Écran de détecteur de particules",
+          "raise": "Un seul événement à la fois sur fond noir : la barre rouge isole une réplique et tout le reste s'efface."
+        }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "barre de menus de l'app",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "rail des pages d'export",
+            "x": 0,
+            "y": 1,
+            "w": 3,
+            "h": 9
+          },
+          {
+            "label": "aperçu bande rythmo en direct",
+            "x": 3,
+            "y": 1,
+            "w": 9,
+            "h": 3,
+            "accent": true
+          },
+          {
+            "label": "réglages = fonctionnalités",
+            "x": 3,
+            "y": 4,
+            "w": 9,
+            "h": 4
+          },
+          {
+            "label": "Exporter → progression → téléchargement",
+            "x": 3,
+            "y": 8,
+            "w": 9,
+            "h": 2,
+            "accent": true
+          }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "karaoke",
+      "label": "La page chantée",
+      "lineage": "Le mode karaoké de la bande (Numpad 9)",
+      "thesis": "Toute la page se lit comme un karaoké : chaque titre est une réplique chantée, la pastille rebondit de syllabe en syllabe, et le refrain final, ce sont les boutons de téléchargement.",
+      "palette": [
+        "#050508",
+        "#FF050D",
+        "#7366D9",
+        "#E0E0E0",
+        "#FFD23F"
+      ],
+      "materials": [
+        "lignes karaoké avec pastille rebondissante couleur personnage",
+        "étiquettes gras italique doublement soulignées"
+      ],
+      "viewport": "Scène karaoké plein écran : « Coquerythmo est gratuit pour tous » chanté au centre avec décompte de trois rebonds, la ligne suivante en aperçu dessous, une bande fine en pied de page où défilent les répliques Windows, macOS, Linux.",
+      "risk": "L'animation continue peut fatiguer ; il faut une pause évidente et un mode sans mouvement.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "barre de menus",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "titre chanté + pastille",
+            "x": 1,
+            "y": 2,
+            "w": 10,
+            "h": 3,
+            "accent": true
+          },
+          {
+            "label": "ligne suivante en aperçu",
+            "x": 2,
+            "y": 5,
+            "w": 8,
+            "h": 2
+          },
+          {
+            "label": "bande : répliques Windows / macOS / Linux",
+            "x": 0,
+            "y": 7,
+            "w": 12,
+            "h": 3,
+            "accent": true
+          }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/karaoke.webp"
+    },
+    {
+      "id": "window",
+      "label": "La fenêtre Coquerythmo",
+      "lineage": "Le layout de l'app : barre de menus, onglets, vidéo, barre d'outils, bande",
+      "thesis": "Le premier écran EST l'app : les menus sont la navigation, les onglets changent d'espace de travail, et les boutons de téléchargement sont des répliques qui défilent sur la bande.",
+      "palette": [
+        "#050508",
+        "#1C1C21",
+        "#1A1A1F",
+        "#FF050D",
+        "#7366D9"
+      ],
+      "materials": [
+        "chrome de l'app recréé au pixel (32 px de menus, 36 px d'onglets, 76 px d'outils)",
+        "icônes SVG de l'app"
+      ],
+      "viewport": "Fenêtre plein écran : menus Projet / Export / Outils… en haut, onglets Bande rythmo · Enregistrement · Voicelines · Comic Dubs, zone vidéo qui présente l'app, barre d'outils de marqueurs, et la bande avec la réplique TÉLÉCHARGER dite par le personnage WINDOWS.",
+      "risk": "Trop littéral : ça peut passer pour une capture d'écran si l'on ne peut rien y faire.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          {
+            "label": "menus = navigation",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "onglets = espaces de travail",
+            "x": 0,
+            "y": 1,
+            "w": 6,
+            "h": 1
+          },
+          {
+            "label": "zone vidéo : le pitch",
+            "x": 0,
+            "y": 2,
+            "w": 12,
+            "h": 4
+          },
+          {
+            "label": "barre d'outils : marqueurs",
+            "x": 0,
+            "y": 6,
+            "w": 12,
+            "h": 1
+          },
+          {
+            "label": "bande : répliques de téléchargement",
+            "x": 0,
+            "y": 7,
+            "w": 12,
+            "h": 3,
+            "accent": true
+          }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/window.webp"
+    },
+    {
+      "id": "challenger-alphabet-storm",
+      "label": "Tempête d'alphabet",
+      "verdict": "declined",
+      "lineage": "Mondes surréalistes : lettres devenant météo",
+      "thesis": "Les mots se condensent et se transforment en paysage.",
+      "palette": [
+        "#FFFFFF",
+        "#111111",
+        "#C0C0C0"
+      ],
+      "materials": [
+        "grotesque monumentale",
+        "particules"
+      ],
+      "viewport": "Un mot géant qui se change en pluie.",
+      "risk": "Abandonne l'UI de l'app demandée par le brief.",
+      "case": "Perd sur les deux axes : fond papier blanc hors de l'univers de l'app, et le produit disparaît derrière l'effet.",
+      "kept": "Le texte comme matière : les répliques s'étirent selon leur durée.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-alphabet-storm-hero.webp"
+    },
+    {
+      "id": "challenger-event-display",
+      "label": "Écran de détecteur",
+      "verdict": "declined",
+      "lineage": "Affichage d'événements de collisionneur",
+      "thesis": "Un événement figé, des traces qui en partent.",
+      "palette": [
+        "#05070A",
+        "#4A6A8A",
+        "#FFD23F",
+        "#E03030"
+      ],
+      "materials": [
+        "anneaux concentriques",
+        "WebGL"
+      ],
+      "viewport": "Une collision au centre, traces colorées.",
+      "risk": "Métaphore scientifique étrangère aux doubleurs.",
+      "case": "Perd sur l'identification : aucun doubleur ne se reconnaît dans un collisionneur.",
+      "kept": "Un seul événement à la fois, isolé par la barre rouge.",
+      "hero": "https://impeccable.style/worlds/cards/scientific-notation-particle-detector-event-display-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "steer": true
+}

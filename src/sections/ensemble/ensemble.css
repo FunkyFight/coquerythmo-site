@@ -1,0 +1,757 @@
+/* Bande rythmo ensemble (#ensemble) and self-hosting (#serveur).
+   The session is a simulation assembled from the app's own panels:
+   invitation_modal.rs, project_transfer_modal.rs, the recording
+   workspace's participant rows and server_browser.rs. Colours that are not
+   tokens come from those files. */
+
+/* ═══════════ Intro ═══════════ */
+.ens__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: var(--s5) var(--s7);
+  align-items: start;
+}
+.ens__who {
+  padding-top: 0.35em;
+}
+
+/* ═══════════ Simulation window ═══════════ */
+.ens-sim {
+  position: relative;
+  margin: var(--s7) 0 0;
+  background: var(--video);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r);
+  box-shadow: 0 16px 40px rgb(0 0 0 / 0.5);
+}
+.ens-sim__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s1) var(--s3);
+  min-height: 32px;
+  padding: var(--s1) var(--s3);
+  background: var(--topbar);
+  border-radius: var(--r) var(--r) 0 0;
+  box-shadow: 0 1px 0 var(--topbar-shadow);
+  font-size: var(--fs-ui);
+}
+.ens-sim__bar img {
+  width: 20px;
+  height: auto;
+}
+.ens-sim__title {
+  color: var(--text);
+  font-weight: 700;
+  font-style: italic;
+}
+.ens-sim__room {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  color: var(--text-dim);
+}
+.ens-sim__room strong {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.ens-sim__count::before {
+  content: '·';
+  margin-right: var(--s2);
+}
+.ens-sim__tag {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-style: italic;
+}
+/* server_browser.rs status dot: online green (0.22, 0.84, 0.42) */
+.ens-dot {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #38d66b;
+}
+
+.ens-sim__body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s4);
+  padding: var(--s4);
+}
+.ens code {
+  color: var(--text);
+  font-family: inherit;
+  font-weight: 600;
+}
+
+/* ─── Panels (modal cards, docked) ─── */
+.ens-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.ens-panel .ui-panel__head h3 {
+  font: inherit;
+  line-height: 1.2;
+}
+.ens-panel__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--s3);
+}
+.ens-panel__desc {
+  color: #aeaebe;
+  font-size: var(--fs-small);
+  line-height: 1.4;
+}
+
+/* invitation_modal.rs: code box, link, options, copy buttons */
+.ens-code {
+  display: grid;
+  gap: 2px;
+  padding: var(--s2) var(--s4) var(--s3);
+  background: #14141f;
+  border: 1px solid rgb(102 115 179 / 0.9);
+  border-radius: var(--r);
+}
+.ens-code__label {
+  color: #9a9aad;
+  font-size: 0.75rem;
+}
+.ens-code__value {
+  color: #eef0ff;
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+}
+.ens-link {
+  min-height: calc(3 * 1.45em);
+  color: #c3c3d4;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.ens-options {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.ens-options legend {
+  margin-bottom: var(--s1);
+  padding: 0;
+  color: #bec0d2;
+  font-size: var(--fs-ui);
+}
+.ens-options .ui-check {
+  line-height: 1.3;
+}
+.ens-options .ui-check input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.ens-invite__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  margin-top: auto;
+  padding-top: var(--s1);
+}
+
+/* project_transfer_modal.rs: yellow title, summary, progress bars */
+.ens-transfer .ui-panel__head h3 {
+  color: #f8d363;
+}
+.ens-transfer__send {
+  margin-left: auto;
+}
+.ens-transfer__summary {
+  min-height: 1.4em;
+  color: #e1e1eb;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+.ens-transfer__file {
+  margin-top: calc(var(--s2) * -1);
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+}
+.ens-bar {
+  position: relative;
+  display: block;
+  height: 14px;
+  padding: 2px;
+  background: #14141c;
+  border: 1px solid rgb(77 77 97 / 0.8);
+  border-radius: 7px;
+}
+.ens-bar__fill {
+  display: block;
+  width: calc(var(--p, 0) * 100%);
+  height: 100%;
+  border-radius: 5px;
+  /* the app's 2-stop progress quad (0.35, 0.60, 1.0) → (0.25, 0.45, 0.85) */
+  background: linear-gradient(#5999ff, #4073d9);
+}
+.ens-bar--thin {
+  height: 8px;
+  padding: 1px;
+  border-radius: 4px;
+}
+.ens-bar--thin .ens-bar__fill {
+  border-radius: 3px;
+}
+
+.ens-people {
+  display: grid;
+  margin: 0;
+}
+.ens-person {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'name state'
+    'bar bar'
+    'note note';
+  align-items: baseline;
+  gap: 4px var(--s3);
+  padding: var(--s2) 0;
+  border-top: 1px solid var(--panel-border);
+  font-size: var(--fs-ui);
+}
+.ens-person__name {
+  grid-area: name;
+  color: var(--text);
+  font-weight: 600;
+}
+.ens-person__name span {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+.ens-person__state {
+  grid-area: state;
+  color: var(--text-dim);
+}
+.ens-person .ens-bar {
+  grid-area: bar;
+  align-self: center;
+}
+.ens-person__note {
+  grid-area: note;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-style: italic;
+  line-height: 1.35;
+}
+.ens-person[data-has-note] .ens-person__note {
+  min-height: 1.35em;
+}
+.ens-person[data-phase='waiting'] .ens-person__state,
+.ens-person[data-phase='away'] .ens-person__state {
+  color: var(--text-faint);
+}
+.ens-person[data-phase='away'] .ens-bar {
+  visibility: hidden;
+}
+.ens-person[data-phase='receiving'] .ens-person__state {
+  color: var(--text);
+}
+/* server_browser.rs online text (115, 220, 145) for a loaded project */
+.ens-person[data-phase='loaded'] .ens-person__state {
+  color: #73dc91;
+}
+.ens-person[data-phase='cut'] .ens-person__state {
+  color: #e1be69;
+}
+.ens-person[data-phase='cut'] .ens-bar__fill {
+  background: #6b6b80;
+}
+
+/* ─── The two screens: video zone, toolbar row, band ─── */
+.ens-screen {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  min-width: 0;
+  background: var(--video);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.ens-screen__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s3);
+  padding: 6px var(--s3);
+  background: var(--tabbar);
+  border-bottom: 1px solid #202027;
+}
+.ens-screen__who {
+  font-size: var(--fs-small);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.ens-screen__who span {
+  color: var(--text-dim);
+  font-weight: 400;
+}
+.ens-screen__where {
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+.ens-screen__video {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 176px;
+  padding: 10px var(--s3);
+  background: var(--video);
+}
+/* A work copy frame like the window's, with burned timecode */
+.ens-copy {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--paper);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.45);
+}
+.ens-copy[hidden] {
+  display: none;
+}
+.ens-copy img {
+  width: auto;
+  max-width: 80%;
+  height: 76%;
+  object-fit: contain;
+}
+.ens-copy__tc {
+  position: absolute;
+  top: 6%;
+  left: 4%;
+  padding: 0.2em 0.5em;
+  background: #000;
+  color: #fff;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+.ens-screen__empty {
+  max-width: 30ch;
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+  text-align: center;
+}
+.ens-screen__empty[hidden] {
+  display: none;
+}
+.ens-screen__tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 40px;
+  padding: 2px var(--s2);
+  background: var(--toolbar);
+  border-block: 1px solid var(--toolbar-border);
+}
+.ens-scrub {
+  flex: 1;
+  min-width: 60px;
+  margin-left: var(--s2);
+}
+.ens-screen__tc {
+  min-width: 7ch;
+  padding-left: var(--s2);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+}
+.ens-screen__tools--ro {
+  justify-content: space-between;
+  gap: var(--s3);
+  padding-inline: var(--s3);
+  color: var(--text-dim);
+  font-size: 0.75rem;
+}
+.ens-screen__gap strong {
+  display: inline-block;
+  min-width: 7ch;
+  margin-left: 0.3em;
+  color: var(--text);
+  font-weight: 600;
+}
+.ens-screen__gap[data-lag] strong {
+  color: #e1be69;
+}
+.ens-band {
+  min-height: 96px;
+}
+/* The shared inset box-shadow is painted under the canvas; an outline is
+   painted over it. */
+.ens-band.band:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+/* Léa's band is an echo: no pointer, no focus (the DA's band is the instrument) */
+.ens-band--follow {
+  pointer-events: none;
+}
+
+/* ─── Network row ─── */
+.ens-net {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s5);
+  padding: var(--s2) var(--s4);
+  background: var(--toolbar);
+  border: 1px solid var(--toolbar-border);
+  border-radius: var(--r);
+  font-size: var(--fs-ui);
+}
+.ens-net__label {
+  color: var(--text);
+  font-weight: 600;
+}
+.ens-net__latency {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+  color: var(--text-dim);
+}
+.ens-net__latency .ui-slider {
+  width: clamp(110px, 14vw, 180px);
+}
+.ens-net__latency output {
+  min-width: 6ch;
+  color: var(--text);
+}
+.ens-net .ui-check {
+  font-size: var(--fs-ui);
+}
+.ens-net .ui-check input:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.ens-net__hint {
+  margin-left: auto;
+  color: var(--text-dim);
+}
+
+/* ─── Toast (toast.rs: bottom centre, 520px, 300 ms in, 500 ms out) ─── */
+.ens-sim__body {
+  position: relative;
+}
+.ens-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 4;
+  width: min(520px, calc(100% - 24px));
+  padding: 10px var(--s4);
+  background: linear-gradient(var(--tooltip-top), var(--tooltip-bot));
+  border: 1px solid rgb(77 77 92 / 0.6);
+  border-radius: var(--r);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+  color: var(--text);
+  font-size: var(--fs-ui);
+  line-height: 1.4;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  translate: -50% 6px;
+  transition:
+    opacity 500ms,
+    translate 500ms var(--ease-out),
+    visibility 0s 500ms;
+}
+.ens-toast[data-show] {
+  opacity: 1;
+  visibility: visible;
+  translate: -50% 0;
+  transition:
+    opacity 300ms,
+    translate 300ms var(--ease-out);
+}
+
+/* ═══════════ Recording online / dropped connections ═══════════ */
+.ens__more {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s6) var(--s7);
+  margin-top: var(--s8);
+}
+.ens__block .h3 {
+  margin-bottom: var(--s3);
+}
+.ens__tab {
+  margin-top: var(--s4);
+}
+
+/* ═══════════ #serveur ═══════════ */
+.ens-server {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--s6) var(--s7);
+  align-items: start;
+  margin-top: var(--s8);
+  padding-top: var(--s7);
+  border-top: 1px solid var(--panel-border);
+}
+.ens-server__title {
+  margin-bottom: var(--s3);
+  font-size: var(--fs-h3);
+}
+
+.ens-env {
+  display: grid;
+  gap: var(--s4);
+  margin-top: var(--s5);
+}
+.ens-env__row {
+  display: grid;
+  grid-template-columns: 136px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px var(--s4);
+}
+.ens-env__row label {
+  font-size: var(--fs-small);
+}
+.ens-env__hint {
+  grid-column: 2;
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+  line-height: 1.4;
+}
+.ens-env__row[data-invalid] .ens-env__hint {
+  color: #eb8282;
+}
+/* text_input: connect_modal.rs input_quad, 2-stop dark fill, 8px radius */
+.ens-input {
+  width: 100%;
+  min-height: 36px;
+  padding: 0 var(--s3);
+  background: linear-gradient(#17171f, #12121a);
+  border: 1px solid rgb(79 79 99 / 0.9);
+  border-radius: var(--r);
+  color: var(--text);
+  font-size: var(--fs-small);
+  caret-color: var(--accent-strong);
+  transition: border-color var(--t-fast);
+}
+.ens-input::placeholder {
+  color: var(--text-faint);
+  opacity: 1;
+}
+.ens-input:hover {
+  border-color: rgb(115 115 140 / 0.8);
+}
+.ens-input:focus-visible {
+  outline: none;
+  border-color: var(--focus);
+  box-shadow: 0 0 0 1px var(--focus);
+}
+.ens-input--num {
+  max-width: 120px;
+}
+.ens-env__row[data-invalid] .ens-input {
+  border-color: #e05757;
+}
+
+.ens-server__preview {
+  display: grid;
+  gap: var(--s4);
+}
+/* the preview stays beside the field being edited */
+@media (min-width: 861px) {
+  .ens-server__preview {
+    position: sticky;
+    top: calc(var(--topbar-h) + var(--s5));
+  }
+}
+.ens-browser__desc {
+  color: #aeaebe;
+  font-size: var(--fs-ui);
+}
+.ens-browser__saved {
+  margin-top: var(--s3);
+  margin-bottom: 6px;
+  color: #c2c2d0;
+  font-size: 0.75rem;
+}
+.ens-browser__list {
+  padding: 3px;
+  background: #131319;
+  border: 1px solid rgb(77 77 97 / 0.9);
+  border-radius: 9px;
+}
+/* server_browser.rs item: dot, name + status + slots, then motd + endpoint.
+   Drawn selected, as right after "Ajouter". */
+.ens-srv {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto auto;
+  grid-template-areas:
+    'dot name status slots'
+    '. motd endpoint endpoint';
+  align-items: baseline;
+  gap: 4px var(--s3);
+  padding: var(--s3) var(--s4);
+  background: rgb(74 77 148 / 0.78);
+  border: 1px solid rgb(120 133 224 / 0.75);
+  border-radius: 6px;
+}
+.ens-srv .ens-dot {
+  grid-area: dot;
+  align-self: center;
+}
+.ens-srv__name {
+  grid-area: name;
+  overflow: hidden;
+  color: #f2f2f8;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ens-srv__status {
+  grid-area: status;
+  color: #8ff0ac;
+  font-size: 0.75rem;
+}
+.ens-srv__slots {
+  grid-area: slots;
+  color: #e4e4ee;
+  font-size: 0.75rem;
+}
+.ens-srv__motd {
+  grid-area: motd;
+  overflow: hidden;
+  color: #dadae6;
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ens-srv__endpoint {
+  grid-area: endpoint;
+  color: #cfcfe0;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+.ens-dotenv__where {
+  margin-left: auto;
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+.ens-dotenv__code {
+  margin: 0;
+  padding: var(--s4);
+  overflow-x: auto;
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--fs-small);
+  line-height: 1.7;
+  white-space: pre;
+}
+.ens-dotenv__code .k {
+  font-weight: 600;
+}
+.ens-dotenv__code .e {
+  color: var(--text-faint);
+}
+.ens-dotenv__code .v {
+  color: var(--accent-text);
+}
+.ens-server__limits {
+  max-width: 65ch;
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+}
+.ens-server__limits strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.ens-server__help {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2) var(--s3);
+  color: var(--text-dim);
+  font-size: var(--fs-small);
+}
+
+/* ═══════════ Responsive ═══════════ */
+@media (max-width: 1100px) {
+  .ens-sim__tag {
+    flex-basis: 100%;
+    margin-left: 0;
+    order: 3;
+  }
+  .ens-net__hint {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+  .ens__more {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .ens__intro,
+  .ens__more,
+  .ens-server {
+    grid-template-columns: 1fr;
+  }
+  .ens-sim__body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .ens-sim__body {
+    gap: var(--s3);
+    padding: var(--s3);
+  }
+  .ens-screen__video {
+    height: 132px;
+  }
+  .ens-screen__where {
+    display: none;
+  }
+  .ens-invite__actions .ui-btn {
+    flex: 1 1 auto;
+  }
+  .ens-net {
+    padding: var(--s3);
+  }
+  .ens-env__row {
+    grid-template-columns: 1fr;
+  }
+  .ens-env__hint {
+    grid-column: 1;
+  }
+  .ens-srv {
+    grid-template-columns: 10px minmax(0, 1fr) auto;
+    grid-template-areas:
+      'dot name slots'
+      '. status status'
+      '. motd motd'
+      '. endpoint endpoint';
+  }
+  .ens-srv__endpoint {
+    text-align: left;
+  }
+}

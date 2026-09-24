@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-24T12:00:00Z",
+  "title": "Design System: Coquerythmo",
+  "extensions": {
+    "colorMeta": {
+      "accent": { "role": "primary", "displayName": "App Violet", "canonical": "#7366d9", "source": "text_button.rs accent border [0.45, 0.40, 0.85]", "tonalRamp": ["#1a1733", "#29263f", "#3b3361", "#5952bf", "#7366d9", "#8c80ff", "#b3abff", "#d2cdf5"] },
+      "accent-bg": { "role": "primary", "displayName": "Violet Well", "canonical": "#29263f", "tonalRamp": ["#15131f", "#1c1a2c", "#211f38", "#29263f", "#3b3361", "#4d4480", "#6a60a6", "#8f86c8"] },
+      "slider-fill": { "role": "primary", "displayName": "Slider Violet", "canonical": "#5952bf", "source": "theme.rs SLIDER_TRACK_FILL", "tonalRamp": ["#1c1a3d", "#2a2759", "#3a3680", "#4a44a3", "#5952bf", "#7771d0", "#9d98e0", "#c8c5f0"] },
+      "focus": { "role": "secondary", "displayName": "Focus Blue", "canonical": "#6194f5", "tonalRamp": ["#10203f", "#1b3563", "#2a4d8c", "#3f6bc2", "#6194f5", "#84adf8", "#abc8fa", "#d6e4fd"] },
+      "tab-underline": { "role": "secondary", "displayName": "Tab Blue", "canonical": "#6b8cff" },
+      "playhead": { "role": "tertiary", "displayName": "Reading Bar Red", "canonical": "#ff050d", "source": "theme.rs RYTHMO_PLAYHEAD", "tonalRamp": ["#3d0003", "#660005", "#990008", "#cc000b", "#ff050d", "#ff4d52", "#ff8a8d", "#ffc7c8"] },
+      "boucle": { "role": "tertiary", "displayName": "Boucle Red", "canonical": "rgb(230 38 38 / 0.9)" },
+      "out": { "role": "tertiary", "displayName": "Out Rose", "canonical": "rgb(217 115 115 / 0.7)" },
+      "scene": { "role": "tertiary", "displayName": "Scene White", "canonical": "rgb(230 230 240 / 0.78)" },
+      "read-word": { "role": "tertiary", "displayName": "Karaoke Yellow", "canonical": "#ffe14d" },
+      "ambiance": { "role": "tertiary", "displayName": "Ambiance Blue", "canonical": "#338cff" },
+      "c-orange": { "role": "tertiary", "displayName": "Default Character Orange", "canonical": "#ff8033", "source": "src/ui/mod.rs brush preset" },
+      "topbar": { "role": "neutral", "displayName": "Topbar Slate", "canonical": "#1c1c21", "source": "theme.rs TOPBAR_BG" },
+      "video": { "role": "neutral", "displayName": "Video Black", "canonical": "#0f0f12", "source": "theme.rs VIDEO_BG" },
+      "toolbar": { "role": "neutral", "displayName": "Toolbar Graphite", "canonical": "#1a1a1f", "source": "theme.rs TOOLBAR_BG" },
+      "band": { "role": "neutral", "displayName": "Band Black", "canonical": "#050508", "source": "theme.rs RYTHMO_BG", "tonalRamp": ["#050508", "#0b0b0e", "#0f0f12", "#17171c", "#1c1c21", "#2e2e36", "#383842", "#4d4d5c"] },
+      "page": { "role": "neutral", "displayName": "Page Ink", "canonical": "#0b0b0e" },
+      "panel": { "role": "neutral", "displayName": "Panel Graphite", "canonical": "#17171c", "source": "theme.rs PROPS_BG" },
+      "btn": { "role": "neutral", "displayName": "Button Graphite", "canonical": "#2e2e36", "source": "text_button.rs normal [0.18, 0.18, 0.21]" },
+      "text": { "role": "neutral", "displayName": "Text", "canonical": "#e0e0e0", "source": "theme.rs TEXT_COLOR", "tonalRamp": ["#2a2a33", "#45454f", "#62626f", "#8a8a99", "#a3a3b3", "#c3c3d0", "#e0e0e0", "#ffffff"] },
+      "text-dim": { "role": "neutral", "displayName": "Dim", "canonical": "#a3a3b3" },
+      "text-faint": { "role": "neutral", "displayName": "Faint", "canonical": "#8a8a99" },
+      "paper": { "role": "neutral", "displayName": "Work-copy Paper", "canonical": "#dddddd" },
+      "ink": { "role": "neutral", "displayName": "Work-copy Ink", "canonical": "#344c66", "tonalRamp": ["#141d27", "#1f2d3d", "#2a3d52", "#344c66", "#4d627a", "#6f8399", "#9aa9ba", "#c8d1db"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Only the H1 inside the work copy, sized to the frame's container." },
+      "headline": { "displayName": "Headline", "purpose": "Chapter-strip line after a character label; wdth 82." },
+      "title": { "displayName": "Title", "purpose": "Sub-heads inside chapters." },
+      "lede": { "displayName": "Lede", "purpose": "Chapter opening paragraph, max 62ch, Dim." },
+      "body": { "displayName": "Body", "purpose": "Chapter copy, max 65ch." },
+      "label": { "displayName": "Label", "purpose": "Menus, tabs, buttons, dropdown items, tooltips." },
+      "character-label": { "displayName": "Character label", "purpose": "Italic 700 uppercase, double-underlined in the character colour; band, strips, dropdown codes." }
+    },
+    "shadows": [
+      { "name": "float", "value": "0 4px 12px rgb(0 0 0 / 0.5)", "purpose": "Dropdowns, tooltips, the collapsed menubar list." },
+      { "name": "toast", "value": "0 8px 24px rgb(0 0 0 / 0.5)", "purpose": "The welcome toast." },
+      { "name": "panel", "value": "0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px rgb(0 0 0 / 0.45)", "purpose": "Dialogs and export or settings panels." },
+      { "name": "work-copy", "value": "0 16px 40px rgb(0 0 0 / 0.5)", "purpose": "The paper frame in the video zone." },
+      { "name": "topbar-line", "value": "0 1px 0 rgb(51 51 61 / 0.8)", "purpose": "Separates the topbar from the window." },
+      { "name": "pressed-ring", "value": "inset 0 0 0 1px rgb(115 102 217 / 0.6)", "purpose": "Pressed icon buttons and the checked brush size." },
+      { "name": "reading-bar-glow", "value": "canvas shadowBlur 10, rgb(255 0 8 / 0.55)", "purpose": "Only the playhead." }
+    ],
+    "motion": [
+      { "name": "t-fast", "value": "80ms", "purpose": "Chrome state changes: hover, press, tabs, tooltips, checkbox tick." },
+      { "name": "t-med", "value": "180ms", "purpose": "Slightly larger chrome changes." },
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Chapter-strip entrance (boucle drop 520ms, title 640ms from 40px right) and the welcome toast (320ms)." },
+      { "name": "band-time", "value": "linear, right to left, 24 fps", "purpose": "Everything on the band; pausable, and it respects prefers-reduced-motion and the in-page reduce-motion setting." }
+    ],
+    "breakpoints": [
+      { "name": "wide", "value": "1100px", "purpose": "Below this, the centred filename and toolbar hint hide." },
+      { "name": "menus", "value": "900px", "purpose": "Below this, the menubar collapses into a Menus dropdown." },
+      { "name": "mobile", "value": "720px", "purpose": "Below this, the topbar is 44px, the window is auto height, the work copy stacks and the toolbar scrolls." }
+    ],
+    "chrome": {
+      "topbarHeight": "32px (44px below 720px)",
+      "tabbarHeight": "36px",
+      "toolbarHeight": "76px (two 32px rows, 6px gap)",
+      "bandRuler": "ticks every 2 frames, long 12px / short 6px, rgb(100 100 115 / 0.5)",
+      "readingBar": "3px, #ff050d, 10px glow"
+    }
+  },
+  "components": [
+    {
+      "name": "TextButton",
+      "kind": "button",
+      "refersTo": "text-button",
+      "description": "The app's standard button: flat graphite, 1px translucent border, 4px corners.",
+      "html": "<button class=\"ds-btn\">Discord</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; padding: 0 12px; background: var(--btn, #2e2e36); border: 1px solid var(--btn-border, rgb(89 89 107 / 0.6)); border-radius: 4px; color: var(--btn-text, #dcdce6); font: 500 0.8125rem/1 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; cursor: pointer; transition: background-color 80ms, border-color 80ms; } .ds-btn:hover { background: var(--btn-hover, #383842); border-color: var(--btn-border-hover, rgb(115 115 140 / 0.8)); } .ds-btn:active { background: var(--btn-press, #24242b); border-color: rgb(51 51 64 / 0.5); } .ds-btn:focus-visible { outline: 2px solid var(--focus, #6194f5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Accent TextButton",
+      "kind": "button",
+      "refersTo": "text-button-accent",
+      "description": "Violet well for the one or two primary actions per screen, such as Télécharger.",
+      "html": "<button class=\"ds-btn-accent\">Télécharger</button>",
+      "css": ".ds-btn-accent { display: inline-flex; align-items: center; min-height: 24px; padding: 0 12px; background: var(--accent-bg, #29263f); border: 1px solid rgb(115 102 217 / 0.9); border-radius: 4px; color: var(--accent-text, #d2cdf5); font: 500 0.8125rem/1 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; cursor: pointer; transition: background-color 80ms, border-color 80ms; } .ds-btn-accent:hover { background: var(--accent-bg-hover, #3b3361); border-color: var(--accent-strong, #8c80ff); } .ds-btn-accent:active { background: var(--accent-bg-press, #211f38); } .ds-btn-accent:focus-visible { outline: 2px solid var(--focus, #6194f5); outline-offset: 2px; }"
+    },
+    {
+      "name": "IconButton",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Transparent 32px square; white veil on hover; selection veil and violet ring when pressed.",
+      "html": "<button class=\"ds-icon-btn\" aria-label=\"Lecture\" aria-pressed=\"false\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"currentColor\"><path d=\"M7 4.5v15l12-7.5z\"/></svg></button>",
+      "css": ".ds-icon-btn { display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; background: transparent; border: 0; border-radius: 4px; color: var(--icon, #bfbfcc); cursor: pointer; transition: background-color 80ms, color 80ms; } .ds-icon-btn:hover { background: rgb(255 255 255 / 0.08); color: #fff; } .ds-icon-btn:active { background: rgb(255 255 255 / 0.04); color: #8c8c99; } .ds-icon-btn[aria-pressed='true'] { background: rgb(77 69 191 / 0.3); color: #fff; box-shadow: inset 0 0 0 1px rgb(115 102 217 / 0.6); } .ds-icon-btn:focus-visible { outline: 2px solid var(--focus, #6194f5); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tab bar",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "36px workspace rail; the selected tab gets a lifted fill and a 2px Tab Blue underline.",
+      "html": "<div class=\"ds-tabbar\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Bande rythmo</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Enregistrement</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Voicelines</button></div>",
+      "css": ".ds-tabbar { display: flex; gap: 4px; height: 36px; padding: 2px 8px; background: var(--tabbar, #17171c); border-bottom: 1px solid #202027; } .ds-tab { position: relative; flex: 0 0 164px; padding: 0 12px; background: transparent; border: 0; border-radius: 4px; color: var(--text-dim, #a3a3b3); font: 400 0.8125rem 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; cursor: pointer; transition: background-color 80ms, color 80ms; } .ds-tab:hover { background: #26262e; color: #e0e0e0; } .ds-tab[aria-selected='true'] { background: var(--tab-active, #2b2b36); color: #fff; } .ds-tab[aria-selected='true']::after { content: ''; position: absolute; left: 8px; right: 8px; bottom: 0; height: 2px; border-radius: 1px; background: var(--tab-underline, #6b8cff); } .ds-tab:focus-visible { outline: 2px solid var(--focus, #6194f5); outline-offset: -2px; }"
+    },
+    {
+      "name": "Dropdown menu",
+      "kind": "nav",
+      "refersTo": "dropdown",
+      "description": "Two-stop gradient panel with 6px corners and the float shadow; items use veil hover and selection veil.",
+      "html": "<div class=\"ds-dropdown\" role=\"menu\"><a class=\"ds-dd-item\" href=\"#\" role=\"menuitem\">Télécharger<span class=\"ds-dd-hint\">Windows</span></a><button class=\"ds-dd-item\" role=\"menuitemcheckbox\" aria-checked=\"true\">Karaoké</button><div class=\"ds-dd-sep\"></div><button class=\"ds-dd-item\" role=\"menuitem\">Réinitialiser la bande de démo</button></div>",
+      "css": ".ds-dropdown { min-width: 240px; padding: 4px; background: linear-gradient(#262629, #1f1f24); border: 1px solid rgb(77 77 92 / 0.6); border-radius: 6px; box-shadow: 0 4px 12px rgb(0 0 0 / 0.5); font-family: 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; } .ds-dd-item { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 30px; padding: 4px 12px; background: transparent; border: 0; border-radius: 4px; color: #e0e0e0; font-size: 0.8125rem; text-align: left; text-decoration: none; cursor: pointer; } .ds-dd-item:hover { background: rgb(255 255 255 / 0.07); } .ds-dd-item[aria-checked='true'] { background: rgb(77 69 191 / 0.3); } .ds-dd-item:focus-visible { outline: none; background: rgb(255 255 255 / 0.07); box-shadow: inset 0 0 0 1px var(--focus, #6194f5); } .ds-dd-hint { margin-left: auto; color: #8a8a99; font-size: 0.75rem; } .ds-dd-sep { height: 1px; margin: 4px 8px; background: rgb(77 77 92 / 0.6); }"
+    },
+    {
+      "name": "Checkbox and slider",
+      "kind": "input",
+      "refersTo": "slider-fill",
+      "description": "Export-centre checkbox row and the volume or speed slider, both filled in Slider Violet.",
+      "html": "<label class=\"ds-check\"><input type=\"checkbox\" checked> Illuminer le mot lu</label><input class=\"ds-slider\" type=\"range\" value=\"75\" aria-label=\"Vitesse\">",
+      "css": ".ds-check { display: flex; align-items: center; gap: 12px; min-height: 32px; color: #e0e0e0; font: 400 0.875rem 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; cursor: pointer; } .ds-check input { appearance: none; -webkit-appearance: none; display: grid; place-items: center; width: 18px; height: 18px; margin: 0; background: #13131a; border: 1px solid rgb(115 115 140 / 0.8); border-radius: 4px; transition: background-color 80ms, border-color 80ms; } .ds-check input::after { content: ''; width: 10px; height: 6px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg) scale(0); transition: transform 80ms; } .ds-check input:checked { background: #5952bf; border-color: #8c80ff; } .ds-check input:checked::after { transform: translateY(-1px) rotate(-45deg) scale(1); } .ds-check input:focus-visible { outline: 2px solid #6194f5; outline-offset: 2px; } .ds-slider { appearance: none; -webkit-appearance: none; width: 100px; height: 24px; margin: 0; background: transparent; } .ds-slider::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(90deg, #5952bf 75%, #33333d 75%); } .ds-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; margin-top: -5px; border-radius: 50%; background: #d9d9e6; box-shadow: 0 1px 3px rgb(0 0 0 / 0.5); } .ds-slider:hover::-webkit-slider-thumb { background: #fff; } .ds-slider::-moz-range-track { height: 4px; border-radius: 2px; background: #33333d; } .ds-slider::-moz-range-progress { height: 4px; border-radius: 2px; background: #5952bf; } .ds-slider::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: #d9d9e6; } .ds-slider:focus-visible { outline: 2px solid #6194f5; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Settings, export centre and dialog surface: 8px corners, 40px header row, panel shadow.",
+      "html": "<section class=\"ds-panel\"><header class=\"ds-panel-head\">Paramètres de la bande rythmo</header><div class=\"ds-panel-body\">Les trois premiers réglages existent dans Coquerythmo.</div></section>",
+      "css": ".ds-panel { max-width: 420px; background: var(--panel, #17171c); border: 1px solid rgb(46 46 56 / 0.6); border-radius: 8px; box-shadow: 0 1px 0 rgb(255 255 255 / 0.03) inset, 0 12px 32px rgb(0 0 0 / 0.45); color: #e0e0e0; font-family: 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; } .ds-panel-head { display: flex; align-items: center; min-height: 40px; padding: 0 16px; border-bottom: 1px solid rgb(46 46 56 / 0.6); font-size: 0.875rem; font-weight: 600; } .ds-panel-body { padding: 16px; color: #a3a3b3; font-size: 0.875rem; }"
+    },
+    {
+      "name": "Character label and line box",
+      "kind": "chip",
+      "refersTo": "line-box",
+      "description": "Signature type device: bold italic uppercase speaker name, double-underlined in its colour, followed by a dialogue line box.",
+      "html": "<p class=\"ds-say\"><span class=\"ds-char\" style=\"--c:#ff8033\">Margaux</span> <span class=\"ds-line\">On la refait, plus bas cette fois.</span></p>",
+      "css": ".ds-say { display: flex; align-items: baseline; gap: 12px; padding: 16px; background: #050508; color: #fff; font: 500 1rem 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; } .ds-char { --c: #ff8033; display: inline-block; padding-bottom: 0.3em; color: var(--c); font-style: italic; font-weight: 700; letter-spacing: 0.01em; text-transform: uppercase; line-height: 1; background: linear-gradient(var(--c), var(--c)) left bottom / 100% 0.07em no-repeat, linear-gradient(var(--c), var(--c)) left calc(100% - 0.16em) / 100% 0.07em no-repeat; } .ds-line { display: inline-block; padding: 0.12em 0.45em; background: rgb(20 20 26 / 0.3); border: 1px solid rgb(128 128 140 / 0.3); border-radius: 2px; }"
+    },
+    {
+      "name": "Chapter strip",
+      "kind": "custom",
+      "refersTo": "chapter-strip",
+      "description": "Full-bleed band bar that opens each chapter: ruler ticks, numbered boucle marker, character label plus headline line.",
+      "html": "<div class=\"ds-strip\"><span class=\"ds-strip-boucle\"><svg viewBox=\"0 0 18 18\" width=\"18\" height=\"18\" aria-hidden=\"true\"><path d=\"M3 3l12 12M15 3L3 15\" stroke=\"currentColor\" stroke-width=\"2.5\"/></svg><span>3</span></span><h2 class=\"ds-strip-title\"><span class=\"ds-char\" style=\"--c:#33cccc\">Export</span> <span class=\"ds-strip-line\">Tout sort en un clic.</span></h2></div>",
+      "css": ".ds-strip { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 16px; padding: 32px 32px 16px; background: #050508; border-block: 1px solid #16161c; overflow: hidden; color: #fff; font-family: 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; } .ds-strip::before { content: ''; position: absolute; inset: 0 0 auto; height: 12px; background-image: linear-gradient(90deg, rgb(100 100 115 / 0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(100 100 115 / 0.5) 1px, transparent 1px); background-size: 24px 12px, 24px 6px; background-position: 0 0, 12px 0; background-repeat: repeat-x; } .ds-strip-boucle { position: relative; display: grid; place-items: center; width: 40px; height: 56px; color: rgb(230 38 38 / 0.9); font-weight: 700; font-size: 1.125rem; } .ds-strip-boucle::before { content: ''; position: absolute; inset: -40px auto -16px 50%; width: 2px; translate: -1px 0; background: rgb(230 38 38 / 0.9); } .ds-strip-boucle svg { position: relative; background: #050508; } .ds-strip-boucle span { position: absolute; left: calc(50% + 10px); top: calc(50% + 4px); } .ds-strip-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; margin: 0; font-size: 2.5rem; font-weight: 400; line-height: 1.05; } .ds-strip-title .ds-char { --c: #33cccc; font-size: 0.62em; display: inline-block; padding-bottom: 0.3em; color: var(--c); font-style: italic; font-weight: 700; text-transform: uppercase; line-height: 1; background: linear-gradient(var(--c), var(--c)) left bottom / 100% 0.07em no-repeat, linear-gradient(var(--c), var(--c)) left calc(100% - 0.16em) / 100% 0.07em no-repeat; } .ds-strip-line { font-weight: 500; font-variation-settings: 'wdth' 82; letter-spacing: -0.01em; }"
+    },
+    {
+      "name": "Band action line (band-as-button)",
+      "kind": "custom",
+      "refersTo": "line-box",
+      "description": "A download or link drawn as a dialogue line on the band: violet body, stretched white text, real anchor on top; the reading bar crosses it.",
+      "html": "<div class=\"ds-band\"><span class=\"ds-char\" style=\"--c:#4d80ff\">Windows</span><a class=\"ds-action-line\" href=\"#\" aria-label=\"Télécharger l'installeur Windows 5.1.0, .exe, 65 Mo\"><span class=\"ds-action-text\">Télécharger l'installeur · 5.1.0</span><small>.exe · 65 Mo</small></a><i class=\"ds-reading-bar\" aria-hidden=\"true\"></i></div>",
+      "css": ".ds-band { position: relative; display: flex; align-items: center; gap: 16px; padding: 28px 24px 20px; background: #050508; font-family: 'Archivo Variable', 'Segoe UI', system-ui, sans-serif; overflow: hidden; } .ds-band .ds-char { --c: #4d80ff; display: inline-block; padding-bottom: 0.3em; color: var(--c); font-size: 1.5rem; font-style: italic; font-weight: 700; text-transform: uppercase; line-height: 1; background: linear-gradient(var(--c), var(--c)) left bottom / 100% 0.07em no-repeat, linear-gradient(var(--c), var(--c)) left calc(100% - 0.16em) / 100% 0.07em no-repeat; } .ds-action-line { display: grid; padding: 2px 6px; background: rgb(115 102 217 / 0.16); border: 1px solid rgb(140 128 255 / 0.55); border-radius: 2px; color: #fff; text-decoration: none; } .ds-action-line:hover { background: rgb(115 102 217 / 0.3); border-color: #8c80ff; } .ds-action-line:focus-visible { outline: 2px solid #6194f5; outline-offset: 3px; } .ds-action-text { font-size: 1.5rem; font-weight: 500; line-height: 1.1; transform: scaleX(1.35); transform-origin: left; white-space: nowrap; letter-spacing: 0.02em; } .ds-action-line small { color: #e0e0e0; font-size: 0.75rem; } .ds-reading-bar { position: absolute; top: 0; bottom: 0; left: 55%; width: 3px; background: #ff050d; box-shadow: 0 0 10px rgb(255 0 8 / 0.55); pointer-events: none; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La fenêtre Coquerythmo",
+    "overview": "The site doesn't take its visual language from web marketing. It borrows the desktop app's own chrome. The page is the Coquerythmo window: a 32px menubar, a 36px tab bar, a video zone holding a light-grey work copy, a 76px two-row toolbar, and a near-black bande rythmo under a fixed red reading bar. Every value comes from the app's wgpu theme (`src/ui/theme.rs` and the widget sources) and is converted from 0–1 floats. Only the names are web-side. Below the window, each chapter opens with a slim band strip, and the numbered boucle marker on that strip marks the chapter.\n\nThe density is app-dense in the chrome (13px UI labels, 24–32px controls, 4px gaps) and editorial in the chapters (17px body, 62–65ch measures, 48–96px vertical rhythm). The surface is dark and neutral with a slight blue-violet cast. Colour comes from the band itself: character colours, the red playhead, markers, and one violet accent for actions and selection.\n\nThe motion grammar has two speeds. Anything on the band moves as linear time from right to left. Chrome state changes are near-instant (80ms). The band is also a real control: dialogue lines are buttons, and the download links are dialogue lines parked on the reading bar.",
+    "keyCharacteristics": [
+      "Dark tonal zones stacked like the app window: topbar, tabs, video, toolbar, band.",
+      "A single violet accent (#7366d9 family) for actions, selection and slider fill. Blue (#6194f5) is reserved for focus.",
+      "Archivo Variable is the only family. Its width axis (`wdth` 82–110) carries hierarchy and dialogue stretch.",
+      "Character labels in bold italic uppercase, double-underlined in the character colour.",
+      "Band elements (lines, labels, markers, reading bar) serve as buttons and presentation devices.",
+      "Chrome changes state instantly. Band time is linear."
+    ],
+    "rules": [
+      { "name": "The Violet Means Action Rule", "body": "Violet marks something you can act on or something selected. Focus is always Focus Blue. Neither colour stands in for the other.", "section": "colors" },
+      { "name": "The One Reading Bar Rule", "body": "Red at playhead intensity with a glow belongs only to the reading bar. Marker reds are translucent and have no glow.", "section": "colors" },
+      { "name": "The Width Axis Rule", "body": "Condense to signal voice. Use `wdth` 82 for strip lines, 86–90 for workspace and export titles, 88 for the display H1, and 110 only for spread syllable legends. Body copy stays at 100.", "section": "typography" },
+      { "name": "The Stretched Line Rule", "body": "On the band, dialogue text is scaled horizontally across its duration (scale 0.2–3.2). Download and action lines cap at 1.9 so they stay readable at a glance.", "section": "typography" },
+      { "name": "The Window First Rule", "body": "The first screen is app chrome at app dimensions (32 / 36 / 76px). It is never a centred marketing hero.", "section": "layout" },
+      { "name": "The Zones Not Shadows Rule", "body": "Surfaces in the window are separated by tone and 1px lines. A shadow means the element floats above the window.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** take every new colour, radius and size from the app's theme sources and convert the floats exactly. Name it web-side, but keep the value.",
+      "**Do** build new controls from TextButton, IconButton, dropdown, tab, slider, checkbox and panel before inventing a shape.",
+      "**Do** open every chapter with a chapter strip. Its boucle number is the chapter index and its headline is a character label plus a line.",
+      "**Do** make band elements real controls. Pair any clickable canvas line with a positioned `<a>` or `role=\"button\"` that has a meaningful `aria-label`.",
+      "**Do** keep chrome transitions at 80ms (`--t-fast`) or 180ms (`--t-med`). Keep band motion linear from right to left, and honour both `prefers-reduced-motion` and the in-page `reduce-motion` setting.",
+      "**Do** use Focus Blue (2px outline, 2px offset) for every focus ring, including the ones drawn on the canvas."
+    ],
+    "donts": [
+      "**Don't** put a centred marketing hero with a screenshot and pill buttons above the window. The first screen is the window.",
+      "**Don't** use violet for focus or blue for selection.",
+      "**Don't** add a second typeface. Use Archivo's width axis instead.",
+      "**Don't** give anything except the reading bar a saturated red glow.",
+      "**Don't** fill a light surface anywhere except the work copy.",
+      "**Don't** round shared controls (buttons, tabs, fields, dropdowns, panels) beyond the chrome scale of 2, 4, 6 and 8px, and don't add pill shapes the app doesn't draw. Larger corners are allowed only when you transcribe a specific app surface whose source uses them, such as the microphone modal card at 14px in `microphone_modal.rs`."
+    ]
+  }
+}

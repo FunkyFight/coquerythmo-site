@@ -1,0 +1,173 @@
+<!-- ═══════════ Espace Enregistrement: choice screen, then the solo DAW under a
+     read-only band (src/ui/recording_workspace.rs). Demonstration only: no
+     microphone is ever opened, takes are synthetic. ═══════════ -->
+<div class="rec" data-rec data-view="choice">
+  <header class="rec__bar">
+    <h2 class="rec__title" id="rec-title">Enregistrement</h2>
+    <p class="rec__mode" data-rec-mode hidden></p>
+    <button class="ui-btn rec__back" type="button" data-rec-back hidden>Changer de mode</button>
+    <p class="rec__demo">Démonstration&nbsp;: aucun micro n’est ouvert, les prises sont synthétiques.</p>
+    <div class="rec__bar-end">
+      <button class="ui-btn" type="button" data-rec-mic data-tip="Choisir le microphone">Choisir le microphone</button>
+      <button class="ui-btn ui-btn--accent rec__detach" type="button" data-rec-detach data-tip="Détacher la vue DAW" aria-pressed="false" hidden>
+        Détacher la vue DAW
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Choice (RecordingPage::Choice) ── -->
+  <div class="rec__choice" data-rec-choice>
+    <div class="rec__cards">
+      <button class="rec-card" type="button" data-choose="solo" aria-labelledby="rec-card-solo-title" aria-describedby="rec-solo-hint">
+        <span class="rec-card__preview rec-card__preview--daw" aria-hidden="true">
+          <canvas class="rec-card__lanes" data-rec-mini></canvas>
+          <span class="rec-card__rec"><span class="rec-dot"></span>REC</span>
+        </span>
+        <span class="rec-card__title" id="rec-card-solo-title">S’enregistrer en solo</span>
+        <span class="rec-card__hint" id="rec-solo-hint">Enregistrez et montez vos prises localement, sans connexion.</span>
+      </button>
+      <button class="rec-card" type="button" data-choose="online" aria-labelledby="rec-card-online-title" aria-describedby="rec-online-hint">
+        <span class="rec-card__preview" aria-hidden="true">
+          <span class="rec-people">
+            <span class="rec-people__title">Participants</span>
+            <span class="rec-people__row rec-people__row--control">Léna · DA</span>
+            <span class="rec-people__row">Sacha · Comédien · micro prêt</span>
+            <span class="rec-people__row">Noé · Comédien · micro non prêt</span>
+          </span>
+        </span>
+        <span class="rec-card__title" id="rec-card-online-title">S’enregistrer en ligne</span>
+        <span class="rec-card__hint" id="rec-online-hint">Rejoignez un comédien ou dirigez une session synchronisée.</span>
+      </button>
+    </div>
+    <p class="rec__choice-note">Projet de démonstration&nbsp;: dialogues, prises et participants sont fictifs.</p>
+  </div>
+
+  <!-- ── Online: without a room, the app opens the server browser ── -->
+  <div class="rec__online" data-rec-online hidden>
+    <section class="ui-panel rec-online" aria-labelledby="rec-online-title">
+      <header class="ui-panel__head">
+        <h3 class="rec-online__title" id="rec-online-title" tabindex="-1">Serveurs de collaboration</h3>
+      </header>
+      <div class="ui-panel__body rec-online__body">
+        <p class="rec-online__lede">Choisissez un serveur en ligne, puis créez ou rejoignez un salon.</p>
+        <p>
+          Dans le salon, le DA arme la piste et lance le décompte pour tout le monde. Chaque comédien est enregistré sur son
+          propre ordinateur, en FLAC, puis sa prise est envoyée à la session.
+        </p>
+        <p>Si le micro d’un comédien n’est pas prêt, rien ne démarre et le DA lit, par exemple, «&nbsp;Enregistrement bloqué&nbsp;: micro non prêt pour Noé&nbsp;».</p>
+        <div class="rec-online__actions">
+          <a class="ui-btn ui-btn--accent ui-btn--lg" href="#ensemble">Voir la bande rythmo ensemble</a>
+          <button class="ui-btn ui-btn--lg" type="button" data-rec-back>Retour au choix</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── Solo: video, transport, read-only band, DAW, project audios ── -->
+  <div class="rec__studio" data-rec-studio hidden>
+    <div class="rec__video">
+      <div class="rec-copy">
+        <p class="rec-copy__tc tnum" aria-hidden="true" data-rec-tc>01:00:00:00</p>
+        <figure class="rec-copy__mouth" aria-hidden="true">
+          <img data-rec-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+          <figcaption class="char-label rec-copy__who" data-rec-who></figcaption>
+        </figure>
+        <p class="rec-copy__tag">Copie de travail · scène fictive</p>
+      </div>
+
+      <!-- capture overlay (CaptureState::Countdown / Capturing / Finalizing) -->
+      <div class="rec-capture" data-rec-capture hidden>
+        <p class="rec-capture__status" data-rec-status></p>
+        <button class="rec-capture__stop" type="button" data-rec-stop></button>
+        <p class="rec-capture__sim">Simulation&nbsp;: aucun micro n’est utilisé, la prise est générée par le site.</p>
+        <p class="rec-capture__count tnum" data-rec-count aria-hidden="true"></p>
+      </div>
+    </div>
+
+    <div class="rec__transport" role="group" aria-label="Lecture">
+      <div class="rec__group">
+        <button class="icon-btn" type="button" data-rec-cmd="prev" data-tip="Image précédente" aria-label="Image précédente">
+          <span class="icon" style="--src: url(/icons/goto.svg)"></span>
+        </button>
+        <button class="icon-btn" type="button" data-rec-cmd="play" data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false">
+          <span class="icon" data-rec-play-icon style="--src: url(/icons/resume.svg)"></span>
+        </button>
+        <button class="icon-btn" type="button" data-rec-cmd="next" data-tip="Image suivante" aria-label="Image suivante">
+          <span class="icon icon--flip" style="--src: url(/icons/goto.svg)"></span>
+        </button>
+      </div>
+      <div class="rec__progress">
+        <input class="ui-slider rec__scrub" type="range" min="0" max="264" step="1" value="0" aria-label="Position dans la scène" data-rec-scrub />
+        <span class="rec__tc tnum" aria-hidden="true" data-rec-tc-out>00:00:00</span>
+      </div>
+      <p class="rec__hint">La bande est en lecture seule&nbsp;: glissez dessus ou sur la timeline pour vous déplacer.</p>
+    </div>
+
+    <div class="rec__band band-host" data-rec-band aria-describedby="rec-band-help"></div>
+    <p class="sr-only" id="rec-band-help">
+      Bande rythmo en lecture seule, synchronisée avec la timeline. Espace : lecture ou pause. Flèches gauche et droite : image
+      par image.
+    </p>
+
+    <div class="rec__second" data-rec-second>
+      <div class="rec__second-bar">
+        <p>Affichage Secondaire</p>
+        <button class="icon-btn" type="button" data-rec-attach aria-label="Fermer l’affichage secondaire" data-tip="Fermer l’affichage secondaire">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+        </button>
+      </div>
+
+      <div class="rec__daw" role="region" aria-label="Timeline d’enregistrement">
+        <div class="rec__tools" role="group" aria-label="Outils de la timeline">
+          <div class="rec__toolset" role="radiogroup" aria-label="Outil">
+            <button class="rec-tool" type="button" role="radio" aria-checked="true" data-rec-tool="select">Sélection</button>
+            <button class="rec-tool" type="button" role="radio" aria-checked="false" data-rec-tool="cut">Couper</button>
+          </div>
+          <div class="rec__tool-pair">
+            <button class="rec-tool rec-tool--sq" type="button" data-rec-add aria-label="Ajouter une piste" data-tip="Ajouter une piste">
+              <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M8 2.5v11M2.5 8h11" stroke="currentColor" stroke-width="1.8" /></svg>
+            </button>
+            <button class="rec-tool rec-tool--sq" type="button" data-rec-delete aria-label="Supprimer les clips sélectionnés" data-tip="Supprimer" data-kbd="Suppr" disabled>
+              <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" /></svg>
+            </button>
+          </div>
+          <button class="rec-tool rec-tool--rec" type="button" data-rec-record data-tip="Démarrer l’enregistrement sur la piste">
+            <span class="rec-dot"></span>REC
+          </button>
+        </div>
+
+        <div class="rec__tracks" data-rec-tracks>
+          <div class="rec__headers" data-rec-headers></div>
+          <div class="rec__lanes" data-rec-lanes>
+            <canvas class="rec__canvas" data-rec-canvas aria-hidden="true"></canvas>
+            <div class="rec__hits" data-rec-hits role="group" aria-label="Clips de la timeline" aria-describedby="rec-hits-help"></div>
+          </div>
+        </div>
+      </div>
+
+      <p class="sr-only" id="rec-hits-help">
+        Entrée : sélectionner le clip, ou le couper avec l’outil Couper. Suppr : supprimer la sélection. Aide propre au site,
+        absente de l’app : Alt et flèches gauche ou droite déplacent les clips sélectionnés d’une image, Alt et flèches haut ou
+        bas les changent de piste.
+      </p>
+
+      <aside class="rec__assets" aria-labelledby="rec-assets-title">
+        <h3 class="rec__assets-title" id="rec-assets-title">Audios du projet</h3>
+        <div class="rec__assets-list" data-rec-assets></div>
+      </aside>
+    </div>
+
+    <p class="rec-toast" data-rec-toast aria-hidden="true" hidden></p>
+  </div>
+
+  <!-- ── Microphone modal (src/ui/microphone_modal.rs) ── -->
+  <dialog class="rec-mic" data-rec-mic-dialog aria-labelledby="rec-mic-title" aria-describedby="rec-mic-desc">
+    <h3 class="rec-mic__title" id="rec-mic-title">Microphone d’enregistrement</h3>
+    <p class="rec-mic__desc" id="rec-mic-desc">Le signal du microphone est enregistré tel quel, sans gain, normalisation ni filtre.</p>
+    <ul class="rec-mic__list" role="listbox" aria-labelledby="rec-mic-title" tabindex="0" data-rec-mic-list></ul>
+    <div class="rec-mic__foot">
+      <p class="rec-mic__note">Liste fictive&nbsp;: le site n’interroge pas vos appareils.</p>
+      <button class="ui-btn ui-btn--lg rec-mic__cancel" type="button" data-rec-mic-cancel>Annuler</button>
+    </div>
+  </dialog>
+</div>

@@ -1,0 +1,226 @@
+<section class="chapter" id="projets" aria-labelledby="projets-title">
+  <header class="strip">
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>3</span></p>
+    <h2 class="strip__title" id="projets-title">
+      <span class="char-label" aria-hidden="true" style="--c: var(--c-purple)">Projet</span>
+      <span class="strip__line">Importez tout, gardez un seul fichier.</span>
+    </h2>
+  </header>
+
+  <div class="chapter__inner pj">
+    <!-- ═══════════ Import: what you already have comes in ═══════════ -->
+    <div class="pj-top">
+      <div class="pj-top__text">
+        <p class="chapter__lede">
+          Vous avez déjà une vidéo, un instrumental, peut-être des sous-titres&nbsp;? <strong>Glissez-les dans Coquerythmo.</strong>
+          Le projet range tout, garde une bande rythmo par langue et tient dans un seul fichier <code>.coquerythmo</code>.
+        </p>
+        <p class="prose pj-top__more">
+          Un sous-titrage existant s’importe par Projet&nbsp;› Importer un sous-titrage
+          <span class="pj-keys"><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">I</kbd></span>&nbsp;: SRT, ASS, JSON, ou
+          DETX de Cappella.
+        </p>
+      </div>
+
+      <div class="pj-drop">
+        <div class="pj-drop__zone">
+          <span class="icon pj-drop__icon" style="--src: url(/icons/file_tree/folder.svg)" aria-hidden="true"></span>
+          <div class="pj-drop__copy">
+            <h3 class="pj-drop__title">Ce que Coquerythmo ouvre</h3>
+            <p class="pj-drop__hint">Dans l’app, glissez le fichier sur la fenêtre ou passez par le menu Projet.</p>
+          </div>
+        </div>
+
+        <dl class="pj-formats">
+          <div class="pj-formats__row" data-kind="video">
+            <dt>Vidéo</dt>
+            <dd>
+              <span class="pj-exts"><span data-ext="mp4">mp4</span> <span data-ext="mov">mov</span> <span data-ext="avi">avi</span> <span data-ext="mkv">mkv</span> <span data-ext="webm">webm</span></span>
+              <span class="pj-formats__where">Sur la fenêtre, ou Projet&nbsp;› Ajouter une vidéo</span>
+            </dd>
+          </div>
+          <div class="pj-formats__row" data-kind="audio">
+            <dt>Audio</dt>
+            <dd>
+              <span class="pj-exts"><span data-ext="flac">flac</span> <span data-ext="wav">wav</span> <span data-ext="mp3">mp3</span> <span data-ext="ogg">ogg</span> <span data-ext="m4a">m4a</span> <span data-ext="aac">aac</span> <span data-ext="opus">opus</span></span>
+              <span class="pj-formats__where">Dans le groupe Audios des fichiers du projet</span>
+            </dd>
+          </div>
+          <div class="pj-formats__row" data-kind="subs">
+            <dt>Sous-titres et projets</dt>
+            <dd>
+              <span class="pj-exts"><span data-ext="coquerythmo">coquerythmo</span> <span data-ext="json">json</span> <span data-ext="srt">srt</span> <span data-ext="ass">ass</span> <span data-ext="detx">detx</span></span>
+              <span class="pj-formats__where">Sur la fenêtre, ou Projet&nbsp;› Importer un sous-titrage</span>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <details class="boucle" id="projets-suite" data-close-label="Enrouler la boucle 3">
+      <summary class="boucle__head">
+        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>3</span>
+        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 3</span><span class="boucle__verb--close">Enrouler la boucle 3</span></span>
+        <span class="boucle__list">Fichiers du projet et proxies · Automatisation&nbsp;: ranger les répliques par rôle · Rien ne se perd</span>
+      </summary>
+      <div class="boucle__body">
+        <!-- ═══════════ Fichiers du projet (Ctrl L): a working tree ═══════════ -->
+        <div class="pj-files">
+          <div class="pj-files__intro">
+            <h3 class="h3" id="pj-files-title">Fichiers du projet <span class="pj-keys" aria-hidden="true"><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">L</kbd></span></h3>
+            <p class="prose">
+              Toute la matière du projet tient dans un panneau&nbsp;: plusieurs vidéos et leurs proxies, une bande rythmo par langue, les
+              audios. Ce projet de démonstration se parcourt comme dans l’app&nbsp;: flèches pour naviguer, Entrée pour utiliser une vidéo ou
+              activer une bande, F2 pour renommer, Maj&nbsp;F10 pour le menu contextuel.
+            </p>
+          </div>
+
+          <div class="pj-files__panel" data-tree-host>
+            <div class="pj-tree" data-tree-scroll>
+              <ul class="pj-tree__list" role="tree" aria-labelledby="pj-files-title" data-tree></ul>
+              <span class="pj-tree__pill" aria-hidden="true" data-pill></span>
+            </div>
+            <div class="pj-tree__bar">
+              <button class="ui-btn" type="button" data-tree-cmd="menu" aria-label="Menu contextuel de l’élément">Menu <span class="pj-keys" aria-hidden="true"><kbd class="kbd">Maj</kbd> <kbd class="kbd">F10</kbd></span></button>
+              <button class="ui-btn" type="button" data-tree-cmd="rename">Renommer <span class="pj-keys" aria-hidden="true"><kbd class="kbd">F2</kbd></span></button>
+              <button class="ui-btn pj-tree__reset" type="button" data-tree-cmd="reset">Réinitialiser</button>
+            </div>
+            <div class="dropdown pj-menu" role="menu" hidden data-menu></div>
+            <div class="dropdown pj-menu" role="menu" hidden data-submenu></div>
+          </div>
+
+          <div class="pj-read" data-read>
+            <p class="pj-read__name">
+              <span class="icon" style="--src: url(/icons/file_tree/folder.svg); color: #ffcd60" aria-hidden="true"></span>
+              <span data-read-name>demo_episode_12.coquerythmo</span>
+            </p>
+            <p class="pj-read__meta" data-read-meta>Projet autonome</p>
+            <p class="pj-read__text" id="pj-read-text" data-read-text>
+              Ce fichier embarque la vidéo source et son proxy, l’instrumental de chaque langue, la police de la bande rythmo, les icônes
+              des comédiens et les prises enregistrées. Chaque élément porte une somme de contrôle, vérifiée à l’ouverture. Sous Windows,
+              il s’ouvre depuis le menu «&nbsp;Ouvrir avec&nbsp;».
+            </p>
+            <p class="pj-read__voice" data-read-voice-wrap>
+              <span class="pj-read__voice-label">Lecture vocale de l’app</span>
+              <q data-read-voice>Projet demo_episode_12, élément 1 sur 1</q>
+            </p>
+          </div>
+        </div>
+
+        <dialog class="ui-panel pj-proxy" aria-labelledby="pj-proxy-title" data-proxy>
+          <form method="dialog" class="pj-proxy__form">
+            <header class="ui-panel__head">
+              <h4 class="pj-proxy__title" id="pj-proxy-title">Créer un proxy</h4>
+              <button class="icon-btn pj-proxy__close" value="close" aria-label="Fermer la création du proxy">
+                <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+              </button>
+            </header>
+            <div class="ui-panel__body pj-proxy__body">
+              <p class="pj-proxy__source tnum" data-proxy-source>episode_12_master · 1920 x 1080</p>
+              <p class="pj-proxy__desc">Enregistré dans proxies, lié à cette bande rythmo.<br />L’export utilisera toujours la vidéo originale.</p>
+
+              <fieldset class="pj-proxy__field">
+                <legend class="pj-proxy__label">Résolution max</legend>
+                <div class="pj-proxy__presets">
+                  <label class="pj-seg"><input type="radio" name="pj-res" value="360" /><span>360p</span></label>
+                  <label class="pj-seg"><input type="radio" name="pj-res" value="480" /><span>480p</span></label>
+                  <label class="pj-seg"><input type="radio" name="pj-res" value="720" /><span>720p</span></label>
+                  <label class="pj-seg"><input type="radio" name="pj-res" value="1080" checked /><span>1080p</span></label>
+                  <label class="pj-seg"><input type="radio" name="pj-res" value="1440" /><span>1440p</span></label>
+                </div>
+                <p class="pj-proxy__target">Cible&nbsp;: <span class="tnum" data-proxy-target>1920 x 1080</span></p>
+              </fieldset>
+
+              <div class="pj-proxy__field pj-proxy__row">
+                <span class="pj-proxy__label" id="pj-enc-label">Encodeur</span>
+                <div class="pj-proxy__drop">
+                  <button class="ui-btn pj-proxy__enc" type="button" id="pj-enc-btn" aria-haspopup="true" aria-expanded="false" aria-controls="pj-enc-list" aria-labelledby="pj-enc-label pj-enc-btn" data-enc-btn>ProRes Proxy</button>
+                  <div class="dropdown pj-proxy__list" id="pj-enc-list" hidden>
+                    <button class="dropdown__item" type="button" data-enc="H.264">H.264 <span class="dropdown__hint">.mp4</span></button>
+                    <button class="dropdown__item" type="button" data-enc="MJPEG">MJPEG <span class="dropdown__hint">.mov</span></button>
+                    <button class="dropdown__item" type="button" data-enc="ProRes Proxy">ProRes Proxy <span class="dropdown__hint">.mov</span></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pj-proxy__field pj-proxy__row">
+                <span class="pj-proxy__label" id="pj-crf-label">Qualité</span>
+                <div class="pj-proxy__crf" role="group" aria-labelledby="pj-crf-label">
+                  <button class="pj-step" type="button" aria-label="Qualité : CRF plus bas" data-crf="-1">
+                    <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8" stroke="currentColor" stroke-width="1.6" /></svg>
+                  </button>
+                  <output class="tnum" data-crf-out>CRF 24</output>
+                  <button class="pj-step" type="button" aria-label="Qualité : CRF plus haut" data-crf="1">
+                    <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6h8M6 2v8" stroke="currentColor" stroke-width="1.6" /></svg>
+                  </button>
+                </div>
+              </div>
+              <p class="pj-proxy__hint" data-crf-hint>La qualité est fixée par l’encodeur sélectionné.</p>
+
+              <div class="pj-proxy__actions">
+                <div class="pj-proxy__progress" hidden data-proxy-progress>
+                  <span class="pj-proxy__bar"><span data-proxy-bar></span></span>
+                  <span class="tnum" data-proxy-pct>0 %</span>
+                </div>
+                <button class="ui-btn ui-btn--accent ui-btn--lg" type="button" data-proxy-create>Créer le proxy</button>
+              </div>
+            </div>
+          </form>
+        </dialog>
+
+        <!-- ═══════════ Automatisation: the node graph over the band ═══════════ -->
+        <div class="pj-autosec">
+          <div class="pj-autosec__intro">
+            <h3 class="h3" id="pj-auto-title">Rangez les répliques par rôle</h3>
+            <p class="prose">
+              Outils&nbsp;› Automatisation remplace la vidéo par un petit graphe de nœuds&nbsp;: «&nbsp;Pour chaque ligne&nbsp;», «&nbsp;Si rôle&nbsp;»,
+              «&nbsp;Définir piste&nbsp;». Une fois activé, il s’applique à chaque modification de la bande. Cochez «&nbsp;Activer&nbsp;», puis
+              essayez de glisser une réplique sur une autre piste.
+            </p>
+          </div>
+
+          <div class="pj-auto" role="group" aria-labelledby="pj-auto-title">
+            <div class="pj-auto__head">
+              <span class="pj-auto__path">Outils › Automatisation</span>
+              <span class="pj-auto__state" data-auto-state>Désactivée</span>
+            </div>
+            <div class="pj-auto__scroll" data-auto-scroll>
+              <div class="pj-auto__canvas" data-auto-canvas>
+                <svg class="pj-auto__wires" aria-hidden="true" data-auto-wires></svg>
+              </div>
+            </div>
+            <div class="band-host pj-auto__band" data-auto-band aria-describedby="pj-auto-band-help"></div>
+            <p class="sr-only" id="pj-auto-band-help">
+              Bande de démonstration de l’automatisation, trois rôles sur quatre pistes. Majuscule et flèches gauche ou droite&nbsp;: ligne
+              précédente ou suivante. Flèches haut et bas&nbsp;: changer la ligne sélectionnée de piste.
+            </p>
+            <div class="pj-auto__foot">
+              <p class="pj-auto__status" role="status" data-auto-status>Cochez «&nbsp;Activer&nbsp;» dans «&nbsp;Pour chaque ligne&nbsp;».</p>
+              <button class="ui-btn" type="button" data-auto-reset>Réinitialiser la démo</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══════════ Safety net ═══════════ -->
+        <div class="pj-safe">
+          <h3 class="h3">Rien ne se perd</h3>
+          <div class="prose pj-safe__text">
+            <p>
+              <strong>Une copie de secours chaque minute.</strong> Tant que le projet a des modifications non enregistrées, Coquerythmo garde
+              une sauvegarde de la bande rythmo. Après une coupure&nbsp;: Projet&nbsp;› «&nbsp;Restorer la dernière bande rythmo perdue&nbsp;»
+              <span class="pj-keys"><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">R</kbd></span>.
+            </p>
+            <p>
+              <strong>Un personnage change de nom&nbsp;?</strong> Outils&nbsp;› «&nbsp;Renommer un personnage&nbsp;»&nbsp;: le nouveau nom remplace
+              l’ancien dans toutes les lignes de la bande rythmo.
+            </p>
+            <p>
+              <strong>Une icône par comédien.</strong> Elle s’affiche sur les lignes qui lui sont attribuées, intégrée à la bande rythmo en
+              256&nbsp;×&nbsp;256, et elle voyage dans le fichier du projet.
+            </p>
+          </div>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>

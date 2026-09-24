@@ -1,0 +1,27 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-09-24T07:38:36.786Z",
+        "reason": "model triage: static scan reads h1/h2 as 16px because sizes use clamp()+cqw; rendered h1 is ~52px and chapter titles ~48px against 17px body at 1440 (review/desktop.png)"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/sections/projets/projets.css"
+        ],
+        "createdAt": "2026-09-24T07:38:36.991Z",
+        "reason": "model triage: the flagged rule is transition: stroke-width on 3px SVG node-graph wires, not a box width"
+      }
+    ]
+  }
+}

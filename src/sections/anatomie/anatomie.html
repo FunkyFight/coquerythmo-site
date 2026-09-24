@@ -1,0 +1,295 @@
+<section class="chapter" id="bande" aria-labelledby="bande-title">
+  <header class="strip">
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>1</span></p>
+    <h2 class="strip__title" id="bande-title">
+      <span class="char-label" aria-hidden="true" style="--c: var(--c-purple)">Jade</span>
+      <span class="strip__line">Tout ce qui défile a un nom.</span>
+    </h2>
+  </header>
+
+  <div class="chapter__inner anat">
+    <p class="chapter__lede anat__lede">
+      Le texte défile de droite à gauche&nbsp;; quand un mot touche la barre rouge, on le dit. Voici une tranche de bande
+      arrêtée, et le nom que Coquerythmo donne à chacun de ses éléments.
+    </p>
+
+    <div class="anat-plate">
+      <!-- ═══════════ Specimen: a frozen, zoomed band slice ═══════════ -->
+      <div class="anat-spec">
+        <div class="anat-spec__bar" role="toolbar" aria-label="Tranche agrandie" aria-controls="anat-band">
+          <button class="icon-btn" type="button" data-anat="play" data-tip="Lecture" data-kbd="Espace" aria-label="Lire les deux secondes avant la tranche" aria-pressed="false">
+            <span class="icon" data-anat-play-icon style="--src: url(/icons/resume.svg)"></span>
+          </button>
+          <button class="ui-btn" type="button" data-anat="back" aria-disabled="true">Revenir à la tranche</button>
+          <output class="anat-spec__tc tnum" data-anat="tc" aria-label="Position" aria-live="off">01:03:12:00</output>
+          <p class="anat-spec__hint">Glissez pour faire défiler.</p>
+        </div>
+        <p class="anat-spec__caption" data-anat="caption">Choisissez un élément dans la légende&nbsp;: il apparaît sur la bande.</p>
+        <div class="anat-spec__stage">
+          <div class="anat-spec__band" id="anat-band" aria-describedby="anat-band-help"></div>
+          <div class="anat-spec__overlay" data-anat="overlay" aria-hidden="true">
+            <svg class="anat-spec__svg" data-anat="svg" width="0" height="0">
+              <defs>
+                <mask id="anat-mask" maskUnits="userSpaceOnUse">
+                  <rect class="anat-spec__mask-bg" x="0" y="0" width="100%" height="100%" fill="#fff" />
+                  <g data-anat="holes"></g>
+                </mask>
+              </defs>
+              <rect class="anat-spec__dim" x="0" y="0" width="100%" height="100%" mask="url(#anat-mask)" />
+              <g class="anat-spec__rings" data-anat="rings"></g>
+            </svg>
+            <div class="anat-spec__tags" data-anat="tags"></div>
+          </div>
+        </div>
+        <p class="sr-only" id="anat-band-help">
+          Tranche de bande rythmo agrandie, projet de démonstration aux dialogues fictifs. Espace : lecture des deux secondes qui
+          précèdent la tranche. Flèches gauche et droite : image par image. Majuscule et flèches : ligne précédente ou suivante.
+          Entrée : sélectionner la ligne à la tête de lecture. La légende qui suit nomme chaque élément.
+        </p>
+      </div>
+
+      <!-- ═══════════ Legend: every element, in the app's own words ═══════════ -->
+      <div class="anat-key" role="group" data-anat="key" aria-label="Légende de la bande">
+        <div class="anat-key__group">
+          <h3 class="anat-key__title">Le temps</h3>
+          <ul class="anat-key__list" role="list">
+            <li>
+              <button class="anat-key__item" type="button" data-el="playhead" aria-pressed="false" aria-describedby="anat-d-playhead">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="20" y="0" width="8" height="32" fill="#ff050d" opacity=".22" /><rect x="22.5" y="0" width="3" height="32" fill="#ff050d" /></svg>
+                <span class="anat-key__name">Barre de lecture</span>
+                <span class="anat-key__desc" id="anat-d-playhead">Le mot qui la touche se dit maintenant.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="ruler" aria-pressed="false" aria-describedby="anat-d-ruler">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><path d="M4.5 0v10M10.5 0v5M16.5 0v10M22.5 0v5M28.5 0v10M34.5 0v5M40.5 0v10" stroke="#8a8a9c" stroke-width="1.2" /><rect x="3.5" y="15.5" width="41" height="12" fill="#14141a" stroke="#50505c" /></svg>
+                <span class="anat-key__name">Règle</span>
+                <span class="anat-key__desc" id="anat-d-ruler">Une graduation toutes les deux images.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="tracks" aria-pressed="false" aria-describedby="anat-d-tracks">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><g fill="#14141a" stroke="#6a6a78"><rect x="3.5" y="2.5" width="41" height="5" /><rect x="3.5" y="10.5" width="41" height="5" /><rect x="3.5" y="18.5" width="41" height="5" /><rect x="3.5" y="26.5" width="41" height="4" /></g></svg>
+                <span class="anat-key__name">Pistes <kbd class="kbd">Ctrl</kbd><kbd class="kbd">Numpad 1–4</kbd></span>
+                <span class="anat-key__desc" id="anat-d-tracks">Quatre pistes, pour les répliques qui se chevauchent.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="readword" aria-pressed="false" aria-describedby="anat-d-readword">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="2.5" y="7.5" width="43" height="17" fill="#14141a" stroke="#50505c" /><text x="6" y="20" font-size="10" font-weight="500" fill="#fff">ta <tspan fill="#ffe14d">voix</tspan></text><rect x="27" y="0" width="2" height="32" fill="#ff050d" /></svg>
+                <span class="anat-key__name">Mot à la ligne de lecture</span>
+                <span class="anat-key__desc" id="anat-d-readword">Illuminé en jaune, si vous activez l’option.</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="anat-key__group">
+          <h3 class="anat-key__title">Les répliques</h3>
+          <ul class="anat-key__list" role="list">
+            <li>
+              <button class="anat-key__item" type="button" data-el="label" aria-pressed="false" aria-describedby="anat-d-label">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><text x="5" y="19" font-size="12" font-style="italic" font-weight="700" fill="#ff8033">MAYA</text><rect x="5" y="22" width="34" height="1.3" fill="#ff8033" /><rect x="5" y="25" width="34" height="1.3" fill="#ff8033" /></svg>
+                <span class="anat-key__name">Étiquette de personnage <kbd class="kbd">P</kbd></span>
+                <span class="anat-key__desc" id="anat-d-label">Gras, italique, soulignée deux fois, à la couleur du rôle.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="dialogue" aria-pressed="false" aria-describedby="anat-d-dialogue">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="1.5" y="7.5" width="45" height="17" fill="#14141a" stroke="#50505c" /><text x="4" y="20" font-size="10" font-weight="500" fill="#fff" textLength="40" lengthAdjust="spacingAndGlyphs">Attends</text></svg>
+                <span class="anat-key__name">Réplique <kbd class="kbd">T</kbd></span>
+                <span class="anat-key__desc" id="anat-d-dialogue">Étirée sur sa durée&nbsp;: plus elle est large, plus on la dit lentement.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="note" aria-pressed="false" aria-describedby="anat-d-note">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="1.5" y="4.5" width="45" height="23" fill="#14141a" stroke="#50505c" /><text x="5" y="15" font-size="9" font-weight="500" fill="#fff" textLength="37" lengthAdjust="spacingAndGlyphs">Rends-moi</text><text x="5" y="24" font-size="7" font-weight="500" fill="#c8c8cc">chuchoté</text></svg>
+                <span class="anat-key__name">Note <kbd class="kbd">Numpad 6</kbd></span>
+                <span class="anat-key__desc" id="anat-d-note">Une indication de jeu, écrite sous le texte.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="karaoke" aria-pressed="false" aria-describedby="anat-d-karaoke">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><circle cx="26" cy="8" r="2.6" fill="#33cccc" /><text x="4" y="23" font-size="10" font-weight="500"><tspan fill="#33cccc">C’est </tspan><tspan fill="#fff">moi</tspan></text></svg>
+                <span class="anat-key__name">Karaoké <kbd class="kbd">Numpad 9</kbd></span>
+                <span class="anat-key__desc" id="anat-d-karaoke">Centré sous la barre, une balle rebondit de syllabe en syllabe.</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="anat-key__group">
+          <h3 class="anat-key__title">Les signes</h3>
+          <ul class="anat-key__list" role="list">
+            <li>
+              <button class="anat-key__item" type="button" data-el="breath" aria-pressed="false" aria-describedby="anat-d-breath">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><g fill="#14141a" stroke="#50505c"><rect x="2.5" y="7.5" width="19" height="17" /><rect x="26.5" y="7.5" width="19" height="17" /></g><path d="M6 21l12-10M30 11l12 10" stroke="#dcdce6" stroke-width="1.6" stroke-linecap="round" /></svg>
+                <span class="anat-key__name">Respirations <kbd class="kbd">Numpad 4</kbd></span>
+                <span class="anat-key__desc" id="anat-d-breath">↑ inspiration, ↓ expiration, tracées en diagonale.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="reaction" aria-pressed="false" aria-describedby="anat-d-reaction">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="6.5" y="7.5" width="35" height="17" fill="#14141a" stroke="#50505c" /><text x="11" y="20" font-size="10.5" font-weight="500" fill="#fff">(ah)</text></svg>
+                <span class="anat-key__name">Réaction <kbd class="kbd">Numpad 5</kbd></span>
+                <span class="anat-key__desc" id="anat-d-reaction">Un son sans paroles, noté en code&nbsp;: (ah), (pff), (mhm)…</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="ambiance" aria-pressed="false" aria-describedby="anat-d-ambiance">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><text x="2" y="19" font-size="9" font-style="italic" font-weight="700" fill="#338cff">amb.</text><rect x="2" y="21.5" width="19" height="1.1" fill="#338cff" /><rect x="2" y="24" width="19" height="1.1" fill="#338cff" /><text x="23" y="19" font-size="9" font-weight="500" fill="#f21f29">pluie</text></svg>
+                <span class="anat-key__name">Ambiance <kbd class="kbd">Numpad 8</kbd></span>
+                <span class="anat-key__desc" id="anat-d-ambiance">« amb. » en bleu, texte en rouge&nbsp;: les voix de fond.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="drawing" aria-pressed="false" aria-describedby="anat-d-drawing">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><path d="M5 20c3-9 7-9 6-2s4 7 6-1 6-8 6 0 4 8 7 0 5-7 6 1 4 5 5 2" fill="none" stroke="#4dff4d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                <span class="anat-key__name">Dessin <kbd class="kbd">Ctrl</kbd><kbd class="kbd">D</kbd></span>
+                <span class="anat-key__desc" id="anat-d-drawing">Un trait à main levée, accroché au temps.</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div class="anat-key__group">
+          <h3 class="anat-key__title">Les marqueurs</h3>
+          <ul class="anat-key__list" role="list">
+            <li>
+              <button class="anat-key__item" type="button" data-el="boucle" aria-pressed="false" aria-describedby="anat-d-boucle">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="19" y="0" width="2" height="32" fill="#e62626" /><path d="M15.5 11.5l9 9M24.5 11.5l-9 9" stroke="#e62626" stroke-width="2.2" /><text x="26" y="27" font-size="10" font-weight="700" fill="#d92626">4</text></svg>
+                <span class="anat-key__name">Boucle <kbd class="kbd">Numpad 1</kbd></span>
+                <span class="anat-key__desc" id="anat-d-boucle">Croix rouge numérotée&nbsp;: une boucle commence.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="out" aria-pressed="false" aria-describedby="anat-d-out">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="23" y="0" width="2" height="32" fill="#d97373" opacity=".75" /><path d="M17.5 10l3 12M27.5 10l3 12" stroke="#d97373" stroke-width="1.8" /></svg>
+                <span class="anat-key__name">Out <kbd class="kbd">Numpad 2</kbd></span>
+                <span class="anat-key__desc" id="anat-d-out">Deux barres obliques&nbsp;: la boucle s’arrête là.</span>
+              </button>
+            </li>
+            <li>
+              <button class="anat-key__item" type="button" data-el="scene" aria-pressed="false" aria-describedby="anat-d-scene">
+                <svg class="anat-key__glyph" viewBox="0 0 48 32" aria-hidden="true"><rect x="23" y="0" width="2" height="32" fill="#e6e6f0" opacity=".85" /></svg>
+                <span class="anat-key__name">Changement de scène <kbd class="kbd">Numpad 3</kbd></span>
+                <span class="anat-key__desc" id="anat-d-scene">Un trait blanc&nbsp;: la scène suivante commence.</span>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <details class="boucle" id="bande-suite" data-close-label="Enrouler la boucle 1">
+      <summary class="boucle__head">
+        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>1</span>
+        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 1</span><span class="boucle__verb--close">Enrouler la boucle 1</span></span>
+        <span class="boucle__list">Respirations et réactions · Émotions du texte · Tableau des lignes et des personnages</span>
+      </summary>
+      <div class="boucle__body">
+        <!-- ═══════════ Codes and emotions ═══════════ -->
+        <div class="anat-more">
+          <article class="anat-codes" aria-labelledby="anat-codes-title">
+            <h3 class="h3" id="anat-codes-title">Respirations et réactions</h3>
+            <p class="anat-more__text">
+              Deux listes de la barre d’outils. Le code choisi devient une ligne d’une seconde, posée sous la barre de lecture,
+              sur la piste&nbsp;1. Essayez&nbsp;:
+            </p>
+            <div class="anat-codes__band" data-anat="qband" aria-hidden="true"></div>
+            <div class="anat-codes__lists">
+              <div class="anat-codes__panel">
+                <p class="anat-codes__head" id="anat-resp-title">
+                  <span class="icon" style="--src: url(/icons/respirations.svg)"></span>Respirations <kbd class="kbd">Numpad 4</kbd>
+                </p>
+                <ul class="dropdown anat-codes__dd" role="list" aria-labelledby="anat-resp-title" data-anat="codes">
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="↑"><span class="dropdown__code">↑</span>Inspiration</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="↓"><span class="dropdown__code">↓</span>Expiration</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(H)"><span class="dropdown__code">(H)</span>Bouche ouverte, inspiration</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(HH)"><span class="dropdown__code">(HH)</span>Bouche ouverte, expiration</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(mH)"><span class="dropdown__code">(mH)</span>Bouche fermée, inspiration</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(mHH)"><span class="dropdown__code">(mHH)</span>Bouche fermée, expiration</button></li>
+                </ul>
+              </div>
+              <div class="anat-codes__panel">
+                <p class="anat-codes__head" id="anat-react-title">
+                  <span class="icon" style="--src: url(/icons/reactions.svg)"></span>Réactions <kbd class="kbd">Numpad 5</kbd>
+                </p>
+                <ul class="dropdown anat-codes__dd anat-codes__dd--react" role="list" aria-labelledby="anat-react-title" data-anat="codes">
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(X)"><span class="dropdown__code">(X)</span>Bruit de bouche</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(mts)"><span class="dropdown__code">(mts)</span>Claquement de langue à l’ouverture</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(tsc)"><span class="dropdown__code">(tsc)</span>Claquement de bouche, bouche ouverte</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="true" data-code="(ah)"><span class="dropdown__code">(ah)</span>Surprise</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(oh)"><span class="dropdown__code">(oh)</span>Étonnement</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(ih)"><span class="dropdown__code">(ih)</span>Dégoût</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(mhm)"><span class="dropdown__code">(mhm)</span>Acquiescement</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(hm)"><span class="dropdown__code">(hm)</span>Hésitation</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(ptt)"><span class="dropdown__code">(ptt)</span>Dédain</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(pff)"><span class="dropdown__code">(pff)</span>Exaspération</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(unh)"><span class="dropdown__code">(unh)</span>Effort</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(hun)"><span class="dropdown__code">(hun)</span>Interrogation</button></li>
+                  <li><button class="dropdown__item" type="button" aria-pressed="false" data-code="(psst)"><span class="dropdown__code">(psst)</span>Interpellation</button></li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <article class="anat-emo" aria-labelledby="anat-emo-title">
+            <h3 class="h3" id="anat-emo-title">Émotions du texte</h3>
+            <p class="anat-more__text">
+              Pendant l’édition d’une ligne, sélectionnez des mots puis appuyez sur <kbd class="kbd">Alt</kbd><kbd class="kbd">E</kbd>&nbsp;;
+              sans sélection, toute la ligne est concernée. Les lettres tremblent, penchent ou rebondissent selon l’intention. Un
+              couloir sous la ligne garde le texte lisible. Les lignes karaoké n’en ont pas.
+            </p>
+            <div class="anat-emo__stage">
+              <canvas class="anat-emo__canvas" data-anat="emo-canvas" aria-hidden="true"></canvas>
+              <div class="anat-emo__foot">
+                <p class="anat-emo__readout" data-anat="emo-readout">Tristesse · Tristesse</p>
+                <button class="icon-btn anat-emo__pause" type="button" data-anat="emo-pause" aria-pressed="false" aria-label="Mettre l’animation en pause" data-tip="Mettre l’animation en pause">
+                  <span class="icon" data-anat="emo-pause-icon" style="--src: url(/icons/pause.svg)"></span>
+                </button>
+              </div>
+            </div>
+            <div class="anat-emo__menu">
+              <div class="dropdown anat-emo__dd" role="group" aria-labelledby="anat-emo-menu-title" data-anat="emo-families">
+                <p class="anat-emo__dd-head" id="anat-emo-menu-title">Émotion du texte <span class="dropdown__hint">Alt E</span></p>
+              </div>
+              <div class="dropdown anat-emo__dd" role="group" aria-labelledby="anat-emo-variants-title" id="anat-emo-variants" data-anat="emo-variants">
+                <p class="anat-emo__dd-head" id="anat-emo-variants-title">Tristesse</p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- ═══════════ The two tables (Ctrl+I, Ctrl+P) ═══════════ -->
+        <div class="anat-tables">
+          <div class="anat-tables__text">
+            <h3 class="h3">Le tableau des lignes et celui des personnages</h3>
+            <p class="anat-more__text">
+              <kbd class="kbd">Ctrl</kbd><kbd class="kbd">I</kbd> ouvre le tableau des lignes&nbsp;: le rôle et le texte de chaque
+              ligne, modifiables sur place, et «&nbsp;Aller dessus&nbsp;» pour y amener la tête de lecture.
+              <kbd class="kbd">Ctrl</kbd><kbd class="kbd">P</kbd> ouvre le tableau des personnages, avec la couleur de chaque rôle.
+            </p>
+            <p class="anat-more__text anat-tables__try">Ces deux-là listent la tranche ci-dessus&nbsp;: choisissez une ligne ou un rôle pour le retrouver sur la bande.</p>
+          </div>
+          <section class="anat-table" aria-labelledby="anat-lines-title">
+            <header class="anat-table__head">
+              <h4 class="anat-table__title" id="anat-lines-title">Tableau des lignes</h4>
+              <span class="anat-table__keys"><kbd class="kbd">Ctrl</kbd><kbd class="kbd">I</kbd></span>
+            </header>
+            <div class="anat-table__cols anat-table__cols--lines" aria-hidden="true"><span>Rôle (Personnage)</span><span>Texte</span></div>
+            <ul class="anat-table__rows" role="list" data-anat="lines"></ul>
+          </section>
+          <section class="anat-table anat-table--roles" aria-labelledby="anat-roles-title">
+            <header class="anat-table__head">
+              <h4 class="anat-table__title" id="anat-roles-title">Tableau des personnages</h4>
+              <span class="anat-table__keys"><kbd class="kbd">Ctrl</kbd><kbd class="kbd">P</kbd></span>
+            </header>
+            <div class="anat-table__cols anat-table__cols--roles" aria-hidden="true"><span>Nom du rôle</span></div>
+            <ul class="anat-table__rows" role="list" data-anat="roles"></ul>
+          </section>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+/* Shared page layout for the chapters below the window. Every section uses
+   these; section files only add what is specific to them. */
+
+/* Chapter separation: a wide gap on the page ground above each strip, a
+   short one below it, so every strip reads as the opener of what follows
+   and never as the tail of what precedes. */
+.chapter {
+  --chapter-gap: clamp(112px, 6vw + 72px, 176px);
+  position: relative;
+  margin-top: var(--chapter-gap);
+}
+/* the band of the window and the first strip share the same black: give
+   the window a clear break before the chapters start */
+.window + .chapter {
+  margin-top: clamp(128px, 8vw + 80px, 208px);
+}
+.chapter__inner {
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: var(--s7) var(--gutter) 0;
+}
+.chapter__lede {
+  max-width: 62ch;
+  color: var(--text-dim);
+  font-size: var(--fs-lede);
+  line-height: 1.5;
+}
+.chapter__lede strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.h3 {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.prose {
+  max-width: 65ch;
+  color: var(--text-dim);
+}
+.prose p + p {
+  margin-top: 0.8em;
+}
+.prose strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.muted {
+  color: var(--text-faint);
+}

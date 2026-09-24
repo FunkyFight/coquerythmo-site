@@ -1,0 +1,247 @@
+<section class="chapter" id="export" aria-labelledby="export-title">
+  <header class="strip">
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>4</span></p>
+    <h2 class="strip__title" id="export-title">
+      <span class="char-label" aria-hidden="true" style="--c: var(--c-purple)">Export</span>
+      <span class="strip__line">Tous vos livrables en une seule opération.</span>
+    </h2>
+  </header>
+
+  <div class="chapter__inner">
+    <p class="chapter__lede">
+      Menu Export, puis « Exporter… », ou <kbd class="kbd">Ctrl</kbd>&nbsp;<kbd class="kbd">M</kbd>&nbsp;: le centre d’export
+      rassemble <strong>la vidéo MP4 avec la bande rythmo sous l’image</strong>, les sous-titres, l’audio et les documents de
+      référence. Cochez ce qu’il vous faut, pour une ou plusieurs langues&nbsp;: un clic sur « Exporter » produit tous les
+      fichiers d’un coup.
+    </p>
+  </div>
+
+  <!-- ═══ The bench: the Export centre (export_modal.rs) and what it would write ═══ -->
+  <div class="xp" data-xp>
+    <div class="xp-hub ui-panel" role="group" aria-labelledby="xp-title" aria-describedby="xp-sub" data-xp-hub>
+      <header class="xp-hub__head">
+        <h3 class="xp-hub__title" id="xp-title">Exporter…</h3>
+        <p class="xp-hub__sub" id="xp-sub">Configurez plusieurs livrables en une seule opération. Ces choix sont enregistrés dans le projet.</p>
+      </header>
+
+      <div class="xp-hub__cols">
+        <!-- page rail: ↑/↓ or ←/→ switch pages, like the app -->
+        <div class="xp-nav" role="tablist" aria-orientation="vertical" aria-label="Pages de l’export">
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-video" aria-controls="xp-page-video" aria-selected="true" data-page="video">Vidéo</button>
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-subs" aria-controls="xp-page-subs" aria-selected="false" tabindex="-1" data-page="subs">Sous-titres</button>
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-audio" aria-controls="xp-page-audio" aria-selected="false" tabindex="-1" data-page="audio">Audio</button>
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-refs" aria-controls="xp-page-refs" aria-selected="false" tabindex="-1" data-page="refs">Références</button>
+        </div>
+
+        <div class="xp-pages">
+          <!-- ── Vidéo ── -->
+          <div class="xp-page xp-page--video" role="tabpanel" id="xp-page-video" aria-labelledby="xp-tab-video" data-active>
+            <label class="ui-check xp-check xp-check--lead">
+              <input type="checkbox" data-cfg="video" checked />Vidéo MP4 avec bande rythmo
+            </label>
+
+            <div class="xp-field">
+              <p class="xp-field__label" id="xp-aspect-label">Pré-format</p>
+              <div class="xp-seg" role="radiogroup" aria-labelledby="xp-aspect-label" data-seg="aspect">
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="true" data-value="source">Vidéo source</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="16:9">16:9</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="9:16">9:16</button>
+              </div>
+            </div>
+
+            <div class="xp-field">
+              <p class="xp-field__label" id="xp-quality-label">Qualité</p>
+              <div class="xp-seg xp-seg--5" role="radiogroup" aria-labelledby="xp-quality-label" data-seg="quality">
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="720">720p</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="true" data-value="1080">1080p</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="1440">1440p</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="8k">8K</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="custom">Custom</button>
+              </div>
+            </div>
+
+            <p class="xp-res tnum" data-res>1920 × 1080 px</p>
+            <div class="xp-dims" data-dims hidden>
+              <input class="xp-dims__field tnum" type="text" inputmode="numeric" autocomplete="off" maxlength="5" aria-label="Largeur vidéo" data-dim="w" value="1920" />
+              <span class="xp-dims__x" aria-hidden="true">×</span>
+              <input class="xp-dims__field tnum" type="text" inputmode="numeric" autocomplete="off" maxlength="5" aria-label="Hauteur vidéo" data-dim="h" value="1080" />
+            </div>
+
+            <div class="xp-steps">
+              <div class="xp-step" data-step="fps">
+                <span class="xp-step__name" id="xp-step-fps">FPS de la bande rythmo</span>
+                <div class="xp-step__ctl">
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer FPS de la bande rythmo">−</button>
+                  <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-fps">60</div>
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter FPS de la bande rythmo">+</button>
+                </div>
+              </div>
+              <div class="xp-step" data-step="brScale">
+                <span class="xp-step__name" id="xp-step-br">Zoom bande rythmo</span>
+                <div class="xp-step__ctl">
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Zoom bande rythmo">−</button>
+                  <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-br">100%</div>
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Zoom bande rythmo">+</button>
+                </div>
+              </div>
+              <div class="xp-step" data-step="karaoke">
+                <span class="xp-step__name" id="xp-step-kara">Taille texte karaoké</span>
+                <div class="xp-step__ctl">
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Taille texte karaoké">−</button>
+                  <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-kara">100%</div>
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Taille texte karaoké">+</button>
+                </div>
+              </div>
+              <div class="xp-step" data-step="preRoll">
+                <span class="xp-step__name" id="xp-step-pre">Pré-roll de bande rythmo</span>
+                <div class="xp-step__ctl">
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Pré-roll de bande rythmo">−</button>
+                  <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-pre">0.0 s</div>
+                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Pré-roll de bande rythmo">+</button>
+                </div>
+              </div>
+            </div>
+
+            <label class="ui-check xp-check">
+              <input type="checkbox" data-cfg="countdown" />Ajouter un compte à rebours indépendant
+            </label>
+            <div class="xp-step" data-step="countdownStart" hidden>
+              <span class="xp-step__name" id="xp-step-count">Durée du compte à rebours (secondes)</span>
+              <div class="xp-step__ctl">
+                <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Durée du compte à rebours">−</button>
+                <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-count">3</div>
+                <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Durée du compte à rebours">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Sous-titres ── -->
+          <div class="xp-page" role="tabpanel" id="xp-page-subs" aria-labelledby="xp-tab-subs">
+            <h4 class="xp-page__title">Formats à produire</h4>
+            <ul class="xp-formats" role="list">
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="subs.json" /><span class="xp-format__name">JSON</span><span class="xp-format__hint">Données structurées complètes de la bande.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="subs.srt" /><span class="xp-format__name">SRT</span><span class="xp-format__hint">Sous-titres largement compatibles.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="subs.ass" /><span class="xp-format__name">ASS</span><span class="xp-format__hint">Sous-titres stylés avec personnages et couleurs.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="subs.detx" /><span class="xp-format__name">DETX</span><span class="xp-format__hint">Échange avec les outils Cappella.</span></label></li>
+            </ul>
+          </div>
+
+          <!-- ── Audio ── -->
+          <div class="xp-page" role="tabpanel" id="xp-page-audio" aria-labelledby="xp-tab-audio">
+            <h4 class="xp-page__title">Formats à produire</h4>
+            <ul class="xp-formats" role="list">
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="audio.mp3" /><span class="xp-format__name">MP3</span><span class="xp-format__hint">Audio compressé léger.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="audio.wav" /><span class="xp-format__name">WAV</span><span class="xp-format__hint">Audio PCM sans perte.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="audio.bwf" /><span class="xp-format__name">BWF stems</span><span class="xp-format__hint">Stems Broadcast Wave avec métadonnées BEXT.</span></label></li>
+            </ul>
+          </div>
+
+          <!-- ── Références ── -->
+          <div class="xp-page" role="tabpanel" id="xp-page-refs" aria-labelledby="xp-tab-refs">
+            <h4 class="xp-page__title">Formats à produire</h4>
+            <ul class="xp-formats" role="list">
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="refs.csv" /><span class="xp-format__name">CSV</span><span class="xp-format__hint">Référence croisée exploitable dans un tableur.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="refs.pdf" /><span class="xp-format__name">PDF</span><span class="xp-format__hint">Référence croisée prête à imprimer.</span></label></li>
+              <li><label class="xp-format"><input class="xp-box" type="checkbox" data-cfg="refs.grid" /><span class="xp-format__name">Grille de croisées PDF</span><span class="xp-format__hint">Présence des personnages par boucle.</span></label></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- languages panel: one row per language, O / I / O+ / I+ audio versions -->
+        <section class="xp-langs" aria-labelledby="xp-langs-title">
+          <h4 class="xp-langs__title" id="xp-langs-title">Langues à exporter</h4>
+          <p class="xp-langs__key">O = original · I = instru · O+ / I+ = avec annonceur</p>
+          <ul class="xp-langs__list" role="list" data-langs></ul>
+        </section>
+      </div>
+
+      <footer class="xp-hub__foot">
+        <button class="ui-btn ui-btn--lg xp-hub__close" type="button" data-xp-close>Fermer</button>
+        <a class="ui-btn ui-btn--lg xp-hub__go" href="#telecharger" data-action="goto-downloads">Télécharger pour exporter</a>
+      </footer>
+    </div>
+
+    <!-- shown after « Fermer » -->
+    <div class="xp-closed ui-panel" data-xp-closed hidden>
+      <p>Centre d’export fermé. Vos choix restent enregistrés dans le projet.</p>
+      <button class="ui-btn ui-btn--lg ui-btn--accent" type="button" data-xp-open>
+        Exporter… <span class="xp-closed__kbd"><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">M</kbd></span>
+      </button>
+    </div>
+
+    <!-- ── What « Exporter » writes, in the app ── -->
+    <aside class="xp-out" aria-labelledby="xp-out-title">
+      <div class="xp-out__in">
+      <figure class="xp-preview">
+        <div class="xp-preview__box" data-preview-box>
+          <div class="xp-frame" role="img" aria-label="Aperçu de la vidéo exportée" data-frame>
+            <div class="xp-frame__video" data-frame-video>
+              <div class="xp-frame__src" data-frame-src>
+                <p class="xp-frame__tc tnum" data-frame-tc>01:00:00:00</p>
+                <img class="xp-frame__mouth" src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" data-frame-mouth />
+              </div>
+            </div>
+            <div class="xp-frame__band" data-frame-band></div>
+            <p class="xp-frame__off" data-frame-off hidden>Pas de vidéo MP4 dans cet export</p>
+          </div>
+        </div>
+        <figcaption class="xp-preview__cap">
+          <span class="xp-preview__dims tnum" data-cap-dims>1920 × 1080 px</span>
+          <span data-cap-line>La bande rythmo occupe 37 % de la hauteur, sous l’image.</span>
+          <span data-cap-extra hidden></span>
+        </figcaption>
+      </figure>
+
+      <div class="xp-files">
+        <div class="xp-files__head">
+          <h3 class="xp-files__title" id="xp-out-title">Fichiers produits</h3>
+          <p class="xp-files__count tnum" data-count>12 fichiers</p>
+        </div>
+
+        <div class="xp-files__scroll" tabindex="0" role="region" aria-labelledby="xp-out-title" data-files-scroll>
+          <div data-files></div>
+          <p class="xp-files__empty" data-files-empty hidden>Aucun livrable coché&nbsp;: cochez au moins un format.</p>
+        </div>
+        <p class="xp-files__base">Nom de base choisi à l’export&nbsp;: <span class="tnum">demo_episode_12</span></p>
+      </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="xp-notes">
+    <p class="xp-notes__demo">
+      Démonstration sur le projet fictif de la page&nbsp;: les options, les noms de fichiers et l’aperçu suivent les règles de
+      l’app. L’export lui-même se fait dans Coquerythmo.
+    </p>
+    <details class="boucle" id="export-suite" data-close-label="Enrouler la boucle 4">
+      <summary class="boucle__head">
+        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>4</span>
+        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 4</span><span class="boucle__verb--close">Enrouler la boucle 4</span></span>
+        <span class="boucle__list">Encodage vidéo · Audio · Annonceur (O+ / I+) · Plusieurs langues</span>
+      </summary>
+      <div class="boucle__body">
+        <dl class="xp-notes__list">
+          <div class="xp-note">
+            <dt>Encodage vidéo</dt>
+            <dd>
+              H.264 avec NVENC quand une carte NVIDIA le permet, sinon libx264. Le son d’origine est recopié tel quel&nbsp;; il passe
+              en AAC dès que l’export le modifie (instrumental, pré-roll, compte à rebours, annonceur).
+            </dd>
+          </div>
+          <div class="xp-note">
+            <dt>Audio</dt>
+            <dd>WAV et stems BWF en PCM 24 bits à 48 kHz, les stems avec leurs métadonnées BEXT. MP3 à 320 kb/s.</dd>
+          </div>
+          <div class="xp-note">
+            <dt>Annonceur (O+ / I+)</dt>
+            <dd>Sur Windows, une voix de synthèse annonce le personnage quand il change, juste avant ses répliques en karaoké.</dd>
+          </div>
+          <div class="xp-note">
+            <dt>Plusieurs langues</dt>
+            <dd>Chaque langue possède sa propre bande rythmo et son propre instrumental. Cochez-en plusieurs&nbsp;: un seul export produit les fichiers de chacune.</dd>
+          </div>
+        </dl>
+      </div>
+    </details>
+  </div>
+</section>

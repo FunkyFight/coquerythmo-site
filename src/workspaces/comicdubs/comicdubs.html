@@ -1,0 +1,281 @@
+<!-- ═══════════ Comic Dubs workspace: a working page editor ═══════════
+     Layout from src/ui/comic_dubs_workspace.rs (media sidebar, header, transport,
+     canvas, inspector). Of the app's menus in this workspace, the site keeps
+     Actions and Paramètres du Comic Dub: it imports and exports nothing. -->
+<div class="cd" data-cd>
+  <header class="cd-bar">
+    <h2 class="cd-bar__title" id="cd-title">Comic Dubs</h2>
+    <ul class="cd-bar__menus" role="list">
+      <li class="cd-menu">
+        <button class="menu__btn" type="button" aria-expanded="false" aria-controls="cd-m-actions">Actions</button>
+        <div class="dropdown cd-menu__panel" id="cd-m-actions" hidden>
+          <button class="dropdown__item" type="button" data-cd-animate>
+            Animer les sommets de la bulle<span class="dropdown__hint" data-cd-animate-hint></span>
+          </button>
+        </div>
+      </li>
+    </ul>
+    <p class="cd-bar__file">Planche vierge et dialogues fictifs • dans l’app&nbsp;: export MP4, MOV ProRes 4444 ou un MP4 par page</p>
+    <button class="icon-btn cd-bar__settings" type="button" data-cd-open-settings data-tip="Paramètres du Comic Dub" aria-label="Paramètres du Comic Dub">
+      <span class="icon" style="--src: url(/icons/project.svg)"></span>
+    </button>
+  </header>
+
+  <div class="cd-body" data-cd-body>
+    <!-- ── Media explorer: Images / Audios ── -->
+    <aside class="cd-media" aria-label="Médias du Comic Dub" data-cd-drop>
+      <div class="cd-media__tabs" role="tablist" aria-label="Médias">
+        <button class="cd-seg cd-media__tab" type="button" role="tab" id="cd-tab-images" aria-selected="true" aria-controls="cd-list-images" data-cd-media="images">Images</button>
+        <button class="cd-seg cd-media__tab" type="button" role="tab" id="cd-tab-audios" aria-selected="false" aria-controls="cd-list-audios" data-cd-media="audios" tabindex="-1">Audios</button>
+      </div>
+      <div class="cd-media__panel" role="tabpanel" id="cd-list-images" aria-labelledby="cd-tab-images">
+        <ul class="cd-media__list" role="list" data-cd-pages></ul>
+      </div>
+      <div class="cd-media__panel" role="tabpanel" id="cd-list-audios" aria-labelledby="cd-tab-audios" hidden>
+        <ul class="cd-media__list" role="list" data-cd-audios></ul>
+      </div>
+      <details class="cd-keys">
+        <summary class="cd-keys__title"><span class="icon cd-keys__icon" style="--src: url(/icons/resume.svg)"></span>Raccourcis de l’app</summary>
+        <dl class="cd-keys__list">
+          <div><dt><kbd class="kbd">Espace</kbd></dt><dd>Lire le Comic Dub</dd></div>
+          <div><dt><kbd class="kbd">Ctrl</kbd> + clic</dt><dd>Commencer une bulle</dd></div>
+          <div><dt>Clic, 1<sup>er</sup> sommet</dt><dd>Fermer la bulle</dd></div>
+          <div><dt><kbd class="kbd">Échap</kbd></dt><dd>Annuler la bulle</dd></div>
+          <div><dt>Double-clic</dt><dd>Modifier le texte</dd></div>
+          <div><dt>Clic droit</dt><dd>Écouter son audio</dd></div>
+          <div><dt><kbd class="kbd">Suppr</kbd></dt><dd>Supprimer la bulle</dd></div>
+          <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Z</kbd></dt><dd>Annuler</dd></div>
+        </dl>
+      </details>
+      <div class="cd-media__foot">
+        <p class="cd-media__hint" data-cd-media-hint></p>
+      </div>
+    </aside>
+
+    <!-- ── Page: header, transport, canvas, timing ── -->
+    <section class="cd-main" aria-label="Page du Comic Dub">
+      <div class="cd-head">
+        <button class="icon-btn" type="button" data-cd-page="-1" data-tip="Page précédente" aria-label="Page précédente">
+          <span class="icon" style="--src: url(/icons/goto.svg)"></span>
+        </button>
+        <button class="icon-btn" type="button" data-cd-page="1" data-tip="Page suivante" aria-label="Page suivante">
+          <span class="icon icon--flip" style="--src: url(/icons/goto.svg)"></span>
+        </button>
+        <p class="cd-head__page tnum" data-cd-page-label>Page 1/1</p>
+        <p class="cd-head__hint" data-cd-play-hint>Espace pour lire le Comic Dub</p>
+      </div>
+
+      <div class="cd-tools" role="toolbar" aria-label="Outils de la page" aria-controls="cd-stage">
+        <div class="cd-tools__group">
+          <button class="icon-btn" type="button" data-cd-play data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false">
+            <span class="icon" data-cd-play-icon style="--src: url(/icons/resume.svg)"></span>
+          </button>
+        </div>
+        <div class="cd-tools__group">
+          <button class="icon-btn" type="button" data-cd-tool="select" data-tip="Sélection : cliquez une bulle, glissez-la ou ses sommets" aria-label="Sélection" aria-pressed="true">
+            <span class="icon" style="--src: url(/icons/select-mode.svg)"></span>
+          </button>
+          <button class="icon-btn" type="button" data-cd-tool="bubble" data-tip="Nouvelle bulle (dans l’app : Ctrl + clic sur la page)" aria-label="Nouvelle bulle" aria-pressed="false">
+            <span class="icon" style="--src: url(/icons/draw-mode.svg)"></span>
+          </button>
+        </div>
+        <p class="cd-tools__hint" data-cd-tool-hint aria-live="off"></p>
+      </div>
+
+      <div class="cd-stage" id="cd-stage" tabindex="0" role="group" aria-roledescription="planche" aria-label="Planche" aria-describedby="cd-help" data-cd-stage>
+        <div class="cd-page" data-cd-page-box>
+          <img class="cd-page__img" data-cd-page-img alt="" draggable="false" />
+          <svg class="cd-page__svg" data-cd-svg aria-hidden="true" focusable="false"></svg>
+          <div class="cd-page__layer" data-cd-layer></div>
+        </div>
+        <div class="cd-empty" data-cd-empty hidden>
+          <p class="cd-empty__text">Aucune page. Dans l’app, vous importez vos planches.</p>
+          <div class="cd-empty__actions">
+            <button class="ui-btn ui-btn--accent" type="button" data-cd-reset>Rétablir la planche de démonstration</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cd-timeline" data-cd-timeline>
+        <div class="cd-timeline__head">
+          <h3 class="cd-timeline__title" id="cd-tl-title">Minutage de la lecture</h3>
+          <p class="cd-timeline__rule" data-cd-rule></p>
+        </div>
+        <div class="cd-timeline__row">
+          <span class="cd-timeline__t tnum">0:00.000</span>
+          <div class="cd-timeline__track" role="list" aria-labelledby="cd-tl-title" data-cd-track></div>
+          <span class="cd-timeline__t tnum" data-cd-total>0:00.000</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Inspector (selected bubble) ── -->
+    <aside class="cd-insp" aria-labelledby="cd-insp-title">
+      <h3 class="cd-insp__title" id="cd-insp-title">Inspecteur</h3>
+      <div class="cd-insp__empty" data-cd-insp-empty>
+        <p class="cd-insp__lead">Cliquez une bulle pour modifier ses propriétés</p>
+        <p class="cd-insp__note" data-cd-insp-note></p>
+      </div>
+      <div class="cd-insp__form" data-cd-insp-form hidden>
+        <p class="cd-insp__sel"><span data-cd-sel-name>Bulle sélectionnée</span> <span class="cd-insp__audio" data-cd-sel-audio>Audio : aucun</span></p>
+
+        <label class="cd-field">
+          <span class="cd-field__label">Texte</span>
+          <textarea class="cd-field__text" rows="3" maxlength="500" spellcheck="true" data-cd-text placeholder="Une traduction assez longue doit rester lisible dans la bulle"></textarea>
+        </label>
+
+        <div class="cd-step" data-cd-step="size">
+          <button class="cd-step__btn" type="button" data-dir="-1" aria-label="Réduire la taille du texte"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" /></svg></button>
+          <p class="cd-step__out"><span class="cd-step__name">Taille du texte</span><output class="cd-step__value tnum"></output></p>
+          <button class="cd-step__btn" type="button" data-dir="1" aria-label="Augmenter la taille du texte"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg></button>
+        </div>
+        <div class="cd-step" data-cd-step="letter">
+          <button class="cd-step__btn" type="button" data-dir="-1" aria-label="Réduire l’espacement des lettres"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" /></svg></button>
+          <p class="cd-step__out"><span class="cd-step__name">Espacement lettres</span><output class="cd-step__value tnum"></output></p>
+          <button class="cd-step__btn" type="button" data-dir="1" aria-label="Augmenter l’espacement des lettres"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg></button>
+        </div>
+        <div class="cd-step" data-cd-step="line">
+          <button class="cd-step__btn" type="button" data-dir="-1" aria-label="Réduire l’interligne"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" /></svg></button>
+          <p class="cd-step__out"><span class="cd-step__name">Interligne</span><output class="cd-step__value tnum"></output></p>
+          <button class="cd-step__btn" type="button" data-dir="1" aria-label="Augmenter l’interligne"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg></button>
+        </div>
+
+        <div class="cd-colors">
+          <label class="cd-color">
+            <span class="cd-color__name">Fond</span>
+            <input class="cd-color__input" type="color" data-cd-color="bubble" aria-label="Couleur du fond de la bulle" />
+          </label>
+          <label class="cd-color">
+            <span class="cd-color__name">Texte</span>
+            <input class="cd-color__input" type="color" data-cd-color="text" aria-label="Couleur du texte" />
+          </label>
+        </div>
+        <label class="ui-check cd-insp__check"><input type="checkbox" data-cd-transparent />Fond transparent</label>
+
+        <div class="cd-segs" role="group" aria-label="Style du texte">
+          <button class="cd-seg" type="button" aria-pressed="false" data-cd-style="bold">Gras</button>
+          <button class="cd-seg" type="button" aria-pressed="false" data-cd-style="strike">Barré</button>
+          <button class="cd-seg" type="button" aria-pressed="false" data-cd-style="underline">Souligné</button>
+        </div>
+        <div class="cd-segs" role="radiogroup" aria-label="Alignement du texte">
+          <button class="cd-seg" type="button" role="radio" aria-checked="false" data-cd-align="left">Gauche</button>
+          <button class="cd-seg" type="button" role="radio" aria-checked="true" data-cd-align="center">Centre</button>
+          <button class="cd-seg" type="button" role="radio" aria-checked="false" data-cd-align="right">Droite</button>
+        </div>
+
+        <div class="cd-segs cd-segs--2">
+          <button class="ui-btn" type="button" data-cd-order="-1">Ordre ↑</button>
+          <button class="ui-btn" type="button" data-cd-order="1">Ordre ↓</button>
+        </div>
+        <button class="ui-btn cd-insp__delete" type="button" data-cd-delete>Supprimer la bulle</button>
+      </div>
+    </aside>
+
+    <!-- ── Vertex animation editor (replaces the panels, like the app) ── -->
+    <section class="cd-vx" aria-labelledby="cd-vx-title" data-cd-vx-panel hidden>
+      <header class="cd-vx__head">
+        <h3 class="cd-vx__title" id="cd-vx-title">Animation des sommets de la bulle</h3>
+        <p class="cd-vx__hint">Interpolation instantanée • glissez un sommet • Entrée ajoute • Espace lit • Ctrl+←/→ 50 ms • Échap ferme</p>
+        <button class="icon-btn cd-vx__close" type="button" data-cd-vx-close aria-label="Fermer l’éditeur de sommets" data-tip="Fermer l’éditeur de sommets" data-kbd="Échap">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+        </button>
+      </header>
+      <div class="cd-vx__stage cd-stage" tabindex="-1" data-cd-vx-stage>
+        <div class="cd-page" data-cd-vx-box>
+          <img class="cd-page__img" data-cd-vx-img alt="" draggable="false" />
+          <svg class="cd-page__svg" data-cd-vx-svg aria-hidden="true" focusable="false"></svg>
+          <div class="cd-page__layer" data-cd-vx-layer></div>
+        </div>
+      </div>
+      <footer class="cd-vx__foot">
+        <div class="cd-vx__controls">
+          <button class="icon-btn" type="button" data-cd-vx="prev" aria-label="Pose précédente" data-tip="Pose précédente" data-kbd="Page↑">
+            <span class="icon" style="--src: url(/icons/goto.svg)"></span>
+          </button>
+          <button class="ui-btn cd-vx__play" type="button" data-cd-vx="play" aria-pressed="false">Lire</button>
+          <button class="icon-btn" type="button" data-cd-vx="next" aria-label="Pose suivante" data-tip="Pose suivante" data-kbd="Page↓">
+            <span class="icon icon--flip" style="--src: url(/icons/goto.svg)"></span>
+          </button>
+          <p class="cd-vx__now tnum" data-cd-vx-now>0:00.000</p>
+          <button class="ui-btn ui-btn--accent cd-vx__add" type="button" data-cd-vx="add">Ajouter une pose</button>
+          <button class="ui-btn" type="button" data-cd-vx="delete">Supprimer</button>
+        </div>
+        <div class="cd-vx__track" data-cd-vx-track>
+          <div class="cd-vx__bar" aria-hidden="true"></div>
+          <input class="cd-vx__range" type="range" min="0" max="2000" step="50" value="0" aria-label="Position dans l’animation de la bulle" data-cd-vx-range />
+          <div class="cd-vx__markers" data-cd-vx-markers></div>
+          <div class="cd-vx__head-line" aria-hidden="true" data-cd-vx-playhead></div>
+        </div>
+        <div class="cd-vx__scale tnum" aria-hidden="true"><span>0:00.000</span><span data-cd-vx-dur>0:02.000</span></div>
+      </footer>
+    </section>
+  </div>
+
+  <div class="cd-drag" data-cd-drag aria-hidden="true" hidden></div>
+  <p class="cd-toast" data-cd-toast aria-hidden="true" hidden></p>
+
+  <p class="sr-only" id="cd-help">
+    Planche de démonstration vierge, dialogues fictifs. Tabulation : bulles dans l’ordre de lecture, puis sommets de la bulle sélectionnée.
+    Espace : lire ou arrêter le Comic Dub. Flèches : déplacer la bulle sélectionnée. Suppr : supprimer la bulle. Entrée : modifier son
+    texte. Outil Nouvelle bulle : les flèches déplacent le viseur, Espace pose un sommet, Entrée ferme la bulle, Retour arrière retire
+    le dernier sommet, Échap annule. Ctrl+Z annule, Ctrl+Maj+Z rétablit.
+  </p>
+
+
+  <!-- ── Paramètres du Comic Dub (src/ui/comic_dubs_settings_modal.rs) ── -->
+  <dialog class="ui-panel cd-dialog" id="cd-settings" aria-labelledby="cd-settings-title">
+    <form method="dialog" class="cd-dialog__form">
+      <header class="ui-panel__head">
+        <h3 class="cd-dialog__title" id="cd-settings-title">Paramètres du Comic Dub</h3>
+        <button class="icon-btn cd-dialog__x" value="close" aria-label="Fermer les paramètres du Comic Dub">
+          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+        </button>
+      </header>
+      <div class="ui-panel__body cd-dialog__body">
+        <div class="cd-dialog__field">
+          <span class="cd-dialog__label" id="cd-font-label">Police d’écriture</span>
+          <div class="cd-font">
+            <button class="ui-btn cd-font__btn" type="button" aria-expanded="false" aria-controls="cd-font-list" aria-labelledby="cd-font-label cd-font-value" data-cd-font-btn>
+              <span id="cd-font-value" data-cd-font-value>Police par défaut</span>
+              <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" /></svg>
+            </button>
+            <div class="dropdown cd-font__list" id="cd-font-list" hidden data-cd-font-list></div>
+          </div>
+          <p class="cd-dialog__note">Dans Coquerythmo, la liste contient les polices installées sur votre ordinateur. Ici, trois largeurs d’Archivo.</p>
+        </div>
+        <div class="cd-dialog__row" data-cd-set="bubble">
+          <span class="cd-dialog__label">Durée des bulles</span>
+          <div class="cd-mini-step">
+            <button class="cd-step__btn" type="button" data-dir="-1" aria-label="Réduire la durée des bulles"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" /></svg></button>
+            <output class="cd-mini-step__value tnum"></output>
+            <button class="cd-step__btn" type="button" data-dir="1" aria-label="Augmenter la durée des bulles"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg></button>
+          </div>
+        </div>
+        <div class="cd-dialog__row" data-cd-set="page">
+          <span class="cd-dialog__label">Durée des pages</span>
+          <div class="cd-mini-step">
+            <button class="cd-step__btn" type="button" data-dir="-1" aria-label="Réduire la durée des pages"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" /></svg></button>
+            <output class="cd-mini-step__value tnum"></output>
+            <button class="cd-step__btn" type="button" data-dir="1" aria-label="Augmenter la durée des pages"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg></button>
+          </div>
+        </div>
+        <div class="cd-dialog__row" data-cd-set="size">
+          <span class="cd-dialog__label">Taille du texte par défaut</span>
+          <div class="cd-mini-step">
+            <button class="cd-step__btn" type="button" data-dir="-1" aria-label="Réduire la taille du texte par défaut"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10" /></svg></button>
+            <output class="cd-mini-step__value tnum"></output>
+            <button class="cd-step__btn" type="button" data-dir="1" aria-label="Augmenter la taille du texte par défaut"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3v10" /></svg></button>
+          </div>
+        </div>
+        <p class="cd-dialog__note">
+          Les durées s’ajoutent après chaque bulle et après chaque page, par pas de 250&nbsp;ms. La taille par défaut s’applique aux
+          nouvelles bulles.
+        </p>
+        <div class="cd-dialog__actions">
+          <button class="ui-btn ui-btn--accent ui-btn--lg" type="button" data-cd-settings-save>Enregistrer</button>
+          <button class="ui-btn ui-btn--lg" value="close">Fermer</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+</div>
