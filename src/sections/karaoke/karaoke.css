@@ -1,0 +1,68 @@
+/* Karaoké (boucle 3): a sung scene on a small band, a toolbar strip on top,
+   the scene's lines with their karaoke switch below. Widgets (icon-btn,
+   ui-check, kbd, char-label) come from chrome.css and base.css. */
+
+.kar {
+  padding-top: var(--s5);
+}
+.kar .chapter__lede {
+  margin-bottom: var(--s5);
+}
+
+/* ═══════════ Bench: toolbar, band, lines ═══════════ */
+.kar-bench__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 44px;
+  padding: var(--s1) var(--s2);
+  background: var(--toolbar);
+  border: 1px solid var(--toolbar-border);
+  border-bottom: 0;
+  border-radius: var(--r) var(--r) 0 0;
+}
+.kar-bench__sep {
+  width: 1px;
+  height: 20px;
+  margin-inline: var(--s1);
+  background: var(--toolbar-border);
+}
+.kar-bench__tc {
+  margin-left: var(--s2);
+  color: var(--text-dim);
+  font-size: var(--fs-ui);
+}
+.kar-bench__hint {
+  margin-left: auto;
+  padding-right: var(--s2);
+  color: var(--text-faint);
+  font-size: 0.75rem;
+}
+.kar-bench__band {
+  border: 1px solid var(--toolbar-border);
+  border-top: 0;
+  border-radius: 0 0 var(--r) var(--r);
+}
+
+/* ═══════════ The details, under the demo ═══════════ */
+.kar-more {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: var(--s6) var(--s7);
+}
+.kar-more__text {
+  max-width: 62ch;
+  margin-top: var(--s3);
+  color: var(--text-dim);
+}
+.kar-more__text + .kar-more__text {
+  margin-top: 0.8em;
+}
+.kar-more__text strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.kar-more__link {
+  margin-top: var(--s4);
+}

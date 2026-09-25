@@ -577,7 +577,7 @@
 .det-keys-block .det-keys dd {
   color: var(--text-dim);
 }
-.boucle .det-conv {
+.chapter__more .det-conv {
   margin-top: var(--s8);
 }
 @media (max-width: 400px) {

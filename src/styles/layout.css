@@ -29,6 +29,13 @@
   color: var(--text);
   font-weight: 600;
 }
+/* What used to wait in a boucle: now shown directly under the demo */
+.chapter__more {
+  margin-top: var(--s8);
+}
+.chapter__more > :first-child {
+  margin-top: 0;
+}
 .h3 {
   font-size: var(--fs-h3);
   font-weight: 700;

@@ -1,6 +1,6 @@
 <section class="chapter" id="accessibilite" aria-labelledby="accessibilite-title">
   <header class="strip">
-    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>6</span></p>
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>7</span></p>
     <h2 class="strip__title" id="accessibilite-title">
       <span class="char-label" style="--c: var(--c-green)">Lecture vocale</span><span class="sr-only">&nbsp;: </span>
       <span class="strip__line">Toute la bande rythmo au clavier, annoncée sous Windows.</span>
@@ -147,350 +147,345 @@
       </div>
     </div>
 
-    <details class="boucle" id="accessibilite-suite" data-close-label="Enrouler la boucle 6">
-      <summary class="boucle__head">
-        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>6</span>
-        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 6</span><span class="boucle__verb--close">Enrouler la boucle 6</span></span>
-        <span class="boucle__list">Tous les raccourcis, contexte par contexte · Selon votre système&nbsp;: Windows, macOS, Linux</span>
-      </summary>
-      <div class="boucle__body">
-        <!-- ═══════════ Raccourcis : le panneau de l'app, en entier ═══════════ -->
-        <section class="acc-keys" id="raccourcis" aria-labelledby="raccourcis-title">
-          <div class="acc-keys__head">
-            <h3 class="h3" id="raccourcis-title">Tous les raccourcis, contexte par contexte</h3>
-            <p class="prose">
-              Dans l’app, un panneau en bas à gauche ne montre que les raccourcis utilisables à l’instant&nbsp;: ligne sélectionnée,
-              média chargé, modale ouverte… Ici, la liste est complète, et la condition est notée sous chaque action.
-            </p>
-            <p class="prose acc-keys__scope">
-              Ce sont les raccourcis de la version Windows 5.1. Sur macOS et Linux (3.5.1), certains manquent ou diffèrent&nbsp;:
-              <kbd class="kbd">Ctrl</kbd>&nbsp;+&nbsp;<kbd class="kbd">Maj</kbd>&nbsp;+&nbsp;<kbd class="kbd">P</kbd> y renomme un
-              personnage, et <kbd class="kbd">Insert</kbd> crée une ligne. Ces écarts sont notés sous l’action.
-            </p>
-          </div>
-
-          <div class="acc-keys__panel">
-            <div class="acc-keys__top">
-              <p class="acc-keys__title">Raccourcis clavier</p>
-              <div class="acc-search">
-                <label class="sr-only" for="acc-search">Rechercher un raccourci par action ou par touche</label>
-                <input
-                  class="acc-search__input"
-                  id="acc-search"
-                  type="search"
-                  placeholder="Action ou touche : karaoké, Échap, Ctrl + S…"
-                  autocomplete="off"
-                  spellcheck="false"
-                  aria-controls="acc-keys-list"
-                  data-search
-                />
-                <button class="icon-btn acc-search__clear" type="button" aria-label="Effacer la recherche" data-search-clear hidden>
-                  <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="acc-keys__body">
-              <div class="acc-cats" role="tablist" aria-label="Catégories de raccourcis" aria-orientation="vertical" data-cats>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-all" aria-selected="true" aria-controls="acc-keys-list" data-cat="all">
-                  <span>Tous</span> <span class="acc-cat__n tnum"><span data-n>91</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-nav" aria-selected="false" aria-controls="acc-keys-list" data-cat="nav">
-                  <span>Navigation commune</span> <span class="acc-cat__n tnum"><span data-n>9</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-projet" aria-selected="false" aria-controls="acc-keys-list" data-cat="projet">
-                  <span>Barre supérieure et projet</span> <span class="acc-cat__n tnum"><span data-n>18</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-outils" aria-selected="false" aria-controls="acc-keys-list" data-cat="outils">
-                  <span>Outils et lecture</span> <span class="acc-cat__n tnum"><span data-n>18</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-bande" aria-selected="false" aria-controls="acc-keys-list" data-cat="bande">
-                  <span>Bande rythmo</span> <span class="acc-cat__n tnum"><span data-n>17</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-export" aria-selected="false" aria-controls="acc-keys-list" data-cat="export">
-                  <span>Export et proxy</span> <span class="acc-cat__n tnum"><span data-n>11</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-texte" aria-selected="false" aria-controls="acc-keys-list" data-cat="texte">
-                  <span>Champs texte, panneaux et modales</span> <span class="acc-cat__n tnum"><span data-n>13</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-secondaire" aria-selected="false" aria-controls="acc-keys-list" data-cat="secondaire">
-                  <span>Fenêtre secondaire</span> <span class="acc-cat__n tnum"><span data-n>2</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-vocale" aria-selected="false" aria-controls="acc-keys-list" data-cat="vocale">
-                  <span>Lecture vocale interne</span> <span class="acc-cat__n tnum"><span data-n>3</span><span class="sr-only" data-n-unit> raccourcis</span></span>
-                </button>
-              </div>
-
-              <div class="acc-keys__list" id="acc-keys-list" role="tabpanel" aria-labelledby="acc-cat-all" tabindex="0" data-list>
-                <div class="acc-group" data-group="nav">
-                  <h4 class="acc-group__title" id="acc-g-nav">Navigation commune</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-nav">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Tab</th><td class="acc-a">Focus suivant<span class="acc-note">Contrôles, listes, menus et modales</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + Tab</th><td class="acc-a">Focus précédent<span class="acc-note">Contrôles, listes, menus et modales</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée / Espace</th><td class="acc-a">Activer le contrôle focalisé<span class="acc-note">Contrôles, listes, menus et modales</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer le niveau courant ou annuler<span class="acc-note">Modales, menus et éditeurs</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Parcourir une liste ou modifier une valeur<span class="acc-note">Contrôles focalisés</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>← / →</th><td class="acc-a">Parcourir ou régler le contrôle<span class="acc-note">Contrôles focalisés</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Début / Fin</th><td class="acc-a">Aller au premier ou au dernier élément<span class="acc-note">Listes et contrôles</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Page haut / Page bas</th><td class="acc-a">Parcourir par page<span class="acc-note">Listes</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + F10</th><td class="acc-a">Ouvrir le menu contextuel de l’élément focalisé<span class="acc-note">Contrôles et lignes</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="projet">
-                  <h4 class="acc-group__title" id="acc-g-projet">Barre supérieure et projet</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-projet">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + S</th><td class="acc-a">Sauvegarde rapide</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + I</th><td class="acc-a">Importer un sous-titrage<span class="acc-note">.coquerythmo, .json, .srt, .ass, .detx</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + R</th><td class="acc-a">Restaurer la dernière sauvegarde disponible</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + R</th><td class="acc-a">Ouvrir les projets récents</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Suppr</th><td class="acc-a">Fermer le projet</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + M</th><td class="acc-a">Ouvrir l’export du projet</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + P</th><td class="acc-a">Ouvrir la création d’un proxy<span class="acc-since">En 3.5.1 (macOS, Linux)&nbsp;: renomme un personnage</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + O</th><td class="acc-a">Ouvrir les paramètres du projet</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + N</th><td class="acc-a">Créer un nouveau projet</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + I</th><td class="acc-a">Ouvrir le panneau des lignes</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + P</th><td class="acc-a">Ouvrir le panneau des rôles</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + L</th><td class="acc-a">Ouvrir ou fermer les fichiers du projet<span class="acc-note">Espace Rythmo, hors modale</span><span class="acc-since">Absent de la 3.5.1</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Alt + E</th><td class="acc-a">Ouvrir le menu des émotions du texte<span class="acc-note">Pendant l’édition, ou avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + K</th><td class="acc-a">Scinder le dialogue à la position du caret<span class="acc-note">Pendant l’édition d’une ligne, ou avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Parcourir les projets<span class="acc-note">Dans la liste des projets récents</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Ouvrir le projet<span class="acc-note">Dans la liste des projets récents</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Suppr</th><td class="acc-a">Retirer le projet de la liste<span class="acc-note">Dans la liste des projets récents</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer la liste<span class="acc-note">Dans la liste des projets récents</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="outils">
-                  <h4 class="acc-group__title" id="acc-g-outils">Outils et lecture</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-outils">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + ← / Ctrl + →</th><td class="acc-a">Image précédente ou suivante<span class="acc-note">Avec un média chargé</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 1</th><td class="acc-a">Ajouter une boucle</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 2</th><td class="acc-a">Ajouter un point Out</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 3</th><td class="acc-a">Ajouter un changement de scène</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 4</th><td class="acc-a">Ouvrir les respirations</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 5</th><td class="acc-a">Ouvrir les réactions</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 6</th><td class="acc-a">Ajouter une note</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 7 / Numpad 8</th><td class="acc-a">Ajouter une liaison à gauche ou à droite<span class="acc-note">Fin d’ambiance, début d’ambiance</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Numpad 9</th><td class="acc-a">Activer ou désactiver le karaoké<span class="acc-note">Avec une ligne sélectionnée ou survolée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Numpad 1 à Ctrl + Numpad 4</th><td class="acc-a">Créer une ligne sur la piste 1 à 4<span class="acc-since">Depuis la 3.5.4&nbsp;; en 3.5.1, c’est Insert</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>C</th><td class="acc-a">Outil Sélection</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + D</th><td class="acc-a">Outil Dessin</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + ↑ / Maj + ↓</th><td class="acc-a">Augmenter ou diminuer le volume par pas de 5&nbsp;%<span class="acc-note">Avec un média chargé</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + Numpad -</th><td class="acc-a">Activer ou désactiver le muet<span class="acc-note">Avec un média chargé</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Espace</th><td class="acc-a">Lecture ou pause<span class="acc-note">Avec un média chargé</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Tab</th><td class="acc-a">Basculer entre l’audio original et l’audio instrumental<span class="acc-note">Avec un audio instrumental</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Espace</th><td class="acc-a">Auditionner le signe, avec une courte plage audio autour<span class="acc-note">Avec une détection sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + Espace</th><td class="acc-a">Ajouter un point de sync au curseur de lecture<span class="acc-note">Avec une ligne ou une détection sélectionnée</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="bande">
-                  <h4 class="acc-group__title" id="acc-g-bande">Bande rythmo</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-bande">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Sélectionner tour à tour les lignes présentes à l’image courante<span class="acc-note">Avec une ligne sous la tête de lecture</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + clic-glissé</th><td class="acc-a">Ajouter les lignes du rectangle à la sélection<span class="acc-note">Dans une zone vide de la bande</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Déplacer la ou les lignes vers la piste précédente ou suivante<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + ← / Maj + →</th><td class="acc-a">Parcourir toutes les lignes&nbsp;: personnage, dialogue et piste sont annoncés<span class="acc-note">Avec des lignes sur la bande&nbsp;; sans sélection, commence par la plus proche de la tête de lecture</span><span class="acc-since">Absent de la 3.5.1</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + ← / Ctrl + Maj + →</th><td class="acc-a">Décaler la ou les lignes sélectionnées d’une frame<span class="acc-note">Avec une ligne sélectionnée</span><span class="acc-since">Absent de la 3.5.1</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Annuler la sélection de lignes<span class="acc-note">Avec une sélection</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>I / O</th><td class="acc-a">Fixer le début ou la fin de la ligne sélectionnée<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Q / D</th><td class="acc-a">Faire défiler la bande à gauche ou à droite, en maintenant la touche<span class="acc-note">Avec un média chargé&nbsp;; le timecode est annoncé au relâchement</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>T</th><td class="acc-a">Modifier le texte de la ligne sélectionnée<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>P</th><td class="acc-a">Modifier le personnage de la ligne sélectionnée<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Suppr</th><td class="acc-a">Supprimer la ou les lignes sélectionnées<span class="acc-note">Avec une sélection</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + C</th><td class="acc-a">Copier la ou les lignes sélectionnées<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + X</th><td class="acc-a">Couper la ou les lignes sélectionnées<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + V</th><td class="acc-a">Coller au curseur de lecture, sur la piste sous la souris<span class="acc-note">Avec une ligne copiée&nbsp;; souris hors de la bande&nbsp;: piste clavier active</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + V</th><td class="acc-a">Coller en reprenant le dernier personnage de la piste<span class="acc-since">Depuis la 5.0.3</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + ← / Maj + →</th><td class="acc-a">Déplacer l’ancre de synchronisation d’un graphème<span class="acc-note">Avec une détection sélectionnée</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj</th><td class="acc-a">Basculer l’affinité de l’ancre, Maj seul<span class="acc-note">Avec une détection sélectionnée</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="export">
-                  <h4 class="acc-group__title" id="acc-g-export">Export et proxy</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-export">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Tab / Maj + Tab</th><td class="acc-a">Parcourir tous les réglages, formats, langues et boutons</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Passer entre Vidéo, Sous-titres, Audio et Références<span class="acc-note">Sur le menu des pages</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>← / →</th><td class="acc-a">Passer entre les pages d’export<span class="acc-note">Sur le menu des pages</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Modifier la valeur du réglage<span class="acc-note">Sur un réglage</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée / Espace</th><td class="acc-a">Activer un format, une langue ou un bouton</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer l’export ou annuler l’opération en cours<span class="acc-note">L’annulation est annoncée en priorité</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Terminer l’édition de la largeur ou de la hauteur<span class="acc-note">Ces champs acceptent les chiffres et Retour arrière</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Tab / Maj + Tab</th><td class="acc-a">Parcourir la résolution, la qualité et le bouton de création<span class="acc-note">Dans la création de proxy</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓ / ← / →</th><td class="acc-a">Régler la valeur focalisée<span class="acc-note">Dans la création de proxy</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée / Espace</th><td class="acc-a">Activer la valeur ou le bouton focalisé<span class="acc-note">Dans la création de proxy</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer la modale<span class="acc-note">Dans la création de proxy</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="texte">
-                  <h4 class="acc-group__title" id="acc-g-texte">Champs texte, panneaux et modales</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-texte">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + A</th><td class="acc-a">Tout sélectionner</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + C / Ctrl + X / Ctrl + V</th><td class="acc-a">Copier, couper, coller le texte</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Z</th><td class="acc-a">Annuler</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + Z</th><td class="acc-a">Rétablir</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>← / →</th><td class="acc-a">Déplacer le caret</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + ← / Maj + →</th><td class="acc-a">Étendre la sélection</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Parcourir les suggestions ou les éléments de liste</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Retour arrière / Suppr</th><td class="acc-a">Supprimer le caractère précédent ou suivant</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Tab / Maj + Tab</th><td class="acc-a">Parcourir les éléments, flèches comprises<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Ouvrir une vidéo ou activer une bande<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>F2</th><td class="acc-a">Renommer l’élément sélectionné<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj + F10</th><td class="acc-a">Ouvrir le menu contextuel<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer le panneau<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="secondaire">
-                  <h4 class="acc-group__title" id="acc-g-secondaire">Fenêtre secondaire</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-secondaire">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Espace</th><td class="acc-a">Lecture ou pause</td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer la fenêtre secondaire</td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-group" data-group="vocale">
-                  <h4 class="acc-group__title" id="acc-g-vocale">Lecture vocale interne</h4>
-                  <table class="acc-table" aria-labelledby="acc-g-vocale">
-                    <tbody>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + N</th><td class="acc-a">Activer ou désactiver la lecture vocale interne<span class="acc-note">Sur Linux, un message indique qu’elle n’est pas disponible</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Ctrl</th><td class="acc-a">Interrompre la lecture vocale en cours<span class="acc-note">Partout, même dans une modale ou un champ texte</span><span class="acc-since">Depuis la 3.5.4</span></td></tr>
-                      <tr><th scope="row" class="acc-k" data-keys>Maj</th><td class="acc-a">Reprendre la lecture vocale interrompue<span class="acc-since">Depuis la 3.5.4</span></td></tr>
-                    </tbody>
-                  </table>
-                </div>
-
-                <div class="acc-keys__empty" data-keys-empty hidden>
-                  <p class="acc-keys__empty-title" data-keys-empty-title>Aucun raccourci ne correspond.</p>
-                  <p>Cherchez une action, comme «&nbsp;karaoké&nbsp;» ou «&nbsp;boucle&nbsp;», ou une touche, comme «&nbsp;Échap&nbsp;» ou «&nbsp;Ctrl + S&nbsp;».</p>
-                  <div class="acc-keys__empty-actions">
-                    <button class="ui-btn" type="button" data-search-reset>Effacer la recherche</button>
-                    <button class="ui-btn" type="button" data-search-all hidden>Chercher dans toutes les catégories</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <p class="acc-keys__foot">
-              <span class="acc-keys__count tnum" data-count>91 raccourcis</span>
-              <span>Un raccourci annonce le nom de son action s’il en a un, jamais ses touches.</span>
-            </p>
-          </div>
-        </section>
-
-        <!-- ═══════════ Plateformes ═══════════ -->
-        <div class="acc-os">
-          <div class="acc-os__head">
-            <h3 class="h3" id="acc-os-title">Selon votre système</h3>
-            <p class="prose">
-              Windows reçoit toutes les nouveautés d’accessibilité. Les dernières versions pour macOS et Linux sont des 3.5.1&nbsp;: on
-              y navigue au clavier (Tab, flèches, Entrée, Échap, modales), mais les raccourcis et les annonces ajoutés depuis n’y
-              sont pas.
-            </p>
-          </div>
-
-          <div class="acc-matrix">
-            <p class="acc-matrix__title">
-              <span id="acc-matrix-title">Accessibilité par plateforme</span>
-              <span class="acc-matrix__you" data-matrix-you hidden></span>
-            </p>
-            <table class="acc-matrix__table" role="table" aria-labelledby="acc-matrix-title" data-matrix>
-              <thead role="rowgroup">
-                <tr role="row">
-                  <th role="columnheader" scope="col">Fonction</th>
-                  <th role="columnheader" scope="col" data-os="windows">Windows <span class="acc-matrix__ver tnum" data-win-version>5.1.0</span></th>
-                  <th role="columnheader" scope="col" data-os="macos">macOS <span class="acc-matrix__ver tnum">3.5.1</span></th>
-                  <th role="columnheader" scope="col" data-os="linux">Linux <span class="acc-matrix__ver tnum">3.5.1</span></th>
-                </tr>
-              </thead>
-              <tbody role="rowgroup">
-                <tr role="row">
-                  <th role="rowheader" scope="row">La bande rythmo au clavier<span class="acc-matrix__detail">Tab, flèches, Entrée, Échap&nbsp;; le focus reste enfermé dans les modales.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">avec les raccourcis de la 3.5.1</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">avec les raccourcis de la 3.5.1</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Lecteur d’écran du système<span class="acc-matrix__detail">NVDA et les lecteurs d’écran de Windows, via AccessKit et UI&nbsp;Automation.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Lecture vocale<span class="acc-matrix__detail">Désactivée par défaut&nbsp;; Ctrl + Maj + N l’active ou la coupe.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">par votre lecteur d’écran</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">avec la voix du système</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">«&nbsp;La lecture vocale n’est pas disponible sur cette plateforme.&nbsp;»</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Raccourcis annoncés par leur action<span class="acc-matrix__detail">Listes&nbsp;: premier élément à l’ouverture, «&nbsp;réduite&nbsp;» à la fermeture.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté en 3.5.4</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Ctrl coupe la voix, Maj la reprend</th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté en 3.5.4</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Toasts et progression annoncés<span class="acc-matrix__detail">Canal prioritaire&nbsp;; exports et proxys annoncés chaque minute.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">et barre de progression pour le lecteur d’écran</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté en 3.5.4</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Timecode en toutes lettres<span class="acc-matrix__detail">Heures, minutes, secondes et centièmes, au relâchement de Q ou D.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Explorateur Windows natif<span class="acc-matrix__detail">Pour choisir vos fichiers quand la lecture vocale est active.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Panneau des raccourcis contextuel<span class="acc-matrix__detail">En bas à gauche de la fenêtre. En bêta, il n’est pas encore accessible au lecteur d’écran.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="beta"><span class="acc-v">En bêta</span><span class="acc-v__note">affiché, pas encore accessible</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté après la 3.5.1</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté après la 3.5.1</span></td>
-                </tr>
-                <tr role="row">
-                  <th role="rowheader" scope="row">Signaux sonores<span class="acc-matrix__detail">Sans lecture vocale, un bip par pour cent d’export ou de proxy, plus grave vers la fin. Décompte d’enregistrement en trois bips.</span></th>
-                  <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
-                  <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span></td>
-                  <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p class="acc-os__help">
-            Un blocage avec votre lecteur d’écran, un raccourci qui manque&nbsp;?
-            <a class="ui-btn ui-btn--lg" href="https://discord.gg/fpdsUyWuwN" target="_blank" rel="noopener">Dites-le sur le Discord</a>
+    <div class="chapter__more" id="accessibilite-suite">
+      <!-- ═══════════ Raccourcis : le panneau de l'app, en entier ═══════════ -->
+      <section class="acc-keys" id="raccourcis" aria-labelledby="raccourcis-title">
+        <div class="acc-keys__head">
+          <h3 class="h3" id="raccourcis-title">Tous les raccourcis, contexte par contexte</h3>
+          <p class="prose">
+            Dans l’app, un panneau en bas à gauche ne montre que les raccourcis utilisables à l’instant&nbsp;: ligne sélectionnée,
+            média chargé, modale ouverte… Ici, la liste est complète, et la condition est notée sous chaque action.
+          </p>
+          <p class="prose acc-keys__scope">
+            Ce sont les raccourcis de la version Windows 5.1. Sur macOS et Linux (3.5.1), certains manquent ou diffèrent&nbsp;:
+            <kbd class="kbd">Ctrl</kbd>&nbsp;+&nbsp;<kbd class="kbd">Maj</kbd>&nbsp;+&nbsp;<kbd class="kbd">P</kbd> y renomme un
+            personnage, et <kbd class="kbd">Insert</kbd> crée une ligne. Ces écarts sont notés sous l’action. Ces deux versions
+            pourront être mises à jour s’il y a suffisamment de demande et de personnes prêtes à tester.
           </p>
         </div>
+
+        <div class="acc-keys__panel">
+          <div class="acc-keys__top">
+            <p class="acc-keys__title">Raccourcis clavier</p>
+            <div class="acc-search">
+              <label class="sr-only" for="acc-search">Rechercher un raccourci par action ou par touche</label>
+              <input
+                class="acc-search__input"
+                id="acc-search"
+                type="search"
+                placeholder="Action ou touche : karaoké, Échap, Ctrl + S…"
+                autocomplete="off"
+                spellcheck="false"
+                aria-controls="acc-keys-list"
+                data-search
+              />
+              <button class="icon-btn acc-search__clear" type="button" aria-label="Effacer la recherche" data-search-clear hidden>
+                <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.6" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="acc-keys__body">
+            <div class="acc-cats" role="tablist" aria-label="Catégories de raccourcis" aria-orientation="vertical" data-cats>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-all" aria-selected="true" aria-controls="acc-keys-list" data-cat="all">
+                <span>Tous</span> <span class="acc-cat__n tnum"><span data-n>91</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-nav" aria-selected="false" aria-controls="acc-keys-list" data-cat="nav">
+                <span>Navigation commune</span> <span class="acc-cat__n tnum"><span data-n>9</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-projet" aria-selected="false" aria-controls="acc-keys-list" data-cat="projet">
+                <span>Barre supérieure et projet</span> <span class="acc-cat__n tnum"><span data-n>18</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-outils" aria-selected="false" aria-controls="acc-keys-list" data-cat="outils">
+                <span>Outils et lecture</span> <span class="acc-cat__n tnum"><span data-n>18</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-bande" aria-selected="false" aria-controls="acc-keys-list" data-cat="bande">
+                <span>Bande rythmo</span> <span class="acc-cat__n tnum"><span data-n>17</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-export" aria-selected="false" aria-controls="acc-keys-list" data-cat="export">
+                <span>Export et proxy</span> <span class="acc-cat__n tnum"><span data-n>11</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-texte" aria-selected="false" aria-controls="acc-keys-list" data-cat="texte">
+                <span>Champs texte, panneaux et modales</span> <span class="acc-cat__n tnum"><span data-n>13</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-secondaire" aria-selected="false" aria-controls="acc-keys-list" data-cat="secondaire">
+                <span>Fenêtre secondaire</span> <span class="acc-cat__n tnum"><span data-n>2</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+              <button class="acc-cat" role="tab" type="button" id="acc-cat-vocale" aria-selected="false" aria-controls="acc-keys-list" data-cat="vocale">
+                <span>Lecture vocale interne</span> <span class="acc-cat__n tnum"><span data-n>3</span><span class="sr-only" data-n-unit> raccourcis</span></span>
+              </button>
+            </div>
+
+            <div class="acc-keys__list" id="acc-keys-list" role="tabpanel" aria-labelledby="acc-cat-all" tabindex="0" data-list>
+              <div class="acc-group" data-group="nav">
+                <h4 class="acc-group__title" id="acc-g-nav">Navigation commune</h4>
+                <table class="acc-table" aria-labelledby="acc-g-nav">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Tab</th><td class="acc-a">Focus suivant<span class="acc-note">Contrôles, listes, menus et modales</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + Tab</th><td class="acc-a">Focus précédent<span class="acc-note">Contrôles, listes, menus et modales</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée / Espace</th><td class="acc-a">Activer le contrôle focalisé<span class="acc-note">Contrôles, listes, menus et modales</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer le niveau courant ou annuler<span class="acc-note">Modales, menus et éditeurs</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Parcourir une liste ou modifier une valeur<span class="acc-note">Contrôles focalisés</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>← / →</th><td class="acc-a">Parcourir ou régler le contrôle<span class="acc-note">Contrôles focalisés</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Début / Fin</th><td class="acc-a">Aller au premier ou au dernier élément<span class="acc-note">Listes et contrôles</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Page haut / Page bas</th><td class="acc-a">Parcourir par page<span class="acc-note">Listes</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + F10</th><td class="acc-a">Ouvrir le menu contextuel de l’élément focalisé<span class="acc-note">Contrôles et lignes</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="projet">
+                <h4 class="acc-group__title" id="acc-g-projet">Barre supérieure et projet</h4>
+                <table class="acc-table" aria-labelledby="acc-g-projet">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + S</th><td class="acc-a">Sauvegarde rapide</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + I</th><td class="acc-a">Importer un sous-titrage<span class="acc-note">.coquerythmo, .json, .srt, .ass, .detx</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + R</th><td class="acc-a">Restaurer la dernière sauvegarde disponible</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + R</th><td class="acc-a">Ouvrir les projets récents</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Suppr</th><td class="acc-a">Fermer le projet</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + M</th><td class="acc-a">Ouvrir l’export du projet</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + P</th><td class="acc-a">Ouvrir la création d’un proxy<span class="acc-since">En 3.5.1 (macOS, Linux)&nbsp;: renomme un personnage</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + O</th><td class="acc-a">Ouvrir les paramètres du projet</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + N</th><td class="acc-a">Créer un nouveau projet</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + I</th><td class="acc-a">Ouvrir le panneau des lignes</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + P</th><td class="acc-a">Ouvrir le panneau des rôles</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + L</th><td class="acc-a">Ouvrir ou fermer les fichiers du projet<span class="acc-note">Espace Rythmo, hors modale</span><span class="acc-since">Absent de la 3.5.1</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Alt + E</th><td class="acc-a">Ouvrir le menu des émotions du texte<span class="acc-note">Pendant l’édition, ou avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + K</th><td class="acc-a">Scinder le dialogue à la position du caret<span class="acc-note">Pendant l’édition d’une ligne, ou avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Parcourir les projets<span class="acc-note">Dans la liste des projets récents</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Ouvrir le projet<span class="acc-note">Dans la liste des projets récents</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Suppr</th><td class="acc-a">Retirer le projet de la liste<span class="acc-note">Dans la liste des projets récents</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer la liste<span class="acc-note">Dans la liste des projets récents</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="outils">
+                <h4 class="acc-group__title" id="acc-g-outils">Outils et lecture</h4>
+                <table class="acc-table" aria-labelledby="acc-g-outils">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + ← / Ctrl + →</th><td class="acc-a">Image précédente ou suivante<span class="acc-note">Avec un média chargé</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 1</th><td class="acc-a">Ajouter une boucle</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 2</th><td class="acc-a">Ajouter un point Out</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 3</th><td class="acc-a">Ajouter un changement de scène</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 4</th><td class="acc-a">Ouvrir les respirations</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 5</th><td class="acc-a">Ouvrir les réactions</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 6</th><td class="acc-a">Ajouter une note</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 7 / Numpad 8</th><td class="acc-a">Ajouter une liaison à gauche ou à droite<span class="acc-note">Fin d’ambiance, début d’ambiance</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Numpad 9</th><td class="acc-a">Activer ou désactiver le karaoké<span class="acc-note">Avec une ligne sélectionnée ou survolée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Numpad 1 à Ctrl + Numpad 4</th><td class="acc-a">Créer une ligne sur la piste 1 à 4<span class="acc-since">Depuis la 3.5.4&nbsp;; en 3.5.1, c’est Insert</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>C</th><td class="acc-a">Outil Sélection</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + D</th><td class="acc-a">Outil Dessin</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + ↑ / Maj + ↓</th><td class="acc-a">Augmenter ou diminuer le volume par pas de 5&nbsp;%<span class="acc-note">Avec un média chargé</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + Numpad -</th><td class="acc-a">Activer ou désactiver le muet<span class="acc-note">Avec un média chargé</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Espace</th><td class="acc-a">Lecture ou pause<span class="acc-note">Avec un média chargé</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Tab</th><td class="acc-a">Basculer entre l’audio original et l’audio instrumental<span class="acc-note">Avec un audio instrumental</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Espace</th><td class="acc-a">Auditionner le signe, avec une courte plage audio autour<span class="acc-note">Avec une détection sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + Espace</th><td class="acc-a">Ajouter un point de sync au curseur de lecture<span class="acc-note">Avec une ligne ou une détection sélectionnée</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="bande">
+                <h4 class="acc-group__title" id="acc-g-bande">Bande rythmo</h4>
+                <table class="acc-table" aria-labelledby="acc-g-bande">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Sélectionner tour à tour les lignes présentes à l’image courante<span class="acc-note">Avec une ligne sous la tête de lecture</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + clic-glissé</th><td class="acc-a">Ajouter les lignes du rectangle à la sélection<span class="acc-note">Dans une zone vide de la bande</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Déplacer la ou les lignes vers la piste précédente ou suivante<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + ← / Maj + →</th><td class="acc-a">Parcourir toutes les lignes&nbsp;: personnage, dialogue et piste sont annoncés<span class="acc-note">Avec des lignes sur la bande&nbsp;; sans sélection, commence par la plus proche de la tête de lecture</span><span class="acc-since">Absent de la 3.5.1</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + ← / Ctrl + Maj + →</th><td class="acc-a">Décaler la ou les lignes sélectionnées d’une frame<span class="acc-note">Avec une ligne sélectionnée</span><span class="acc-since">Absent de la 3.5.1</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Annuler la sélection de lignes<span class="acc-note">Avec une sélection</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>I / O</th><td class="acc-a">Fixer le début ou la fin de la ligne sélectionnée<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Q / D</th><td class="acc-a">Faire défiler la bande à gauche ou à droite, en maintenant la touche<span class="acc-note">Avec un média chargé&nbsp;; le timecode est annoncé au relâchement</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>T</th><td class="acc-a">Modifier le texte de la ligne sélectionnée<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>P</th><td class="acc-a">Modifier le personnage de la ligne sélectionnée<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Suppr</th><td class="acc-a">Supprimer la ou les lignes sélectionnées<span class="acc-note">Avec une sélection</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + C</th><td class="acc-a">Copier la ou les lignes sélectionnées<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + X</th><td class="acc-a">Couper la ou les lignes sélectionnées<span class="acc-note">Avec une ligne sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + V</th><td class="acc-a">Coller au curseur de lecture, sur la piste sous la souris<span class="acc-note">Avec une ligne copiée&nbsp;; souris hors de la bande&nbsp;: piste clavier active</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + V</th><td class="acc-a">Coller en reprenant le dernier personnage de la piste<span class="acc-since">Depuis la 5.0.3</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + ← / Maj + →</th><td class="acc-a">Déplacer l’ancre de synchronisation d’un graphème<span class="acc-note">Avec une détection sélectionnée</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj</th><td class="acc-a">Basculer l’affinité de l’ancre, Maj seul<span class="acc-note">Avec une détection sélectionnée</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="export">
+                <h4 class="acc-group__title" id="acc-g-export">Export et proxy</h4>
+                <table class="acc-table" aria-labelledby="acc-g-export">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Tab / Maj + Tab</th><td class="acc-a">Parcourir tous les réglages, formats, langues et boutons</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Passer entre Vidéo, Sous-titres, Audio et Références<span class="acc-note">Sur le menu des pages</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>← / →</th><td class="acc-a">Passer entre les pages d’export<span class="acc-note">Sur le menu des pages</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Modifier la valeur du réglage<span class="acc-note">Sur un réglage</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée / Espace</th><td class="acc-a">Activer un format, une langue ou un bouton</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer l’export ou annuler l’opération en cours<span class="acc-note">L’annulation est annoncée en priorité</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Terminer l’édition de la largeur ou de la hauteur<span class="acc-note">Ces champs acceptent les chiffres et Retour arrière</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Tab / Maj + Tab</th><td class="acc-a">Parcourir la résolution, la qualité et le bouton de création<span class="acc-note">Dans la création de proxy</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓ / ← / →</th><td class="acc-a">Régler la valeur focalisée<span class="acc-note">Dans la création de proxy</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée / Espace</th><td class="acc-a">Activer la valeur ou le bouton focalisé<span class="acc-note">Dans la création de proxy</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer la modale<span class="acc-note">Dans la création de proxy</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="texte">
+                <h4 class="acc-group__title" id="acc-g-texte">Champs texte, panneaux et modales</h4>
+                <table class="acc-table" aria-labelledby="acc-g-texte">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + A</th><td class="acc-a">Tout sélectionner</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + C / Ctrl + X / Ctrl + V</th><td class="acc-a">Copier, couper, coller le texte</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Z</th><td class="acc-a">Annuler</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + Z</th><td class="acc-a">Rétablir</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>← / →</th><td class="acc-a">Déplacer le caret</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + ← / Maj + →</th><td class="acc-a">Étendre la sélection</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>↑ / ↓</th><td class="acc-a">Parcourir les suggestions ou les éléments de liste</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Retour arrière / Suppr</th><td class="acc-a">Supprimer le caractère précédent ou suivant</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Tab / Maj + Tab</th><td class="acc-a">Parcourir les éléments, flèches comprises<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Entrée</th><td class="acc-a">Ouvrir une vidéo ou activer une bande<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>F2</th><td class="acc-a">Renommer l’élément sélectionné<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj + F10</th><td class="acc-a">Ouvrir le menu contextuel<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer le panneau<span class="acc-note">Dans les fichiers du projet</span><span class="acc-since">Depuis la 5.0.3</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="secondaire">
+                <h4 class="acc-group__title" id="acc-g-secondaire">Fenêtre secondaire</h4>
+                <table class="acc-table" aria-labelledby="acc-g-secondaire">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Espace</th><td class="acc-a">Lecture ou pause</td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Échap</th><td class="acc-a">Fermer la fenêtre secondaire</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-group" data-group="vocale">
+                <h4 class="acc-group__title" id="acc-g-vocale">Lecture vocale interne</h4>
+                <table class="acc-table" aria-labelledby="acc-g-vocale">
+                  <tbody>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl + Maj + N</th><td class="acc-a">Activer ou désactiver la lecture vocale interne<span class="acc-note">Sur Linux, un message indique qu’elle n’est pas disponible</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Ctrl</th><td class="acc-a">Interrompre la lecture vocale en cours<span class="acc-note">Partout, même dans une modale ou un champ texte</span><span class="acc-since">Depuis la 3.5.4</span></td></tr>
+                    <tr><th scope="row" class="acc-k" data-keys>Maj</th><td class="acc-a">Reprendre la lecture vocale interrompue<span class="acc-since">Depuis la 3.5.4</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="acc-keys__empty" data-keys-empty hidden>
+                <p class="acc-keys__empty-title" data-keys-empty-title>Aucun raccourci ne correspond.</p>
+                <p>Cherchez une action, comme «&nbsp;karaoké&nbsp;» ou «&nbsp;boucle&nbsp;», ou une touche, comme «&nbsp;Échap&nbsp;» ou «&nbsp;Ctrl + S&nbsp;».</p>
+                <div class="acc-keys__empty-actions">
+                  <button class="ui-btn" type="button" data-search-reset>Effacer la recherche</button>
+                  <button class="ui-btn" type="button" data-search-all hidden>Chercher dans toutes les catégories</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <p class="acc-keys__foot">
+            <span class="acc-keys__count tnum" data-count>91 raccourcis</span>
+            <span>Un raccourci annonce le nom de son action s’il en a un, jamais ses touches.</span>
+          </p>
+        </div>
+      </section>
+
+      <!-- ═══════════ Plateformes ═══════════ -->
+      <div class="acc-os">
+        <div class="acc-os__head">
+          <h3 class="h3" id="acc-os-title">Selon votre système</h3>
+          <p class="prose">
+            Windows reçoit toutes les nouveautés d’accessibilité. Les dernières versions pour macOS et Linux sont des 3.5.1&nbsp;: on
+            y navigue au clavier (Tab, flèches, Entrée, Échap, modales), mais les raccourcis et les annonces ajoutés depuis n’y
+            sont pas. S’il y a suffisamment de demande et de personnes prêtes à tester, ces versions pourront être mises à
+            jour.
+          </p>
+        </div>
+
+        <div class="acc-matrix">
+          <p class="acc-matrix__title">
+            <span id="acc-matrix-title">Accessibilité par plateforme</span>
+            <span class="acc-matrix__you" data-matrix-you hidden></span>
+          </p>
+          <table class="acc-matrix__table" role="table" aria-labelledby="acc-matrix-title" data-matrix>
+            <thead role="rowgroup">
+              <tr role="row">
+                <th role="columnheader" scope="col">Fonction</th>
+                <th role="columnheader" scope="col" data-os="windows">Windows <span class="acc-matrix__ver tnum" data-win-version>5.1.0</span></th>
+                <th role="columnheader" scope="col" data-os="macos">macOS <span class="acc-matrix__ver tnum">3.5.1</span></th>
+                <th role="columnheader" scope="col" data-os="linux">Linux <span class="acc-matrix__ver tnum">3.5.1</span></th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              <tr role="row">
+                <th role="rowheader" scope="row">La bande rythmo au clavier<span class="acc-matrix__detail">Tab, flèches, Entrée, Échap&nbsp;; le focus reste enfermé dans les modales.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">avec les raccourcis de la 3.5.1</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">avec les raccourcis de la 3.5.1</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Lecteur d’écran du système<span class="acc-matrix__detail">NVDA et les lecteurs d’écran de Windows, via AccessKit et UI&nbsp;Automation.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Lecture vocale<span class="acc-matrix__detail">Désactivée par défaut&nbsp;; Ctrl + Maj + N l’active ou la coupe.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">par votre lecteur d’écran</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">avec la voix du système</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">«&nbsp;La lecture vocale n’est pas disponible sur cette plateforme.&nbsp;»</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Raccourcis annoncés par leur action<span class="acc-matrix__detail">Listes&nbsp;: premier élément à l’ouverture, «&nbsp;réduite&nbsp;» à la fermeture.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté en 3.5.4</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Ctrl coupe la voix, Maj la reprend</th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté en 3.5.4</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Toasts et progression annoncés<span class="acc-matrix__detail">Canal prioritaire&nbsp;; exports et proxys annoncés chaque minute.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span><span class="acc-v__note">et barre de progression pour le lecteur d’écran</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté en 3.5.4</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Timecode en toutes lettres<span class="acc-matrix__detail">Heures, minutes, secondes et centièmes, au relâchement de Q ou D.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Explorateur Windows natif<span class="acc-matrix__detail">Pour choisir vos fichiers quand la lecture vocale est active.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="na"><span class="acc-v" aria-hidden="true">—</span><span class="sr-only">Sans objet</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Panneau des raccourcis contextuel<span class="acc-matrix__detail">En bas à gauche de la fenêtre. En bêta, il n’est pas encore accessible au lecteur d’écran.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="beta"><span class="acc-v">En bêta</span><span class="acc-v__note">affiché, pas encore accessible</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté après la 3.5.1</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span><span class="acc-v__note">ajouté après la 3.5.1</span></td>
+              </tr>
+              <tr role="row">
+                <th role="rowheader" scope="row">Signaux sonores<span class="acc-matrix__detail">Sans lecture vocale, un bip par pour cent d’export ou de proxy, plus grave vers la fin. Décompte d’enregistrement en trois bips.</span></th>
+                <td role="cell" data-os="windows" data-label="Windows" data-v="oui"><span class="acc-v">Oui</span></td>
+                <td role="cell" data-os="macos" data-label="macOS" data-v="non"><span class="acc-v">Non</span></td>
+                <td role="cell" data-os="linux" data-label="Linux" data-v="non"><span class="acc-v">Non</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="acc-os__help">
+          Un blocage avec votre lecteur d’écran, un raccourci qui manque&nbsp;?
+          <a class="ui-btn ui-btn--lg" href="https://discord.gg/fpdsUyWuwN" target="_blank" rel="noopener">Dites-le sur le Discord</a>
+        </p>
       </div>
-    </details>
+    </div>
   </div>
 </section>

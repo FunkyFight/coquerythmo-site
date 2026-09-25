@@ -368,48 +368,23 @@ export function initWelcome(tabs) {
   toast.querySelector('button').addEventListener('click', hide);
 }
 
-/* ───────────── Boucles: the rolled-up rest of each chapter ─────────────
-   Native <details>; this adds what HTML can't: open the boucle that holds a
-   link target, a second « Enrouler » at the bottom, and a relayout nudge for
-   the demos that measured themselves while hidden. */
-export function openBoucleFor(target) {
-  for (let d = target?.closest('details.boucle'); d; d = d.parentElement?.closest('details.boucle')) d.open = true;
-}
-
-export function initBoucles() {
-  const boucles = [...document.querySelectorAll('details.boucle')];
-  for (const d of boucles) {
-    const head = d.querySelector('.boucle__head');
-    const body = d.querySelector('.boucle__body');
-    const close = document.createElement('button');
-    close.type = 'button';
-    close.className = 'ui-btn ui-btn--lg boucle__close';
-    close.textContent = d.dataset.closeLabel || 'Enrouler la boucle';
-    close.addEventListener('click', () => {
-      d.open = false;
-      head.focus({ preventScroll: true });
-      head.scrollIntoView({ block: 'center', behavior: settings.get().reduceMotion ? 'auto' : 'smooth' });
-    });
-    body.append(close);
-    d.addEventListener('toggle', () => {
-      if (d.open) requestAnimationFrame(() => window.dispatchEvent(new Event('resize')));
-    });
-  }
-  const fromHash = (hash) => {
-    if (hash.length < 2) return;
-    openBoucleFor(document.getElementById(decodeURIComponent(hash.slice(1))));
+/* ───────────── « Lire la suite »: fades once the page has scrolled ───────────── */
+export function initMore() {
+  const more = document.querySelector('[data-more]');
+  if (!more) return;
+  let raf = 0;
+  const update = () => {
+    raf = 0;
+    more.toggleAttribute('data-away', window.scrollY > 48);
   };
-  // before the browser scrolls: the target has to be rendered to be reached
-  document.addEventListener(
-    'click',
-    (e) => {
-      const a = e.target.closest?.('a[href^="#"]');
-      if (a) fromHash(a.getAttribute('href'));
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!raf) raf = requestAnimationFrame(update);
     },
-    true,
+    { passive: true },
   );
-  window.addEventListener('hashchange', () => fromHash(location.hash));
-  fromHash(location.hash);
+  update();
 }
 
 /* ───────────── Chapter strips: ruler ticks drift left as you scroll ───────────── */

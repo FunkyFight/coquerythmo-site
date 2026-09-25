@@ -793,7 +793,7 @@ export function init(ctx) {
         pick.setAttribute('aria-current', String(on));
         pick.setAttribute('aria-label', `${a.name}, ${fmt(durationOf(a))}${on ? ', audio actif' : ''}`);
         pick.querySelector('.vl-audio__name').textContent = a.name;
-        pick.querySelector('.vl-audio__meta').textContent = `${fmt(durationOf(a))} · ${a.origin}`;
+        pick.querySelector('.vl-audio__meta').textContent = `${fmt(durationOf(a))}, ${a.origin}`;
         li.lastChild.setAttribute('aria-label', `Retirer ${a.name}`);
         li.lastChild.dataset.tip = `Retirer ${a.name}`;
       },

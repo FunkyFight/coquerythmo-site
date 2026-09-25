@@ -559,10 +559,9 @@
   color: var(--vl-muted);
   font-size: 0.75rem;
 }
-.vl-regions__hint span + span::before {
-  content: '•';
-  margin: 0 8px 0 4px;
-  color: rgb(92 94 112);
+.vl-regions__hint span:not(:last-child)::after {
+  content: ',';
+  margin-right: 2px;
 }
 .vl-regions__keys .kbd {
   font-size: 0.6875rem;

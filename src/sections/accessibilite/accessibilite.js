@@ -1,4 +1,4 @@
-// Accessibilité (boucle 6): the page's own "lecture vocale" journal, a
+// Accessibilité (boucle 7): the page's own "lecture vocale" journal, a
 // replayed Coquerythmo session, the full shortcut list (#raccourcis) and the
 // platform matrix. Quoted app strings come from i18n/fr.toml and
 // RACCOURCIS_CLAVIER.md of the desktop app.

@@ -19,81 +19,11 @@
   margin: var(--s6) calc(var(--gutter) * -1) 0;
   border-block: 1px solid #16161c;
 }
-.dl__list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: var(--s7) 0 0;
-  border-top: 1px solid var(--panel-border);
-}
-.dl__item {
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  gap: var(--s3);
-  padding: var(--s5) var(--s5) var(--s6) 0;
-}
-.dl__item + .dl__item {
-  padding-left: var(--s5);
-  border-left: 1px solid var(--panel-border);
-}
-.dl__item[data-mine] .dl__os::after {
-  content: 'votre système';
-  margin-left: var(--s3);
-  color: var(--text-faint);
-  font-size: 0.8125rem;
-  font-weight: 400;
-  font-style: normal;
-  vertical-align: middle;
-}
-.dl__os {
-  font-size: 1.75rem;
-}
-.dl__meta {
-  color: var(--text);
-  font-size: var(--fs-small);
-}
-.dl__desc {
-  color: var(--text-dim);
-  font-size: var(--fs-small);
-  max-width: 42ch;
-}
-.dl__first {
-  margin-top: var(--s2);
-  color: var(--text);
-  font-size: var(--fs-small);
-  max-width: 42ch;
-}
-.dl__desc code {
-  font-family: inherit;
-  font-weight: 600;
-  color: var(--text);
-}
-.dl__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s2);
-  padding-top: var(--s2);
-}
-.dl__size {
-  color: inherit;
-  opacity: 0.72;
-  font-weight: 400;
-}
-.dl__warning {
+.dl__later {
   max-width: 72ch;
   margin: var(--s5) 0 0;
-  padding: var(--s4) var(--s5);
-  background: var(--panel);
-  border: 1px solid var(--panel-border);
-  border-radius: var(--r);
-  color: var(--text);
+  color: var(--text-dim);
   font-size: var(--fs-small);
-  font-style: italic;
-}
-.dl__warning footer {
-  margin-top: var(--s2);
-  color: var(--text-faint);
-  font-style: normal;
-  font-size: 0.8125rem;
 }
 .dl__after {
   display: grid;
@@ -152,15 +82,6 @@
 }
 
 @media (max-width: 900px) {
-  .dl__list {
-    grid-template-columns: 1fr;
-  }
-  .dl__item,
-  .dl__item + .dl__item {
-    padding: var(--s5) 0;
-    border-left: 0;
-    border-bottom: 1px solid var(--panel-border);
-  }
   .dl__after {
     grid-template-columns: 1fr;
   }

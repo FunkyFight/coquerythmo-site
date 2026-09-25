@@ -675,10 +675,10 @@ export function init(ctx) {
     $('[data-cd-page="1"]').disabled = i < 0 || i >= n - 1;
     playHint.textContent = coarse.matches
       ? pb
-        ? 'Lecture en cours • touchez Pause pour arrêter'
+        ? 'Lecture en cours. Touchez Pause pour arrêter.'
         : 'Touchez Lecture pour lire le Comic Dub'
       : pb
-        ? 'Lecture en cours • Espace pour arrêter'
+        ? 'Lecture en cours. Espace pour arrêter.'
         : 'Espace pour lire le Comic Dub';
     playHint.classList.toggle('is-playing', !!pb);
     const icon = $('[data-cd-play-icon]');
@@ -695,15 +695,15 @@ export function init(ctx) {
     else if (pb) hint = 'Lecture : les bulles apparaissent dans l’ordre de lecture, au rythme de leurs audios.';
     else if (ui.draft.length) {
       hint = ui.kb
-        ? 'Flèches : viseur • Espace : sommet • Entrée : fermer la bulle • Échap pour annuler'
-        : 'Cliquez pour ajouter un sommet • cliquez le premier point pour fermer • Échap pour annuler';
+        ? 'Flèches : viseur, Espace : sommet, Entrée : fermer la bulle, Échap pour annuler'
+        : 'Cliquez pour ajouter un sommet, cliquez le premier point pour fermer, Échap pour annuler';
       draft = true;
     } else if (ui.tool === 'bubble') {
-      hint = ui.kb ? 'Flèches : viseur • Espace : premier sommet • Échap : retour à la sélection' : 'Cliquez sur la page pour poser le premier sommet.';
+      hint = ui.kb ? 'Flèches : viseur, Espace : premier sommet, Échap : retour à la sélection' : 'Cliquez sur la page pour poser le premier sommet.';
       draft = true;
-    } else if (selected()) hint = 'Glissez la bulle ou ses sommets • double-clic : texte • clic droit : écouter son audio';
-    else if (mqMobile.matches) hint = 'Faites glisser la planche pour la parcourir • touchez une bulle pour la modifier';
-    else hint = 'Cliquez une bulle pour la modifier • Ctrl + clic sur la page pour commencer une bulle';
+    } else if (selected()) hint = 'Glissez la bulle ou ses sommets, double-clic : texte, clic droit : écouter son audio';
+    else if (mqMobile.matches) hint = 'Faites glisser la planche pour la parcourir, touchez une bulle pour la modifier';
+    else hint = 'Cliquez une bulle pour la modifier, Ctrl + clic sur la page pour commencer une bulle';
     toolHint.textContent = hint;
     toolHint.classList.toggle('is-draft', draft);
   }
@@ -723,7 +723,7 @@ export function init(ctx) {
   function renderTimeline() {
     const pi = pageIndex();
     const page = project.pages[pi];
-    $('[data-cd-rule]').textContent = `Durée des bulles ${project.bubbleGapMs} ms • Durée des pages ${project.pageGapMs} ms`;
+    $('[data-cd-rule]').textContent = `Durée des bulles ${project.bubbleGapMs} ms, durée des pages ${project.pageGapMs} ms`;
     if (!page || !page.bubbles.length) {
       const sig = page ? 'none' : 'nopage';
       if (tlSig !== sig) {
@@ -839,7 +839,7 @@ export function init(ctx) {
           .map(
             (p, i) => `<li class="cd-row${p.id === project.activePage ? ' is-on' : ''}" data-cd-row="p${p.id}">
           <button class="cd-row__main" type="button" data-act="page" data-id="${p.id}"${p.id === project.activePage ? ' aria-current="true"' : ''}>
-            <span class="cd-row__name">${esc(p.fileName)}</span><span class="cd-row__meta tnum">${p.width}×${p.height} • ${p.bubbles.length} bulle(s)</span>
+            <span class="cd-row__name">${esc(p.fileName)}</span><span class="cd-row__meta tnum">${p.width}×${p.height}, ${p.bubbles.length} bulle(s)</span>
           </button>
           <button class="cd-row__btn" type="button" data-act="page-up" data-id="${p.id}" aria-label="Monter ${esc(p.fileName)}" data-tip="Monter la page"${i === 0 ? ' disabled' : ''}>${ICON.up}</button>
           <button class="cd-row__btn" type="button" data-act="page-down" data-id="${p.id}" aria-label="Descendre ${esc(p.fileName)}" data-tip="Descendre la page"${i === n - 1 ? ' disabled' : ''}>${ICON.down}</button>
@@ -854,7 +854,7 @@ export function init(ctx) {
             (a) => `<li class="cd-row cd-row--audio" data-cd-row="a${a.id}">
           <span class="cd-row__btn cd-row__grip" data-grip="${a.id}" aria-hidden="true">${ICON.grip}</span>
           <button class="cd-row__main" type="button" data-act="audio" data-id="${a.id}" aria-label="${esc(a.fileName)}; glisser sur une bulle, ou activer pour l’associer à la bulle sélectionnée">
-            <span class="cd-row__name">${esc(a.fileName)}</span><span class="cd-row__meta tnum">${fmtS(a.durationMs)}${assigned.has(a.id) ? ` • ${assigned.get(a.id)}` : ''} • muet</span>
+            <span class="cd-row__name">${esc(a.fileName)}</span><span class="cd-row__meta tnum">${fmtS(a.durationMs)}${assigned.has(a.id) ? `, ${assigned.get(a.id)}` : ''}, muet</span>
           </button>
           <button class="cd-row__btn" type="button" data-act="audio-remove" data-id="${a.id}" aria-label="Retirer ${esc(a.fileName)}" data-tip="Retirer l’audio">${ICON.x}</button>
         </li>`,

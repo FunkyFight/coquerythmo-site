@@ -12,6 +12,7 @@ import './workspaces/voicelines/voicelines.css';
 import './workspaces/comicdubs/comicdubs.css';
 import './sections/anatomie/anatomie.css';
 import './sections/detection/detection.css';
+import './sections/karaoke/karaoke.css';
 import './sections/projets/projets.css';
 import './sections/export/export.css';
 import './sections/ensemble/ensemble.css';
@@ -23,7 +24,7 @@ import { Band, FPS } from './band/engine.js';
 import { settings } from './lib/settings.js';
 import { announce, onAnnounce, announceLog } from './lib/announce.js';
 import { getDownloads, detectOS } from './lib/downloads.js';
-import { initMenus, initTabs, initTooltips, initSettings, initWelcome, initStrips, initToolbars, initBoucles, makeDropdown } from './window/ui.js';
+import { initMenus, initTabs, initTooltips, initSettings, initWelcome, initStrips, initToolbars, initMore, makeDropdown } from './window/ui.js';
 import { initHero, timecode } from './window/hero.js';
 
 import * as enregistrement from './workspaces/enregistrement/enregistrement.js';
@@ -31,6 +32,7 @@ import * as voicelines from './workspaces/voicelines/voicelines.js';
 import * as comicdubs from './workspaces/comicdubs/comicdubs.js';
 import * as anatomie from './sections/anatomie/anatomie.js';
 import * as detection from './sections/detection/detection.js';
+import * as karaoke from './sections/karaoke/karaoke.js';
 import * as projets from './sections/projets/projets.js';
 import * as exportSection from './sections/export/export.js';
 import * as ensemble from './sections/ensemble/ensemble.js';
@@ -67,6 +69,7 @@ for (const [name, mod] of Object.entries({
   comicdubs,
   anatomie,
   detection,
+  karaoke,
   projets,
   exportSection,
   ensemble,
@@ -81,9 +84,9 @@ for (const [name, mod] of Object.entries({
   }
 }
 
-initBoucles();
 initToolbars();
 initStrips();
+initMore();
 initWelcome(tabs);
 
 // Sections grow after init (bands, panels): land on the requested anchor again.

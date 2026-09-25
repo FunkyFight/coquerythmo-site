@@ -140,7 +140,8 @@
             "featureList": [
               "Bande rythmo sur quatre pistes, lue sous une barre de lecture fixe",
               "Détection et signes labiaux",
-              "Karaoké, respirations, réactions et marqueurs",
+              "Karaoké pour les chansons : balle qui rebondit de syllabe en syllabe, décompte, syllabes calées à la main",
+              "Respirations, réactions et marqueurs",
               "Enregistrement solo ou en ligne",
               "Bande rythmo à plusieurs, en salon",
               "Export vidéo MP4 avec la bande rythmo, sous-titres SRT, ASS, DETX et JSON, audio MP3, WAV et stems BWF",
@@ -200,7 +201,6 @@
               <a class="dropdown__item" href="https://github.com/FunkyFight/coquerythmo-releases/releases" target="_blank" rel="noopener">
                 Toutes les versions sur GitHub
               </a>
-              <a class="dropdown__item" href="#nouveautes">Nouveautés de la dernière version</a>
               <div class="dropdown__sep" role="separator"></div>
               <button class="dropdown__item" type="button" data-action="reset-demo">Réinitialiser la bande de démo</button>
             </div>
@@ -219,6 +219,7 @@
             <div class="dropdown menu__panel" id="m-outils" hidden>
               <a class="dropdown__item" href="#bande">Anatomie d'une bande rythmo</a>
               <a class="dropdown__item" href="#detection">Détection et signes labiaux</a>
+              <a class="dropdown__item" href="#karaoke">Karaoké pour les chansons</a>
               <a class="dropdown__item" href="#projets">Import, projets et automatisation</a>
               <div class="dropdown__sep" role="separator"></div>
               <button class="dropdown__item" type="button" data-tab="recording">Espace Enregistrement</button>
@@ -230,7 +231,6 @@
             <button class="menu__btn" type="button" aria-expanded="false" aria-controls="m-connexion">Connexion</button>
             <div class="dropdown menu__panel" id="m-connexion" hidden>
               <a class="dropdown__item" href="#ensemble">Bande rythmo ensemble</a>
-              <a class="dropdown__item" href="#serveur">Héberger son propre serveur</a>
             </div>
           </li>
           <li class="menu">
@@ -280,7 +280,7 @@
               <figure class="workcopy__mouth" aria-hidden="true">
                 <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
               </figure>
-              <p class="workcopy__tag">Copie de travail · projet de démonstration, dialogues fictifs</p>
+              <p class="workcopy__tag">Copie de travail, projet de démonstration aux dialogues fictifs</p>
             </div>
           </div>
 
@@ -387,6 +387,10 @@
                 </button>
               </div>
               <p class="toolbar__hint" data-toolbar-hint>Glissez sur la bande pour la faire défiler.</p>
+              <button class="ui-btn ui-btn--reset toolbar__reset" type="button" data-action="reset-demo">
+                <svg class="ui-btn__glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /></svg>
+                Réinitialiser la démo
+              </button>
             </div>
           </div>
 
@@ -418,18 +422,19 @@
           </button>
         </aside>
 
-        <!-- the window's bottom edge sits on the fold: it says there is more below -->
-        <a class="window__more" href="#bande">
-          <svg class="window__more-arrow" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+        <!-- floats on the fold, under the band: it says there is more below -->
+        <a class="window__more" href="#bande" data-more>
+          <svg class="window__more-arrow" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true">
             <path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <span>Lire la suite<span class="sr-only">&nbsp;:</span></span>
-          <span class="window__more-list">anatomie d’une bande, détection, projet, export, à plusieurs, accessibilité, tutoriels</span>
+          <span class="window__more-title">Lire la suite<span class="sr-only">&nbsp;:</span></span>
+          <span class="window__more-list">anatomie d’une bande, détection, karaoké, projet, export, à plusieurs, accessibilité, tutoriels</span>
         </a>
       </section>
 
       <!-- @include sections/anatomie/anatomie.html -->
       <!-- @include sections/detection/detection.html -->
+      <!-- @include sections/karaoke/karaoke.html -->
       <!-- @include sections/projets/projets.html -->
       <!-- @include sections/export/export.html -->
       <!-- @include sections/ensemble/ensemble.html -->

@@ -147,46 +147,72 @@
   min-height: 0;
 }
 
-/* ═══════════ « Lire la suite »: the window's last row, on the fold ═══════════ */
+/* ═══════════ « Lire la suite »: a floating accent button on the fold ═══════════
+   It floats in the window's last row, under the band, so at rest it covers
+   nothing. Where the window is taller than the screen (phones, short
+   screens) it rides the bottom edge until the window ends. It fades once
+   the page has scrolled (ui.js initMore): by then the visitor knows. */
 .window__more {
-  /* on phones the window is taller than the screen: the row rides the
-     bottom edge until the window ends */
   position: sticky;
-  bottom: 0;
+  bottom: var(--s3);
   z-index: 6;
+  justify-self: center;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: var(--s2);
-  min-height: 32px;
-  padding: 0 var(--gutter);
-  background: var(--tabbar);
-  border-top: 1px solid #202027;
-  color: var(--text);
-  font-size: var(--fs-ui);
+  gap: var(--s3);
+  max-width: calc(100% - var(--gutter) * 2);
+  min-height: 48px;
+  margin-block: var(--s3);
+  padding: 0 var(--s5) 0 var(--s4);
+  background: var(--accent-bg);
+  border: 1px solid rgb(115 102 217 / 0.9);
+  border-radius: var(--r);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+  color: #fff;
+  font-size: var(--fs-body);
   font-weight: 600;
+  line-height: 1.2;
   text-decoration: none;
-  transition: color var(--t-fast);
+  transition:
+    background-color var(--t-fast),
+    border-color var(--t-fast),
+    opacity var(--t-med),
+    translate var(--t-med) var(--ease-out),
+    visibility 0s;
 }
 .window__more:hover {
-  color: #fff;
+  background: var(--accent-bg-hover);
+  border-color: var(--accent-strong);
 }
-.window__more:focus-visible {
-  outline-offset: -2px;
+.window__more:active {
+  background: var(--accent-bg-press);
+}
+.window__more[data-away] {
+  opacity: 0;
+  translate: 0 12px;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--t-med),
+    translate var(--t-med) var(--ease-out),
+    visibility 0s var(--t-med);
 }
 .window__more-arrow {
   flex: none;
+  width: 20px;
+  height: 20px;
   animation: more-nudge 1.8s var(--ease-out) infinite;
+}
+.window__more-title {
+  flex: none;
 }
 .window__more-list {
   overflow: hidden;
-  color: var(--text-faint);
+  color: rgb(210 205 245 / 0.75);
+  font-size: var(--fs-small);
   font-weight: 400;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.window__more-list::before {
-  content: '· ';
 }
 @keyframes more-nudge {
   0%,
@@ -195,10 +221,10 @@
     translate: 0 0;
   }
   30% {
-    translate: 0 3px;
+    translate: 0 4px;
   }
 }
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .window__more-list {
     display: none;
   }
@@ -399,6 +425,11 @@
   color: var(--text-faint);
   font-size: 0.75rem;
 }
+/* « Réinitialiser la démo »: the demo band's reset, in sight (also in Projet) */
+.toolbar__reset {
+  min-height: 30px;
+  margin: 0 var(--s1) 0 var(--s2);
+}
 
 /* ═══════════ Band host ═══════════ */
 .band-host {
@@ -531,6 +562,9 @@
   }
   .toolbar__hint {
     display: none;
+  }
+  .toolbar__reset {
+    margin-left: auto;
   }
 }
 

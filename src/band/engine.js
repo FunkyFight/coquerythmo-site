@@ -10,6 +10,7 @@ import { syllabify, words } from './text.js';
 export const FPS = 24;
 const FONT = '"Archivo Variable", "Segoe UI", system-ui, sans-serif';
 const COUNT_IN = Math.round(1.5 * FPS); // KARAOKE_COUNT_IN_SECONDS
+const KARAOKE_MAX_GAP = 30 * FPS; // KARAOKE_ADJACENT_MAX_GAP_SECONDS
 const TICK_GAP = 2; // TICK_GAP_FRAMES
 
 const C = {
@@ -37,6 +38,7 @@ const C = {
   breath: 'rgba(220,220,230,0.9)',
   ambiance: '#338cff',
   ambianceText: '#f21f29',
+  syllableTick: 'rgb(242,20,8)',
 };
 
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -54,6 +56,9 @@ export class Band {
    *   interactive (default true), editable (default true)
    *   label     accessible name
    *   transcript (default true) screen-reader list of what the canvas draws
+   *   karaokeWhilePlaying (default false) as in the app's editor: karaoke
+   *             lines take their karaoke look only during playback, and are
+   *             plain lines on the timeline when paused
    *   settings  store with get()/subscribe(): scrollSpeed, highlightWord, charColorText, reduceMotion
    *   announce  (text, {priority}) => void
    */
@@ -211,7 +216,7 @@ export class Band {
     let x1;
     let w;
     let centered = false;
-    if (line.karaoke) {
+    if (this.karaokeShown(line)) {
       const size = Math.round(this.textSize * 1.2);
       w = this.measure(line.text, this.fontText(size)) + this.bodyH * 0.4;
       x1 = this.cx - w / 2;
@@ -231,12 +236,110 @@ export class Band {
     return { x1, w, y, h: this.bodyH, labelX, labelW, labelText, gap, centered };
   }
 
+  /** Whether a karaoke line is drawn as karaoke right now (karaoke_preview). */
+  karaokeShown(line) {
+    return !!line.karaoke && (!this.opts.karaokeWhilePlaying || this.playing);
+  }
+
   karaokeVisible(line) {
     return this.frame >= line.start - COUNT_IN && this.frame <= line.start + line.dur;
   }
 
+  /** scene.rs: in a run of karaoke lines on one track (gaps up to 30 s, no
+   *  other line between), the label shows on the first line and again only
+   *  when the character changes. */
+  karaokeLabelHidden(line) {
+    let prev = null;
+    for (const l of this.project.lines) {
+      if (l !== line && !l.action && l.track === line.track && l.start < line.start && (!prev || l.start > prev.start)) prev = l;
+    }
+    if (!prev?.karaoke || line.start - (prev.start + prev.dur) > KARAOKE_MAX_GAP) return false;
+    return prev.character === line.character;
+  }
+
+  /** A karaoke line's syllables, each with its share of the line as t0–t1
+   *  (0–1): the line's own ratios once timed (syllable_ratios), otherwise
+   *  proportional to the letters, like the app's defaults. */
+  syllables(line) {
+    const sylls = (line._syll ||= syllabify(line.text));
+    const total = line.text.length || 1;
+    const r = line.syllRatios?.length === sylls.length ? line.syllRatios : sylls.map((sy) => sy.text.length / total);
+    let acc = 0;
+    return sylls.map((sy, i) => {
+      const t0 = acc;
+      acc += r[i];
+      return { ...sy, t0, t1: i === sylls.length - 1 ? 1 : acc };
+    });
+  }
+
+  /** Move the boundary before syllable i to u (0–1 of the line). Like a drag
+   *  in the app: every syllable on each side is rescaled; with `pair`
+   *  (Ctrl+drag) only the two neighbours change. */
+  moveBoundary(line, i, u, { pair = false } = {}) {
+    const sylls = this.syllables(line);
+    const n = sylls.length;
+    const MIN = 0.02;
+    const r = sylls.map((sy) => sy.t1 - sy.t0);
+    const at = sylls[i].t0;
+    if (pair) {
+      u = clamp(u, sylls[i - 1].t0 + MIN, sylls[i].t1 - MIN);
+      r[i - 1] = u - sylls[i - 1].t0;
+      r[i] = sylls[i].t1 - u;
+    } else {
+      u = clamp(u, MIN * i, 1 - MIN * (n - i));
+      for (let j = 0; j < n; j++) r[j] *= j < i ? u / at : (1 - u) / (1 - at);
+    }
+    line.syllRatios = r;
+    this.invalidate();
+  }
+
+  /** The same timing from the keyboard, on the selected karaoke line while
+   *  paused: ↑ ↓ choose a boundary, Ctrl+Maj+← → move it by one frame
+   *  between its two neighbours. Returns whether the key was used. */
+  syllableKey(e, sel) {
+    if (!sel?.karaoke || !this.opts.karaokeWhilePlaying || this.playing) return false;
+    const k = e.key;
+    const sylls = this.syllables(sel);
+    if (sylls.length < 2) return false;
+    const cur = this.syllFocus?.id === sel.id ? this.syllFocus.i : 0;
+    const say = (list, i) => `« ${list[i - 1].text.trim()} » et « ${list[i].text.trim()} »`;
+    if ((k === 'ArrowUp' || k === 'ArrowDown') && !e.ctrlKey && !e.shiftKey && !e.altKey) {
+      const i = cur ? clamp(cur + (k === 'ArrowDown' ? 1 : -1), 1, sylls.length - 1) : 1;
+      this.syllFocus = { id: sel.id, i };
+      this.announce(`Frontière ${i} sur ${sylls.length - 1}, entre ${say(sylls, i)}`);
+      this.invalidate();
+      return true;
+    }
+    if ((k === 'ArrowLeft' || k === 'ArrowRight') && e.ctrlKey && e.shiftKey && cur) {
+      this.moveBoundary(sel, cur, sylls[cur].t0 + (k === 'ArrowLeft' ? -1 : 1) / sel.dur, { pair: true });
+      const now = this.syllables(sel);
+      const frames = (sy) => Math.round((sy.t1 - sy.t0) * sel.dur);
+      this.announce(`${frames(now[cur - 1])} images puis ${frames(now[cur])} images, entre ${say(now, cur)}`);
+      this.emit('change');
+      return true;
+    }
+    return false;
+  }
+
+  /** The syllable boundary under the pointer on a paused karaoke line (7 px). */
+  tickAt(x, y) {
+    if (!this.opts.karaokeWhilePlaying || this.playing) return null;
+    const reach = Math.max(6, 7 * this.s);
+    let best = null;
+    for (const line of this.project.lines) {
+      if (!line.karaoke || line.action) continue;
+      const g = this.lineGeometry(line);
+      if (y < g.y || y > g.y + g.h) continue;
+      this.syllables(line).forEach((sy, i) => {
+        const d = Math.abs(x - (g.x1 + g.w * sy.t0));
+        if (i > 0 && d <= reach && (!best || d < best.d)) best = { line, i, d };
+      });
+    }
+    return best;
+  }
+
   isLineOnScreen(line, g = this.lineGeometry(line)) {
-    if (line.karaoke) return this.karaokeVisible(line);
+    if (this.karaokeShown(line)) return this.karaokeVisible(line);
     return g.x1 + g.w >= -40 && g.labelX <= this.width + 40;
   }
 
@@ -336,7 +439,7 @@ export class Band {
     }
 
     const hasKaraokeBounce =
-      this.project.lines.some((l) => l.karaoke && this.karaokeVisible(l)) && this.playing;
+      this.project.lines.some((l) => this.karaokeShown(l) && this.karaokeVisible(l)) && this.playing;
     if (this.dirty && this.visible) {
       this.draw();
       this.dirty = false;
@@ -356,7 +459,7 @@ export class Band {
     const lines = this.project.lines;
     const geo = new Map();
     for (const line of lines) {
-      if (line.karaoke) continue;
+      if (this.karaokeShown(line)) continue;
       const g = this.lineGeometry(line);
       if (!this.isLineOnScreen(line, g)) continue;
       geo.set(line.id, g);
@@ -364,16 +467,18 @@ export class Band {
     // body first, labels on top (labels overlap previous lines' tails)
     for (const line of lines) if (geo.has(line.id)) this.drawLineBody(line, geo.get(line.id));
     for (const line of lines) if (geo.has(line.id)) this.drawLabel(line, geo.get(line.id), geo);
+    const karaokeRows = [];
     for (const line of lines) {
-      if (!line.karaoke || !this.karaokeVisible(line)) continue;
+      if (!this.karaokeShown(line) || !this.karaokeVisible(line)) continue;
       const g = this.lineGeometry(line);
       geo.set(line.id, g);
       this.drawKaraoke(line, g);
-      this.drawLabel(line, g, geo);
+      if (!this.karaokeLabelHidden(line)) this.drawLabel(line, g, geo);
+      karaokeRows.push([g.y, g.y + g.h]);
     }
     this.drawStrokes();
     if (this.pendingStroke) this.drawStroke(this.pendingStroke);
-    this.drawPlayhead();
+    this.drawPlayhead(karaokeRows);
     this.syncAnchors(geo);
     this.syncTranscript();
     void s;
@@ -478,12 +583,25 @@ export class Band {
       ctx.lineTo(x1 + w - m, up ? y + m : y + h - m);
       ctx.stroke();
     } else if (line.text) {
+      // neither the character colour nor the yellow read word apply to karaoke lines
       let tint = '#ffffff';
       if (line.kind === 'ambiance') tint = C.ambianceText;
-      else if (st.charColorText && line.color) tint = line.color;
+      else if (st.charColorText && line.color && !line.karaoke) tint = line.color;
       if (line.action) tint = '#ffffff';
       const reserve = line.kind === 'ambiance' ? Math.min(54 * s, w * 0.3) : 0;
-      this.drawStretched(line, x1 + reserve, y, w - reserve, h, tint, st.highlightWord && !line.action);
+      this.drawStretched(line, x1 + reserve, y, w - reserve, h, tint, st.highlightWord && !line.action && !line.karaoke);
+    }
+
+    if (line.karaoke && (this.hoverId === line.id || this.selection.has(line.id))) {
+      // paused karaoke line: its syllable boundaries, red ticks at the top,
+      // to drag (view.rs); the one chosen from the keyboard runs full height
+      const sylls = this.syllables(line);
+      for (let i = 1; i < sylls.length; i++) {
+        const tx = x1 + w * sylls[i].t0;
+        const chosen = this.syllFocus?.id === line.id && this.syllFocus.i === i;
+        ctx.fillStyle = chosen ? C.focus : C.syllableTick;
+        ctx.fillRect(tx - s, y, 2 * s, chosen ? h : h * 0.32);
+      }
     }
 
     if (line.note) {
@@ -584,7 +702,7 @@ export class Band {
 
   /** Where a line's text sits: the vertical axis its capitals are centred on. */
   textAxis(line) {
-    if (line?.karaoke) return 0.6; // room for the bouncing dot above
+    if (line && this.karaokeShown(line)) return 0.6; // room for the bouncing dot above
     if (line?.note) return 0.38; // room for the note below
     return 0.5;
   }
@@ -620,13 +738,19 @@ export class Band {
     const size = Math.round(this.textSize * 1.2);
     const font = this.fontText(size);
     const { x1, w, y, h } = g;
-    const padX = this.bodyH * 0.2;
-    const sylls = (line._syll ||= syllabify(line.text));
-    const total = line.text.length || 1;
+    const color = line.color || '#fff';
+    const tx = x1 + this.bodyH * 0.2;
+    const counting = this.frame < line.start;
+    // the colour and the dot cross each syllable at its own share of the line
     const p = clamp((this.frame - line.start) / line.dur, 0, 1);
-    const charPos = p * total;
-    let k = sylls.findIndex((sy) => charPos < sy.start + sy.text.length);
+    const sylls = this.syllables(line);
+    let k = sylls.findIndex((sy) => p < sy.t1);
     if (k < 0) k = sylls.length - 1;
+    const sy = sylls[k];
+    const q = clamp((p - sy.t0) / Math.max(1e-6, sy.t1 - sy.t0), 0, 1);
+    const a = this.measure(line.text.slice(0, sy.start), font);
+    const b = this.measure(line.text.slice(0, sy.start + sy.text.length), font);
+    const wipe = counting ? tx : tx + a + (b - a) * q;
 
     const style = this.lineStyle(line);
     if (this.interactive) {
@@ -635,47 +759,51 @@ export class Band {
       ctx.strokeStyle = style.border;
       ctx.strokeRect(Math.round(x1) + 0.5, Math.round(y) + 0.5, Math.round(w) - 1, Math.round(h) - 1);
     }
+    // white text, wiped left to right in the character's colour
     ctx.font = font;
     ctx.textBaseline = 'alphabetic';
-    const tx = x1 + padX;
-    const ty = y + h * this.textAxis(line) + this.capHeight(font) / 2;
-    const counting = this.frame < line.start;
-    sylls.forEach((sy, i) => {
-      const a = this.measure(line.text.slice(0, sy.start), font);
-      ctx.fillStyle = !counting && i < k ? line.color || '#fff' : '#fff';
-      if (!counting && i === k) ctx.fillStyle = line.color || '#fff';
-      ctx.fillText(sy.text, tx + a, ty);
-    });
+    const cap = this.capHeight(font);
+    const ty = y + h * this.textAxis(line) + cap / 2;
+    ctx.fillStyle = '#fff';
+    ctx.fillText(line.text, tx, ty);
+    if (wipe > tx) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(tx - 2 * s, y, wipe - tx + 2 * s, h);
+      ctx.clip();
+      ctx.fillStyle = color;
+      ctx.fillText(line.text, tx, ty);
+      ctx.restore();
+    }
 
-    // bouncing dot (KARAOKE_DOT_SIZE 7)
+    // bouncing dot (KARAOKE_DOT_SIZE 7, bounce 1.45 × its size), drawn a little
+    // larger for page distance, with the app's dark halo and light rim
     const r = 3.5 * s * 1.3;
-    const top = y + h * 0.18;
-    const amp = h * 0.22;
-    const center = (i) => {
-      const sy = sylls[clamp(i, 0, sylls.length - 1)];
-      const a = this.measure(line.text.slice(0, sy.start), font);
-      const b = this.measure(line.text.slice(0, sy.start + sy.text.trimEnd().length), font);
-      return tx + (a + b) / 2;
-    };
+    const lift = 7 * 1.45 * s;
+    const rest = ty - cap - r - 2 * s;
     let dx;
     let dy;
     if (counting) {
-      const q = clamp((this.frame - (line.start - COUNT_IN)) / COUNT_IN, 0, 1);
-      const bounce = (q * 3) % 1;
-      dx = x1 - 50 * s + (center(0) - (x1 - 50 * s)) * q;
-      dy = top + amp - amp * Math.abs(Math.sin(Math.PI * bounce));
+      // count-in: over 1.5 s the dot slides in from the left, three bounces
+      const c = clamp((this.frame - (line.start - COUNT_IN)) / COUNT_IN, 0, 1);
+      dx = tx - (8 * 4 + 2 * 7) * s * (1 - c);
+      dy = rest - lift * Math.abs(Math.sin(Math.PI * 3 * c));
     } else {
-      const sy = sylls[k];
-      const segStart = sy.start / total;
-      const segEnd = (sy.start + sy.text.length) / total;
-      const q = clamp((p - segStart) / Math.max(1e-6, segEnd - segStart), 0, 1);
-      dx = center(k) + (center(k + 1) - center(k)) * (k + 1 < sylls.length ? q : 0);
-      dy = top + amp - amp * Math.sin(Math.PI * q);
+      // one bounce per syllable, riding the colour's edge
+      dx = wipe;
+      dy = rest - lift * Math.sin(Math.PI * q);
     }
-    ctx.fillStyle = line.color || '#fff';
+    ctx.beginPath();
+    ctx.arc(dx, dy, r + 1.5 * s, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
+    ctx.fill();
     ctx.beginPath();
     ctx.arc(dx, dy, r, 0, Math.PI * 2);
+    ctx.fillStyle = color;
     ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'rgba(255,255,255,0.85)';
+    ctx.stroke();
 
     if (this.selection.has(line.id)) {
       ctx.fillStyle = C.handle;
@@ -708,14 +836,20 @@ export class Band {
     } else ctx.stroke();
   }
 
-  drawPlayhead() {
+  /** @param gaps [top, bottom] rows of karaoke text: the bar stops there so the sung text stays whole */
+  drawPlayhead(gaps = []) {
     const { ctx, height: H } = this;
     const x = this.cx - 1.5;
     ctx.save();
     ctx.shadowColor = C.glow;
     ctx.shadowBlur = 10;
     ctx.fillStyle = C.playhead;
-    ctx.fillRect(x, 0, 3, H);
+    let top = 0;
+    for (const [a, b] of [...gaps].sort((m, n) => m[0] - n[0])) {
+      if (a > top) ctx.fillRect(x, top, 3, a - top);
+      top = Math.max(top, b);
+    }
+    if (top < H) ctx.fillRect(x, top, 3, H - top);
     ctx.restore();
   }
 
@@ -829,7 +963,7 @@ export class Band {
     const lines = this.project.lines;
     for (let i = lines.length - 1; i >= 0; i--) {
       const line = lines[i];
-      if (line.karaoke && !this.karaokeVisible(line)) continue;
+      if (this.karaokeShown(line) && !this.karaokeVisible(line)) continue;
       const g = this.lineGeometry(line);
       if (y >= g.y && y <= g.y + g.h && x >= g.x1 && x <= g.x1 + g.w) return line;
     }
@@ -859,6 +993,14 @@ export class Band {
         this.eraseAt(p);
         return;
       }
+      // a syllable boundary of a paused karaoke line: drag it to time the syllables
+      const tick = this.tickAt(p.x, p.y);
+      if (tick) {
+        drag = { mode: 'syll', line: tick.line, i: tick.i };
+        this.syllFocus = { id: tick.line.id, i: tick.i };
+        this.select(tick.line);
+        return;
+      }
       const line = this.hitTest(p.x, p.y);
       drag = { mode: 'pending', x0: p.x, y0: p.y, frame0: this.frame, line, start0: line?.start, track0: line?.track };
     });
@@ -871,7 +1013,17 @@ export class Band {
           this.hoverId = id;
           this.invalidate();
         }
-        el.style.cursor = this.tool === 'draw' ? 'crosshair' : this.tool === 'erase' ? 'cell' : line && this.editable && !line.karaoke ? 'move' : 'grab';
+        el.style.cursor =
+          this.tool === 'draw' ? 'crosshair'
+          : this.tool === 'erase' ? 'cell'
+          : this.tickAt(p.x, p.y) ? 'ew-resize'
+          : line && this.editable && !this.karaokeShown(line) ? 'move'
+          : 'grab';
+        return;
+      }
+      if (drag.mode === 'syll') {
+        const g = this.lineGeometry(drag.line);
+        this.moveBoundary(drag.line, drag.i, (p.x - g.x1) / g.w, { pair: e.ctrlKey });
         return;
       }
       if (drag.mode === 'draw') {
@@ -882,7 +1034,7 @@ export class Band {
       if (drag.mode === 'erase') return this.eraseAt(p);
       const dx = p.x - drag.x0;
       if (drag.mode === 'pending' && Math.abs(dx) + Math.abs(p.y - drag.y0) > 4) {
-        const movable = drag.line && this.editable && !drag.line.karaoke && !drag.line.locked;
+        const movable = drag.line && this.editable && !this.karaokeShown(drag.line) && !drag.line.locked;
         drag.mode = movable ? 'move' : 'scrub';
         if (drag.mode === 'scrub') this.pause();
         el.style.cursor = movable ? 'move' : 'grabbing';
@@ -914,6 +1066,9 @@ export class Band {
         void p;
       } else if (drag.mode === 'move') {
         this.announce(`${drag.line.character || 'Ligne'} déplacée, piste ${drag.line.track + 1}`);
+        this.emit('change');
+      } else if (drag.mode === 'syll') {
+        this.announce('Syllabes recalées');
         this.emit('change');
       }
       drag = null;
@@ -966,6 +1121,8 @@ export class Band {
         e.preventDefault();
         this.toggle();
         this.announce(this.playing ? 'Lecture' : 'Pause');
+      } else if (this.syllableKey(e, sel)) {
+        e.preventDefault();
       } else if ((k === 'ArrowLeft' || k === 'ArrowRight') && e.shiftKey && e.ctrlKey && sel) {
         e.preventDefault();
         sel.start += k === 'ArrowLeft' ? -1 : 1;
@@ -996,7 +1153,7 @@ export class Band {
       } else if ((k === 'Delete' || k === 'Suppr') && sel && this.editable && !sel.action) {
         e.preventDefault();
         this.deleteSelection();
-      } else if ((k === 'i' || k === 'I' || k === 'o' || k === 'O') && sel && this.editable && !e.ctrlKey && !sel.karaoke) {
+      } else if ((k === 'i' || k === 'I' || k === 'o' || k === 'O') && sel && this.editable && !e.ctrlKey && !this.karaokeShown(sel)) {
         e.preventDefault();
         const f = Math.round(this.frame);
         if (k.toLowerCase() === 'i') {

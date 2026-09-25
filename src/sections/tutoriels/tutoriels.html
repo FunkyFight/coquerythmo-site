@@ -1,13 +1,13 @@
 <section class="chapter" id="tutoriels" aria-labelledby="tutoriels-title">
   <header class="strip">
-    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>7</span></p>
-    <h2 class="strip__title" id="tutoriels-title"><span class="char-label" style="--c: var(--c-cyan)">Tutoriels</span><span class="sr-only">&nbsp;: </span><span class="strip__line">Démarrez en vidéo, suivez les nouveautés.</span></h2>
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>8</span></p>
+    <h2 class="strip__title" id="tutoriels-title"><span class="char-label" style="--c: var(--c-cyan)">Tutoriels</span><span class="sr-only">&nbsp;: </span><span class="strip__line">Démarrez en vidéo.</span></h2>
   </header>
 
   <div class="chapter__inner">
     <p class="chapter__lede">
       Vous débutez&nbsp;? Le tutoriel français présente Coquerythmo en dix-sept minutes, et il se lance ici, sans quitter la
-      page. Vous l’utilisez déjà&nbsp;? La fenêtre <strong>Nouveautés</strong> résume ce que la dernière version a changé.
+      page. Les deux autres présentent la mise à jour 3.4.0 et le doublage à plusieurs en ligne.
     </p>
 
     <div class="tuto">
@@ -16,7 +16,7 @@
         <header class="ui-panel__head player__head">
           <img src="/icons/file_tree/video-source.svg" alt="" width="16" height="16" />
           <h3 class="player__title">Tutoriels vidéo</h3>
-          <span class="player__count">3 vidéos · YouTube</span>
+          <span class="player__count">3 vidéos YouTube</span>
         </header>
 
         <div class="player__stage" id="player-stage" role="tabpanel" aria-labelledby="tuto-tab-0" data-stage data-state="idle">
@@ -95,69 +95,5 @@
         youtube-nocookie.com.
       </p>
     </div>
-
-    <details class="boucle" id="tutoriels-suite" data-close-label="Enrouler la boucle 7">
-      <summary class="boucle__head">
-        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>7</span>
-        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 7</span><span class="boucle__verb--close">Enrouler la boucle 7</span></span>
-        <span class="boucle__list">Nouveautés de la dernière version, notes complètes</span>
-      </summary>
-      <div class="boucle__body">
-        <div class="tuto-wn">
-          <!-- ─── Nouveautés: the app's whats-new window (src/ui/whats_new_modal.rs), inline ─── -->
-          <article class="ui-panel wn" id="nouveautes" aria-labelledby="wn-title">
-            <header class="wn__head">
-              <h3 class="wn__title" id="wn-title">Nouveautés</h3>
-              <p class="wn__version tnum">
-                <span>Version <span data-wn-version>5.1.0</span> pour Windows,</span>
-                <span>publiée le <time datetime="2026-09-10" data-wn-date>10 septembre 2026</time></span>
-              </p>
-            </header>
-
-            <div class="wn__well">
-              <div class="wn__scroll" tabindex="0" role="region" aria-label="Notes de la version 5.1.0" data-wn-well>
-                <div class="wn__notes" data-wn-notes>
-                  <h4 class="wn__h">Protocole Serveur V2</h4>
-                  <h4 class="wn__h">Refonte du réseau</h4>
-                  <ul class="wn__list" role="list">
-                    <li>Nouveau protocole réseau avec accusés de réception, reprise des requêtes sans réponse et protection contre les commandes appliquées en double.</li>
-                    <li>Connexion, transferts et préparation des mises à jour en arrière-plan pour garder l’interface réactive, même lorsque le serveur ne répond pas.</li>
-                  </ul>
-                  <h4 class="wn__h">Partage des projets</h4>
-                  <ul class="wn__list" role="list">
-                    <li>Le DA envoie désormais le projet une seule fois au serveur. Chaque participant le télécharge ensuite à son rythme, avec un suivi individuel de sa progression.</li>
-                    <li>Le projet reste disponible pour les nouveaux arrivants et pendant une déconnexion du DA si d’autres participants sont encore présents.</li>
-                    <li>Les transferts peuvent reprendre après une coupure. L’intégrité de l’archive est vérifiée avant sa publication et après son téléchargement.</li>
-                    <li>Publier une nouvelle version conserve l’archive précédente disponible jusqu’à la validation du nouvel envoi. Renvoyer une archive identique préserve les téléchargements en cours.</li>
-                    <li>Le cache du projet est supprimé lorsque le dernier participant quitte le salon.</li>
-                  </ul>
-                  <h4 class="wn__h">Synchronisation de la bande rythmo</h4>
-                  <ul class="wn__list" role="list">
-                    <li>Synchronisation de l’état complet de la bande&nbsp;: langues, répliques, personnages, doubleurs, marqueurs, dessins, détections et réglages du projet, y compris les modifications issues des imports et des annulations/rétablissements.</li>
-                    <li>Partage de la sélection, du dessin en cours, des réglages d’affichage, de la famille de police, de la position et de la lecture.</li>
-                    <li>Envoi des éléments modifiés et rattrapage des changements manqués, avec récupération d’un état complet si nécessaire.</li>
-                    <li>Application des dernières modifications après le chargement du projet pour éviter qu’une ancienne version sauvegardée ne les écrase.</li>
-                    <li>Compensation de la latence et correction des écarts de lecture.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <footer class="wn__foot">
-              <p class="wn__hint" data-wn-hint hidden>Molette pour lire la suite</p>
-              <a class="wn__cta" href="https://github.com/FunkyFight/coquerythmo-releases/releases" target="_blank" rel="noopener">Voir toutes les versions sur GitHub</a>
-            </footer>
-          </article>
-          <div class="tuto__note tuto__note--wn">
-            <p>
-              Sur Windows, Coquerythmo vérifie à chaque démarrage s’il existe une nouvelle version et vous propose de
-              l’installer. Juste après la mise à jour, il ouvre une seule fois sa fenêtre Nouveautés, avec la description de
-              la version publiée sur GitHub. <span data-wn-source>Ci-dessus, les notes complètes de la 5.1.0.</span>
-            </p>
-            <p data-wn-other hidden></p>
-          </div>
-        </div>
-      </div>
-    </details>
   </div>
 </section>

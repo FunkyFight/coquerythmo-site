@@ -346,7 +346,7 @@ function initTree(root, ctx) {
       text =
         'Ce fichier embarque la vidéo source et son proxy, l’instrumental de chaque langue, la police de la bande rythmo, les icônes des comédiens et les prises enregistrées. Chaque élément porte une somme de contrôle, vérifiée à l’ouverture. Sous Windows, il s’ouvre depuis le menu « Ouvrir avec ».';
     } else if (row.type === 'group' && row.group === 'videos') {
-      meta = `${p.videos.length} vidéo${p.videos.length > 1 ? 's' : ''} · mp4, mov, avi, mkv, webm`;
+      meta = `${p.videos.length} vidéo${p.videos.length > 1 ? 's' : ''} : mp4, mov, avi, mkv, webm`;
       text = 'Un projet peut réunir plusieurs vidéos, la copie de travail propre comme une VO de référence. L’étoile marque la vidéo par défaut du projet, le texte bleu celle en cours de lecture. Entrée ou ← → pour déplier ou replier le groupe.';
     } else if (row.type === 'group' && row.group === 'bands') {
       meta = `${p.bands.length} langue${p.bands.length > 1 ? 's' : ''}`;
@@ -360,14 +360,14 @@ function initTree(root, ctx) {
       if (x.w && x.h) bits.push(`${x.w} x ${x.h}`);
       if (x.encoder) bits.splice(1, 0, x.encoder);
       if (p.activeVideo === x.id) bits.push('en cours d’utilisation');
-      meta = bits.join(' · ');
+      meta = bits.join(', ');
       if (x.proxyOf != null) text = 'Une copie allégée pour une lecture fluide pendant que vous travaillez. L’export utilisera toujours la vidéo originale.';
       else if (isProxySource(x)) text = 'Elle a un proxy, rangé juste en dessous. Menu contextuel › « Recréer le proxy » pour changer de résolution ou d’encodeur.';
       else text = 'Menu contextuel › « Créer un proxy » : une copie allégée en H.264, MJPEG ou ProRes Proxy, de 360p à 1440p, pour une lecture fluide. L’export garde la vidéo originale.';
     } else if (row.type === 'band') {
       const b = row.ref;
       const inst = b.instrumental != null ? audio(b.instrumental)?.name : null;
-      meta = `Découpe des syllabes : ${SYLLABLES[b.syllable]} · ${inst ? `instrumental : ${inst}` : 'Aucun audio instrumental'}`;
+      meta = `Découpe des syllabes : ${SYLLABLES[b.syllable]}, ${inst ? `instrumental : ${inst}` : 'aucun audio instrumental'}`;
       text =
         p.activeBand === b.id
           ? 'La bande en cours d’édition. Son menu contextuel règle la langue de découpe des syllabes et l’instrumental de cette langue.'
@@ -378,7 +378,7 @@ function initTree(root, ctx) {
     } else {
       const a = row.ref;
       const of = instrumentalOf(a);
-      meta = [`.${a.ext}`, of.length ? `Instrumental de: ${of.join(', ')}` : null].filter(Boolean).join(' · ');
+      meta = [`.${a.ext}`, of.length ? `instrumental de ${of.join(' et ')}` : null].filter(Boolean).join(', ');
       text = of.length
         ? `L’instrumental de ${of.join(' et ')}. Ctrl Tab passe de l’audio original à lui sur ${of.length > 1 ? 'ces bandes' : 'cette bande'}.`
         : 'Un audio du projet. Menu contextuel d’une bande › « Définir l’instrumental » pour l’y associer.';
@@ -1014,7 +1014,7 @@ function initProxyDialog(root, ctx, onCreate) {
     open(video, { recreate = false } = {}) {
       src = video;
       returnFocus = document.activeElement;
-      source.textContent = video.w && video.h ? `${video.name} · ${video.w} x ${video.h}` : video.name;
+      source.textContent = video.w && video.h ? `${video.name}, ${video.w} x ${video.h}` : video.name;
       title.textContent = recreate ? 'Recréer le proxy' : 'Créer un proxy';
       const def = dlg.querySelector('input[name="pj-res"][value="1080"]');
       if (def) def.checked = true; // selected_max_height: 1080
@@ -1322,6 +1322,7 @@ function initAutomation(root, ctx) {
     const on = !!entry()?.enabled;
     stateEl.textContent = on ? 'Activée' : 'Désactivée';
     stateEl.toggleAttribute('data-on', on);
+    statusEl.toggleAttribute('data-off', !on);
     if (!on) {
       statusEl.innerHTML = 'Désactivée&nbsp;: les répliques restent où elles sont. Cochez <b>«&nbsp;Activer&nbsp;»</b> dans «&nbsp;Pour chaque ligne&nbsp;».';
       return;
@@ -1330,7 +1331,7 @@ function initAutomation(root, ctx) {
     const parts = mapping().map(({ role, track }) =>
       track == null ? `${esc(role)}&nbsp;: ne bouge pas` : `<b>${esc(role)}</b>&nbsp;→ Définir piste ${track}`,
     );
-    statusEl.innerHTML = `${parts.join(' · ')}. Glissez une réplique sur une autre piste&nbsp;: elle revient.`;
+    statusEl.innerHTML = `${parts.join(', ')}. Glissez une réplique sur une autre piste&nbsp;: elle revient.`;
   }
 
   /* ── walked path highlight (display only; the app applies it at once) ── */

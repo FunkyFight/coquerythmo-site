@@ -763,7 +763,13 @@ function initEmotions(ctx, root) {
       b.classList.toggle('is-open', i === fi);
     });
   };
-  const describe = (c) => (c ? `${EMOTIONS[c.fam][0]} · ${EMOTIONS[c.fam][1][c.variant][1]}` : 'Aucune émotion');
+  // the variant, with its family when its own name does not carry it
+  const describe = (c) => {
+    if (!c) return 'Aucune émotion';
+    const fam = EMOTIONS[c.fam][0];
+    const variant = EMOTIONS[c.fam][1][c.variant][1];
+    return variant.toLowerCase().includes(fam.toLowerCase()) ? variant : `${fam}, ${variant.toLowerCase()}`;
+  };
   const syncReadout = () => {
     readout.textContent = describe(current());
   };

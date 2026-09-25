@@ -1,0 +1,117 @@
+<section class="chapter" id="karaoke" aria-labelledby="karaoke-title">
+  <header class="strip">
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>3</span></p>
+    <h2 class="strip__title" id="karaoke-title">
+      <span class="char-label" style="--c: var(--c-yellow)">Karaoké</span><span class="sr-only">&nbsp;: </span>
+      <span class="strip__line">Chantez pile sur la balle.</span>
+    </h2>
+  </header>
+
+  <div class="chapter__inner kar">
+    <p class="chapter__lede">
+      Pour les chansons, passez une réplique en karaoké avec <kbd class="kbd">Numpad 9</kbd>. À la lecture, elle ne défile
+      plus&nbsp;: elle attend au centre de la bande, la couleur du personnage la remplit syllabe après syllabe, et une balle
+      rebondit sur chacune. Une seconde et demie avant, la balle arrive par la gauche en trois rebonds&nbsp;: c’est le
+      décompte.
+    </p>
+
+    <!-- ═══════════ A sung scene: toolbar and band ═══════════ -->
+    <div class="kar-bench">
+      <div class="kar-bench__bar" role="toolbar" aria-label="Scène chantée" aria-controls="kar-band">
+        <button class="icon-btn" type="button" data-kar="play" data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false">
+          <span class="icon" data-kar="play-icon" style="--src: url(/icons/resume.svg)"></span>
+        </button>
+        <span class="kar-bench__sep" aria-hidden="true"></span>
+        <button class="icon-btn" type="button" data-kar="toggle" data-tip="Activer/désactiver le karaoké" data-kbd="Numpad 9" aria-label="Activer ou désactiver le karaoké de la ligne sélectionnée">
+          <span class="icon" style="--src: url(/icons/karaoke.svg)"></span>
+        </button>
+        <output class="kar-bench__tc tnum" data-kar="tc" aria-label="Position" aria-live="off">01:00:00:00</output>
+        <p class="kar-bench__hint">
+          Chanson fictive. À l’arrêt, glissez les traits rouges d’une ligne karaoké pour caler ses syllabes&nbsp;;
+          <kbd class="kbd">Ctrl</kbd>&nbsp;: seulement les deux voisines.
+        </p>
+      </div>
+      <div class="band-host kar-bench__band" id="kar-band" data-kar="band" aria-describedby="kar-band-help"></div>
+      <p class="sr-only" id="kar-band-help">
+        Bande de démonstration, chanson fictive de Théo et Jade. Espace : lecture ou pause. Pendant la lecture, les lignes
+        karaoké s’affichent au centre de la bande ; à l’arrêt, elles reprennent leur place sur la bande. Majuscule et flèches
+        gauche ou droite : ligne précédente ou suivante. Numpad 9 : activer ou désactiver le karaoké de la ligne sélectionnée.
+        À l’arrêt, sur une ligne karaoké sélectionnée : flèches haut et bas pour choisir une frontière entre deux syllabes,
+        Contrôle Majuscule et flèches gauche ou droite pour la décaler d’une image.
+      </p>
+    </div>
+
+    <div class="chapter__more" id="karaoke-suite">
+      <div class="kar-more">
+        <article aria-labelledby="kar-syll-title">
+          <h3 class="h3" id="kar-syll-title">Caler les syllabes</h3>
+          <p class="kar-more__text">
+            Coquerythmo découpe le texte en syllabes, en français, en anglais ou en espagnol&nbsp;: c’est la «&nbsp;Langue de
+            découpe des syllabes&nbsp;» de chaque langue du projet. Au départ, chaque syllabe dure selon son nombre de lettres.
+          </p>
+          <p class="kar-more__text">
+            À l’arrêt, survolez une ligne karaoké&nbsp;: des traits rouges marquent ses syllabes. Faites glisser un trait pour
+            redistribuer le temps de part et d’autre&nbsp;; avec <kbd class="kbd">Ctrl</kbd>, seule la frontière entre les deux
+            syllabes voisines bouge. <kbd class="kbd">Ctrl</kbd><kbd class="kbd">Z</kbd> annule.
+          </p>
+        </article>
+
+        <article aria-labelledby="kar-chain-title">
+          <h3 class="h3" id="kar-chain-title">Les lignes qui s’enchaînent</h3>
+          <p class="kar-more__text">
+            Sur une même piste, les lignes karaoké qui se suivent, à moins de 30&nbsp;secondes d’écart et sans autre ligne entre
+            elles, alternent entre deux rangées&nbsp;: la suivante apparaît pendant que la précédente se termine. Dans la vidéo
+            exportée, elle s’affiche dès que la précédente commence.
+          </p>
+          <p class="kar-more__text">
+            L’étiquette du personnage ne revient que quand le chanteur change. Une piste montre au plus deux lignes karaoké à la
+            fois.
+          </p>
+        </article>
+
+        <article aria-labelledby="kar-pause-title">
+          <h3 class="h3" id="kar-pause-title">À l’arrêt, une ligne comme les autres</h3>
+          <p class="kar-more__text">
+            Dans l’éditeur, le karaoké s’affiche pendant la lecture. À l’arrêt, la ligne reprend sa place sur la bande&nbsp;: vous
+            la déplacez, l’étirez, la coupez ou modifiez son texte comme n’importe quelle réplique. Une ligne coupée garde son
+            karaoké et le calage de ses syllabes.
+          </p>
+          <p class="kar-more__text">
+            Une ligne karaoké n’a pas d’émotions du texte&nbsp;: activer le karaoké les retire. Le mot illuminé en jaune et la
+            couleur d’étiquette sur le texte ne s’y appliquent pas, puisque la couleur du personnage la remplit déjà.
+          </p>
+        </article>
+
+        <article aria-labelledby="kar-export-title">
+          <h3 class="h3" id="kar-export-title">À l’export</h3>
+          <p class="kar-more__text">
+            Dans la vidéo MP4, le karaoké est incrusté dans la bande et ne défile jamais. Le réglage «&nbsp;Taille texte
+            karaoké&nbsp;» va de 50&nbsp;% à 200&nbsp;%.
+          </p>
+          <p class="kar-more__text">
+            L’export JSON garde le karaoké et le calage des syllabes, et les rend à la réimportation. En SRT, ASS et DETX, les
+            lignes karaoké sortent comme des répliques ordinaires.
+          </p>
+          <p class="kar-more__text">
+            Sous Windows, les versions <strong>O+</strong> et <strong>I+</strong> ajoutent un annonceur&nbsp;: une voix de synthèse
+            en français dit le nom du personnage quand le chanteur change, et se tait une seconde avant sa ligne. Il existe pour
+            la vidéo comme pour l’audio (MP3, WAV, stems BWF).
+          </p>
+          <a class="ui-btn ui-btn--lg kar-more__link" href="#export">Voir le centre d’export</a>
+        </article>
+
+        <article aria-labelledby="kar-keys-title">
+          <h3 class="h3" id="kar-keys-title">Au clavier</h3>
+          <p class="kar-more__text">
+            <kbd class="kbd">Numpad 9</kbd> active ou désactive le karaoké de chaque ligne sélectionnée, ou de la ligne survolée
+            s’il n’y a pas de sélection. Le bouton karaoké de la barre d’outils fait de même.
+          </p>
+          <p class="kar-more__text">
+            Sous Windows, le lecteur d’écran annonce «&nbsp;activé&nbsp;» ou «&nbsp;désactivé&nbsp;», et dit «&nbsp;Ligne
+            karaoké&nbsp;» après le numéro de piste quand il lit une ligne.
+          </p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

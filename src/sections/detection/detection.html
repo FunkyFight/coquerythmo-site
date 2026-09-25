@@ -93,70 +93,63 @@
       </div>
     </div>
 
-    <details class="boucle" id="detection-suite" data-close-label="Enrouler la boucle 2">
-      <summary class="boucle__head">
-        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>2</span>
-        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 2</span><span class="boucle__verb--close">Enrouler la boucle 2</span></span>
-        <span class="boucle__list">Les raccourcis de la palette · Bientôt&nbsp;: les signes posés depuis le texte</span>
-      </summary>
-      <div class="boucle__body">
-        <!-- ═══════════ Keyboard: the palette without the mouse ═══════════ -->
-        <div class="det-keys-block">
-          <h3 class="h3" id="det-keys-title">Au clavier</h3>
-          <dl class="det-keys" aria-labelledby="det-keys-title">
-            <div><dt><kbd class="kbd">Alt</kbd> <kbd class="kbd">D</kbd></dt><dd>Ouvrir la palette au pointeur</dd></div>
-            <div><dt><kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd> <kbd class="kbd">Entrée</kbd></dt><dd>Parcourir la palette, poser le signe</dd></div>
-            <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd></dt><dd>Décaler le signe sélectionné d’une image</dd></div>
-            <div><dt><kbd class="kbd">Suppr</kbd></dt><dd>Supprimer le signe sélectionné</dd></div>
-            <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Espace</kbd></dt><dd>Auditionner la détection : deux secondes autour du signe, avec un bip dessus</dd></div>
-            <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">Espace</kbd></dt><dd>Créer un point de synchronisation sur la lettre à la barre de lecture</dd></div>
-          </dl>
+    <div class="chapter__more" id="detection-suite">
+      <!-- ═══════════ Keyboard: the palette without the mouse ═══════════ -->
+      <div class="det-keys-block">
+        <h3 class="h3" id="det-keys-title">Au clavier</h3>
+        <dl class="det-keys" aria-labelledby="det-keys-title">
+          <div><dt><kbd class="kbd">Alt</kbd> <kbd class="kbd">D</kbd></dt><dd>Ouvrir la palette au pointeur</dd></div>
+          <div><dt><kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd> <kbd class="kbd">Entrée</kbd></dt><dd>Parcourir la palette, poser le signe</dd></div>
+          <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">←</kbd> <kbd class="kbd">→</kbd></dt><dd>Décaler le signe sélectionné d’une image</dd></div>
+          <div><dt><kbd class="kbd">Suppr</kbd></dt><dd>Supprimer le signe sélectionné</dd></div>
+          <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Espace</kbd></dt><dd>Auditionner la détection : deux secondes autour du signe, avec un bip dessus</dd></div>
+          <div><dt><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">Maj</kbd> <kbd class="kbd">Espace</kbd></dt><dd>Créer un point de synchronisation sur la lettre à la barre de lecture</dd></div>
+        </dl>
+      </div>
+
+      <!-- ═══════════ Text → signs (illustration: the entry is dev-mode only) ═══════════ -->
+      <div class="det-conv">
+        <h3 class="h3 det-conv__title">Bientôt&nbsp;: les signes posés depuis le texte</h3>
+        <div class="prose det-conv__prose">
+          <p>
+            Coquerythmo découpera la réplique en syllabes et posera un signe sur chacune, en français, anglais ou espagnol. Tout
+            part du texte&nbsp;: l’audio n’est jamais analysé. Pas encore dans la version publiée&nbsp;; la bande ci-dessous en
+            montre le principe.
+          </p>
         </div>
 
-        <!-- ═══════════ Text → signs (illustration: the entry is dev-mode only) ═══════════ -->
-        <div class="det-conv">
-          <h3 class="h3 det-conv__title">Bientôt&nbsp;: les signes posés depuis le texte</h3>
-          <div class="prose det-conv__prose">
-            <p>
-              Coquerythmo découpera la réplique en syllabes et posera un signe sur chacune, en français, anglais ou espagnol. Tout
-              part du texte&nbsp;: l’audio n’est jamais analysé. Pas encore dans la version publiée&nbsp;; la bande ci-dessous en
-              montre le principe.
-            </p>
+        <div class="det-lane">
+          <div class="det-lane__bar">
+            <div class="det-lane__lang">
+              <span class="det-lane__label" id="det-lang-label">Langue de découpe des syllabes</span>
+              <div class="det-seg" role="radiogroup" aria-labelledby="det-lang-label" data-langs>
+                <button class="det-seg__opt" type="button" role="radio" aria-checked="true" data-lang="fr">Français</button>
+                <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="en">Anglais</button>
+                <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="es">Espagnol</button>
+              </div>
+              <span class="det-lane__accent" data-accent></span>
+            </div>
+            <div class="det-lane__actions">
+              <button class="ui-btn ui-btn--lg" type="button" data-convert>
+                <span class="icon" style="--src: url(/icons/detection.svg)"></span>Convertir en signes de détection
+              </button>
+              <button class="ui-btn ui-btn--lg" type="button" data-undo data-tip="Annuler la génération" data-kbd="Ctrl Z" disabled>Annuler</button>
+            </div>
           </div>
 
-          <div class="det-lane">
-            <div class="det-lane__bar">
-              <div class="det-lane__lang">
-                <span class="det-lane__label" id="det-lang-label">Langue de découpe des syllabes</span>
-                <div class="det-seg" role="radiogroup" aria-labelledby="det-lang-label" data-langs>
-                  <button class="det-seg__opt" type="button" role="radio" aria-checked="true" data-lang="fr">Français</button>
-                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="en">Anglais</button>
-                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="es">Espagnol</button>
-                </div>
-                <span class="det-lane__accent" data-accent></span>
-              </div>
-              <div class="det-lane__actions">
-                <button class="ui-btn ui-btn--lg" type="button" data-convert>
-                  <span class="icon" style="--src: url(/icons/detection.svg)"></span>Convertir en signes de détection
-                </button>
-                <button class="ui-btn ui-btn--lg" type="button" data-undo data-tip="Annuler la génération" data-kbd="Ctrl Z" disabled>Annuler</button>
-              </div>
-            </div>
+          <div class="band-host det-lane__band" id="det-lane-band" aria-describedby="det-lane-help"></div>
+          <p class="sr-only" id="det-lane-help">
+            Bande d’illustration : une réplique fictive de Théo. Les signes générés sont listés juste après, syllabe par syllabe.
+          </p>
 
-            <div class="band-host det-lane__band" id="det-lane-band" aria-describedby="det-lane-help"></div>
-            <p class="sr-only" id="det-lane-help">
-              Bande d’illustration : une réplique fictive de Théo. Les signes générés sont listés juste après, syllabe par syllabe.
-            </p>
-
-            <div class="det-lane__foot">
-              <p class="det-toast" role="status" data-lane-status>Illustration préparée pour cette page, un signe par syllabe.</p>
-              <ol class="det-legend" role="list" aria-label="Signes générés, par syllabe" data-legend>
-                <li class="det-legend__empty">Aucun signe pour l’instant&nbsp;: lancez la conversion.</li>
-              </ol>
-            </div>
+          <div class="det-lane__foot">
+            <p class="det-toast" role="status" data-lane-status>Illustration préparée pour cette page, un signe par syllabe.</p>
+            <ol class="det-legend" role="list" aria-label="Signes générés, par syllabe" data-legend>
+              <li class="det-legend__empty">Aucun signe pour l’instant&nbsp;: lancez la conversion.</li>
+            </ol>
           </div>
         </div>
       </div>
-    </details>
+    </div>
   </div>
 </section>

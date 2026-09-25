@@ -53,8 +53,8 @@ export function downloadLines(dl, os, { compact = false } = {}) {
     windows: [
       w.installer && {
         character: 'WINDOWS',
-        text: `Télécharger l'installeur · ${w.version}`,
-        note: `.exe · ${formatSize(w.installer.size)}`,
+        text: `Télécharger l'installeur ${w.version}`,
+        note: `.exe, ${formatSize(w.installer.size)}`,
         action: {
           href: w.installer.url,
           label: `Télécharger Coquerythmo ${w.version} pour Windows, installeur, ${formatSize(w.installer.size)}`,
@@ -62,8 +62,8 @@ export function downloadLines(dl, os, { compact = false } = {}) {
       },
       !compact && w.portable && {
         character: 'WINDOWS',
-        text: `Version portable · ${w.version}`,
-        note: `.zip sans installation · ${formatSize(w.portable.size)}`,
+        text: `Version portable ${w.version}`,
+        note: `.zip sans installation, ${formatSize(w.portable.size)}`,
         action: {
           href: w.portable.url,
           label: `Télécharger Coquerythmo ${w.version} pour Windows, version portable en zip, ${formatSize(w.portable.size)}`,
@@ -73,8 +73,8 @@ export function downloadLines(dl, os, { compact = false } = {}) {
     macos: [
       m.app && {
         character: 'MACOS',
-        text: `Télécharger l'app · ${m.version}`,
-        note: `Apple Silicon · build non testée · ${formatSize(m.app.size)}`,
+        text: `Télécharger l'app ${m.version}`,
+        note: `Apple Silicon, build non testée, ${formatSize(m.app.size)}`,
         action: {
           href: m.app.url,
           label: `Télécharger Coquerythmo ${m.version} pour macOS Apple Silicon, ${formatSize(m.app.size)}. Build non testée par l'auteur.`,
@@ -84,8 +84,8 @@ export function downloadLines(dl, os, { compact = false } = {}) {
     linux: [
       lx.portable && {
         character: 'LINUX',
-        text: `Télécharger le zip · ${lx.version}`,
-        note: `portable · build non testée · ${formatSize(lx.portable.size)}`,
+        text: `Télécharger le zip ${lx.version}`,
+        note: `portable, build non testée, ${formatSize(lx.portable.size)}`,
         action: {
           href: lx.portable.url,
           label: `Télécharger Coquerythmo ${lx.version} pour Linux, zip portable, ${formatSize(lx.portable.size)}. Build non testée par l'auteur.`,

@@ -1,6 +1,6 @@
 <section class="chapter" id="ensemble" aria-labelledby="ensemble-title">
   <header class="strip">
-    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>5</span></p>
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>6</span></p>
     <h2 class="strip__title" id="ensemble-title"><span class="char-label" style="--c: var(--c-orange)">Le DA</span><span class="sr-only">&nbsp;: </span><span class="strip__line">Même bande, chacun chez soi.</span></h2>
   </header>
 
@@ -24,300 +24,233 @@
         </p>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════ Signature: a simulated session made of the app's panels ═══════════ -->
-    <figure class="ens-sim" aria-labelledby="ens-sim-title" data-ens-sim>
-      <div class="ens-sim__bar">
-        <img src="/app-icon.png" alt="" width="20" height="17" />
-        <p class="ens-sim__title" id="ens-sim-title">Session simulée</p>
-        <p class="ens-sim__room">
-          <span class="ens-dot" aria-hidden="true"></span>
-          <span>Salon <strong class="tnum" data-ens-code>K7Q2MX</strong></span>
-          <span class="ens-sim__count tnum" data-ens-count>4 participants</span>
-        </p>
-        <p class="ens-sim__tag">Démonstration&nbsp;: salon, pseudos et dialogues fictifs</p>
-      </div>
+  <!-- ═══════════ Signature: a session in five steps, every screen at once ═══════════ -->
+  <figure class="ens-sim" aria-label="Séance simulée" data-ens-sim>
+    <div class="ens-sim__bar">
+      <p class="ens-sim__tag">Salon, pseudos et dialogues fictifs</p>
+      <button class="ui-btn ui-btn--reset ens-sim__reset" type="button" data-ens-reset>
+        <svg class="ui-btn__glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /><path d="M21 3v5h-5" /></svg>
+        Recommencer
+      </button>
+    </div>
 
-      <div class="ens-sim__body">
-        <!-- invitation_modal.rs -->
-        <section class="ui-panel ens-panel ens-invite" aria-labelledby="ens-invite-title">
-          <header class="ui-panel__head"><h3 id="ens-invite-title">Inviter dans le salon</h3></header>
-          <div class="ui-panel__body ens-panel__body">
-            <p class="ens-panel__desc">Partagez le lien d’invitation ou le code du salon.</p>
+    <ol class="ens-steps" role="list" aria-label="Étapes de la séance">
+      <li class="ens-step" data-step="invite"><span class="ens-step__n" aria-hidden="true">1</span>Inviter</li>
+      <li class="ens-step" data-step="join"><span class="ens-step__n" aria-hidden="true">2</span>Les comédiens arrivent</li>
+      <li class="ens-step" data-step="send"><span class="ens-step__n" aria-hidden="true">3</span>Transférer le projet</li>
+      <li class="ens-step" data-step="download"><span class="ens-step__n" aria-hidden="true">4</span>Chacun télécharge</li>
+      <li class="ens-step" data-step="play"><span class="ens-step__n" aria-hidden="true">5</span>La même bande pour tous</li>
+    </ol>
+    <p class="ens-sim__now" role="status" data-ens-now>
+      Le DA vient de créer le salon. Copiez le lien d’invitation&nbsp;: c’est lui que les comédiens ouvrent.
+    </p>
+
+    <div class="ens-povs">
+      <!-- the DA's screen: the invitation, the room, then the window itself -->
+      <section class="ens-pov ens-pov--da" aria-labelledby="ens-pov-da">
+        <header class="ens-pov__head">
+          <h3 class="ens-pov__who" id="ens-pov-da">Vous <span>DA</span></h3>
+          <p class="ens-pov__where">votre écran</p>
+        </header>
+        <div class="ens-pov__stage">
+          <!-- invitation_modal.rs -->
+          <div class="ens-da" data-da="invite">
+            <h4 class="ens-da__title">Inviter dans le salon</h4>
+            <p class="ens-da__desc">Partagez le lien d’invitation ou le code du salon.</p>
             <div class="ens-code">
               <span class="ens-code__label">Code du salon</span>
-              <span class="ens-code__value tnum" data-ens-code>K7Q2MX</span>
+              <span class="ens-code__value tnum">K7Q2MX</span>
             </div>
-            <p class="ens-link" data-ens-link>coquerythmo://link/eyJrIjoiaiIsInMiOiJjb2xsYWJvcmF0aW9uLmV4ZW1wbGUuZnI6OTA1MCIsImMiOiJLN1EyTVgiLCJwIjoiIn0</p>
-            <fieldset class="ens-options">
-              <legend>Options pour les personnes invitées</legend>
-              <label class="ui-check"><input type="checkbox" data-ens-mode="require_match" />Demander de charger le même projet avant de rejoindre</label>
-              <label class="ui-check"><input type="checkbox" data-ens-mode="auto_transfer" />Transférer automatiquement le projet chargé</label>
-            </fieldset>
-            <div class="ens-invite__actions">
-              <button class="ui-btn ui-btn--accent ui-btn--lg" type="button" data-ens-copy="link">Copier le lien d’invitation</button>
-              <button class="ui-btn ui-btn--lg" type="button" data-ens-copy="code">Copier le code</button>
+            <p class="ens-link" data-ens-link>coquerythmo://link/</p>
+            <div class="ens-da__actions">
+              <button class="ui-btn ui-btn--accent ui-btn--lg" type="button" data-ens-invite="link">Copier le lien d’invitation</button>
+              <button class="ui-btn ui-btn--lg" type="button" data-ens-invite="code">Copier le code</button>
             </div>
           </div>
-        </section>
 
-        <!-- project_transfer_modal.rs, as the DA sees it -->
-        <section class="ui-panel ens-panel ens-transfer" aria-labelledby="ens-transfer-title">
-          <header class="ui-panel__head">
-            <h3 id="ens-transfer-title">Transfert du projet</h3>
-            <button class="ui-btn ens-transfer__send" type="button" data-ens-send>Transférer le projet</button>
-          </header>
-          <div class="ui-panel__body ens-panel__body">
-            <p class="ens-transfer__summary" data-ens-summary>Le DA n’a pas encore envoyé le projet.</p>
-            <p class="ens-transfer__file tnum">demo_episode_12.coquerythmo — 842.6 Mio</p>
-            <div class="ens-bar" role="progressbar" aria-label="Envoi au serveur" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-ens-upload>
-              <span class="ens-bar__fill"></span>
+          <!-- the room's participants, then project_transfer_modal.rs -->
+          <div class="ens-da" data-da="room" hidden>
+            <div class="ens-da__head">
+              <h4 class="ens-da__title" data-ens-room-title>Participants</h4>
+              <button class="ui-btn ui-btn--accent ui-btn--lg" type="button" data-ens-send aria-disabled="true">Transférer le projet</button>
             </div>
-            <ul class="ens-people" role="list" aria-label="Participants" data-ens-people>
-              <li class="ens-person" data-person="lea">
-                <span class="ens-person__name">Léa <span>· Comédien</span></span>
-                <span class="ens-person__state tnum" data-state>En attente</span>
+            <div class="ens-upload" data-ens-upload-wrap hidden>
+              <p class="ens-upload__label">
+                <span data-ens-summary>Envoi au serveur - 0&nbsp;%</span>
+                <span class="ens-upload__file tnum">demo_episode_12.coquerythmo, 842.6 Mio</span>
+              </p>
+              <span class="ens-bar" role="progressbar" aria-label="Envoi au serveur" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-ens-upload><span class="ens-bar__fill"></span></span>
+            </div>
+            <ul class="ens-people" role="list" aria-label="Participants du salon">
+              <li class="ens-person" data-phase="me">
+                <span class="ens-person__name">Vous <span>DA</span></span>
+                <span class="ens-person__state">A créé le salon</span>
+              </li>
+              <li class="ens-person" data-person="lea" hidden>
+                <span class="ens-person__name">Léa <span>Comédien</span></span>
+                <span class="ens-person__state tnum" data-state></span>
                 <span class="ens-bar ens-bar--thin" role="progressbar" aria-label="Téléchargement de Léa" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="ens-bar__fill"></span></span>
               </li>
-              <li class="ens-person" data-person="samir" data-has-note>
-                <span class="ens-person__name">Samir <span>· Comédien</span></span>
-                <span class="ens-person__state tnum" data-state>En attente</span>
+              <li class="ens-person" data-person="samir" hidden>
+                <span class="ens-person__name">Samir <span>Comédien</span></span>
+                <span class="ens-person__state tnum" data-state></span>
                 <span class="ens-bar ens-bar--thin" role="progressbar" aria-label="Téléchargement de Samir" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="ens-bar__fill"></span></span>
-                <span class="ens-person__note" data-note></span>
               </li>
-              <li class="ens-person" data-person="jade" data-has-note>
-                <span class="ens-person__name">Jade <span>· Comédien</span></span>
-                <span class="ens-person__state tnum" data-state>En attente</span>
+              <li class="ens-person" data-person="jade" hidden>
+                <span class="ens-person__name">Jade <span>Comédien</span></span>
+                <span class="ens-person__state tnum" data-state></span>
                 <span class="ens-bar ens-bar--thin" role="progressbar" aria-label="Téléchargement de Jade" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="ens-bar__fill"></span></span>
-                <span class="ens-person__note" data-note></span>
-              </li>
-              <li class="ens-person" data-person="tom" data-has-note data-phase="away">
-                <span class="ens-person__name">Tom <span>· Comédien</span></span>
-                <span class="ens-person__state tnum" data-state>Pas encore arrivé</span>
-                <span class="ens-bar ens-bar--thin" role="progressbar" aria-label="Téléchargement de Tom" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="ens-bar__fill"></span></span>
-                <span class="ens-person__note" data-note></span>
               </li>
             </ul>
           </div>
-        </section>
 
-        <!-- Two screens, one timeline: the DA drives, Léa follows -->
-        <section class="ens-screen" aria-labelledby="ens-da-title">
-          <header class="ens-screen__head">
-            <h3 class="ens-screen__who" id="ens-da-title">Vous <span>· DA</span></h3>
-            <p class="ens-screen__where">votre écran</p>
-          </header>
-          <div class="ens-screen__video">
-            <div class="ens-copy" aria-hidden="true">
-              <p class="ens-copy__tc tnum" data-tc>01:00:00:00</p>
-              <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+          <!-- the window: work copy, toolbar, band -->
+          <div class="ens-da ens-da--play" data-da="play" hidden>
+            <div class="ens-video">
+              <div class="ens-copy" aria-hidden="true" data-copy>
+                <p class="ens-copy__tc tnum" data-tc>01:00:00:00</p>
+                <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+              </div>
             </div>
-          </div>
-          <div class="ens-screen__tools" role="toolbar" aria-label="Lecture du DA" aria-controls="ens-band-da">
-            <button class="icon-btn" type="button" data-ens-cmd="prev" data-tip="Image précédente" aria-label="Image précédente">
-              <span class="icon" style="--src: url(/icons/goto.svg)"></span>
-            </button>
-            <button class="icon-btn" type="button" data-ens-cmd="play" data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false">
-              <span class="icon" data-play-icon style="--src: url(/icons/resume.svg)"></span>
-            </button>
-            <button class="icon-btn" type="button" data-ens-cmd="next" data-tip="Image suivante" aria-label="Image suivante">
-              <span class="icon icon--flip" style="--src: url(/icons/goto.svg)"></span>
-            </button>
-            <input class="ui-slider ens-scrub" type="range" min="-8" max="300" step="1" value="-8" aria-label="Position dans la scène du DA" data-ens-scrub />
-            <output class="ens-screen__tc tnum" data-tc-out>00:00:00</output>
-          </div>
-          <div class="band-host ens-band" id="ens-band-da" aria-describedby="ens-band-help" data-ens-band="da"></div>
-        </section>
-
-        <section class="ens-screen ens-screen--actor" aria-labelledby="ens-actor-title">
-          <header class="ens-screen__head">
-            <h3 class="ens-screen__who" id="ens-actor-title">Léa <span>· Comédien</span></h3>
-            <p class="ens-screen__where">son écran, ailleurs</p>
-          </header>
-          <div class="ens-screen__video">
-            <div class="ens-copy" aria-hidden="true" data-actor-copy hidden>
-              <p class="ens-copy__tc tnum" data-tc>01:00:00:00</p>
-              <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+            <div class="ens-tools" role="toolbar" aria-label="Lecture du DA" aria-controls="ens-band-da">
+              <button class="icon-btn" type="button" data-ens-cmd="prev" data-tip="Image précédente" aria-label="Image précédente">
+                <span class="icon" style="--src: url(/icons/goto.svg)"></span>
+              </button>
+              <button class="icon-btn ens-tools__play" type="button" data-ens-cmd="play" data-tip="Lecture" data-kbd="Espace" aria-label="Lecture" aria-pressed="false">
+                <span class="icon" data-play-icon style="--src: url(/icons/resume.svg)"></span>
+              </button>
+              <button class="icon-btn" type="button" data-ens-cmd="next" data-tip="Image suivante" aria-label="Image suivante">
+                <span class="icon icon--flip" style="--src: url(/icons/goto.svg)"></span>
+              </button>
+              <output class="ens-tools__tc tnum" data-tc-out aria-label="Position" aria-live="off">00:00:00</output>
             </div>
-            <p class="ens-screen__empty" data-actor-empty>Attendez le transfert du projet par le DA.</p>
-          </div>
-          <div class="ens-screen__tools ens-screen__tools--ro">
-            <p>Lecture seule&nbsp;: la bande suit le DA</p>
-            <p class="ens-screen__gap tnum">Écart <strong data-ens-gap>0 image</strong></p>
-          </div>
-          <div class="band-host ens-band ens-band--follow" data-ens-band="actor"></div>
-        </section>
-
-        <div class="ens-net" role="group" aria-label="Réseau simulé">
-          <p class="ens-net__label">Réseau simulé</p>
-          <label class="ens-net__latency">
-            <span>Latence</span>
-            <input class="ui-slider" type="range" min="20" max="400" step="10" value="120" data-ens-latency />
-            <output class="tnum" data-ens-latency-out>120 ms</output>
-          </label>
-          <label class="ui-check"><input type="checkbox" checked data-ens-comp />Compensation de la latence</label>
-          <p class="ens-net__hint">Glissez sur la bande du DA ou appuyez sur <span class="kbd">Espace</span>&nbsp;: celle de Léa suit.</p>
-        </div>
-
-        <p class="ens-toast" data-ens-toast aria-hidden="true"></p>
-      </div>
-
-    </figure>
-    <p class="sr-only" id="ens-band-help">
-      Bande rythmo du DA, simulation. Espace&nbsp;: lecture ou pause. Flèches gauche et droite&nbsp;: image par image. Entrée&nbsp;:
-      sélectionner la ligne à la tête de lecture. La bande de Léa reprend la position, la lecture, la sélection et les
-      modifications du DA après la latence choisie.
-    </p>
-
-    <details class="boucle" id="ensemble-suite" data-close-label="Enrouler la boucle 5">
-      <summary class="boucle__head">
-        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>5</span>
-        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 5</span><span class="boucle__verb--close">Enrouler la boucle 5</span></span>
-        <span class="boucle__list">Rejoindre un salon · Enregistrer en ligne · Si la connexion saute · Héberger votre propre serveur</span>
-      </summary>
-      <div class="boucle__body">
-        <!-- ═══════════ Recording online, dropped connections ═══════════ -->
-        <div class="ens__more">
-          <div class="ens__block">
-            <h3 class="h3">Rejoindre un salon</h3>
-            <div class="prose">
-              <p>
-                Tout part du menu <strong>Connexion › Serveurs</strong>&nbsp;: «&nbsp;Choisissez un serveur en ligne, puis créez ou
-                rejoignez un salon.&nbsp;» Le serveur public y est déjà.
-              </p>
-              <p>
-                Le code du salon suffit pour rejoindre. Sous Windows, le lien <code>coquerythmo://</code> ouvre Coquerythmo, demande
-                votre pseudo et rejoint le salon. Dans l’espace Enregistrement, «&nbsp;Mise en place rapide&nbsp;» copie aussi un lien
-                de session&nbsp;: ouvert sur le PC du DA, il charge le projet et crée le salon.
-              </p>
-              <p>
-                Pour une séance guidée, voyez le
-                <a href="https://www.youtube.com/watch?v=rJi6mt2Jax4" target="_blank" rel="noopener">tutoriel vidéo Bande rythmo ensemble</a>.
-              </p>
-            </div>
-          </div>
-          <div class="ens__block">
-            <h3 class="h3">Enregistrer en ligne</h3>
-            <div class="prose">
-              <p>
-                Dans l’espace Enregistrement, choisissez «&nbsp;S’enregistrer en ligne&nbsp;». Le DA lance l’enregistrement pour le
-                salon&nbsp;; chaque comédien enregistre sur son propre micro, capté tel quel, sans gain, normalisation ni filtre, et
-                sa prise part vers la session dès qu’elle est finie. Tant qu’un micro n’est pas prêt, l’enregistrement est bloqué,
-                et l’app dit pour qui.
-              </p>
-              <p>
-                Depuis «&nbsp;Requêtes comédien&nbsp;», le DA peut aussi ouvrir la configuration du micro chez les comédiens, leur
-                transférer le projet ou les réglages d’affichage de la bande.
-              </p>
-            </div>
-            <button class="ui-btn ui-btn--lg ens__tab" type="button" data-tab="recording">Ouvrir l’espace Enregistrement</button>
-          </div>
-          <div class="ens__block">
-            <h3 class="h3">Si la connexion saute</h3>
-            <div class="prose">
-              <p>
-                Coquerythmo se reconnecte seul au salon, et le DA retrouve son rôle tant que le salon existe. Les modifications
-                manquées sont rattrapées, et un téléchargement coupé reprend là où il s’était arrêté.
-              </p>
-              <p>
-                Chaque archive est vérifiée avant sa publication et après son téléchargement. Si le DA décroche, le projet reste
-                disponible pour ceux qui sont encore là. Quand le dernier participant quitte le salon, le serveur efface le projet
-                de son cache.
-              </p>
-            </div>
+            <div class="band-host ens-band" id="ens-band-da" aria-describedby="ens-band-help" data-ens-band="da"></div>
           </div>
         </div>
+      </section>
 
-        <!-- ═══════════ Self-hosting (#serveur) ═══════════ -->
-        <section class="ens-server" id="serveur" aria-labelledby="serveur-title">
-          <div class="ens-server__text">
-            <h3 class="h3 ens-server__title" id="serveur-title">Héberger votre propre serveur</h3>
-            <div class="prose">
-              <p>
-                Le serveur public suffit pour commencer&nbsp;: il est déjà dans la liste «&nbsp;Serveurs de collaboration&nbsp;», et
-                il y reste. Pour une équipe ou un studio, vous pouvez héberger le vôtre.
-              </p>
-              <p>
-                C’est un petit serveur <strong>Node.js</strong> (Socket.IO)&nbsp;: <code>npm install</code>, puis
-                <code>npm start</code>. Chaque participant l’ajoute avec «&nbsp;Ajouter un serveur&nbsp;»&nbsp;: une adresse et un
-                port, enregistrés sur son appareil.
-              </p>
-              <p>
-                Il se règle par variables d’environnement ou dans un fichier <code>.env</code>. Modifiez-les ici&nbsp;: l’aperçu
-                montre votre serveur tel qu’il apparaîtra dans l’app.
-              </p>
+      <!-- each comédien's own screen -->
+      <div class="ens-actors">
+        <section class="ens-pov" data-pov="lea" aria-labelledby="ens-pov-lea">
+          <header class="ens-pov__head">
+            <h3 class="ens-pov__who" id="ens-pov-lea">Léa <span>Comédien</span></h3>
+            <p class="ens-pov__where">son écran</p>
+          </header>
+          <div class="ens-pov__stage">
+            <p class="ens-pov__state" data-pov-state>Pas encore dans le salon</p>
+            <span class="ens-bar ens-bar--thin" data-pov-bar hidden><span class="ens-bar__fill"></span></span>
+            <p class="ens-pov__note" data-pov-note></p>
+            <div class="ens-pov__screen" data-pov-screen hidden>
+              <div class="ens-copy" aria-hidden="true" data-copy>
+                <p class="ens-copy__tc tnum" data-tc>01:00:00:00</p>
+                <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+              </div>
+              <div class="band-host ens-band ens-band--mini" data-ens-band="lea"></div>
             </div>
-
-            <form class="ens-env" data-ens-env aria-label="Réglages du serveur" novalidate>
-              <div class="ens-env__row">
-                <label for="ens-env-name"><code>SERVER_NAME</code></label>
-                <input class="ens-input" id="ens-env-name" name="SERVER_NAME" type="text" maxlength="40" autocomplete="off" spellcheck="false" value="Studio des Coquelicots" placeholder="Coquerythmo Server" aria-describedby="ens-env-name-hint" />
-                <p class="ens-env__hint" id="ens-env-name-hint">Nom affiché dans la liste des serveurs. «&nbsp;Coquerythmo Server&nbsp;» par défaut.</p>
-              </div>
-              <div class="ens-env__row">
-                <label for="ens-env-motd"><code>MOTD</code></label>
-                <input class="ens-input" id="ens-env-motd" name="MOTD" type="text" maxlength="60" autocomplete="off" value="Séance du jeudi, 20 h" placeholder="Aucun message" aria-describedby="ens-env-motd-hint" />
-                <p class="ens-env__hint" id="ens-env-motd-hint">Message du jour, affiché sous le nom. Vide&nbsp;: «&nbsp;Prêt à accueillir un salon&nbsp;».</p>
-              </div>
-              <div class="ens-env__row">
-                <label for="ens-env-slots"><code>MAX_SLOTS</code></label>
-                <input class="ens-input ens-input--num tnum" id="ens-env-slots" name="MAX_SLOTS" type="text" inputmode="numeric" maxlength="4" autocomplete="off" value="20" aria-describedby="ens-env-slots-hint" />
-                <p class="ens-env__hint" id="ens-env-slots-hint" data-default-hint="Personnes connectées en même temps, tous salons confondus. 20 par défaut.">Personnes connectées en même temps, tous salons confondus. 20 par défaut.</p>
-              </div>
-              <div class="ens-env__row">
-                <label for="ens-env-password"><code>PASSWORD</code></label>
-                <input class="ens-input" id="ens-env-password" name="PASSWORD" type="text" maxlength="40" autocomplete="off" spellcheck="false" placeholder="Aucun" aria-describedby="ens-env-password-hint" />
-                <p class="ens-env__hint" id="ens-env-password-hint">Facultatif. S’il est défini, il se saisit dans «&nbsp;Mot de passe&nbsp;» pour se connecter.</p>
-              </div>
-              <div class="ens-env__row">
-                <label for="ens-env-port"><code>PORT</code></label>
-                <input class="ens-input ens-input--num tnum" id="ens-env-port" name="PORT" type="text" inputmode="numeric" maxlength="5" autocomplete="off" value="9050" aria-describedby="ens-env-port-hint" />
-                <p class="ens-env__hint" id="ens-env-port-hint" data-default-hint="Port d’écoute. 9050 par défaut.">Port d’écoute. 9050 par défaut.</p>
-              </div>
-            </form>
           </div>
-
-          <div class="ens-server__preview">
-            <!-- server_browser.rs: one saved server row -->
-            <div class="ui-panel ens-browser" role="group" aria-labelledby="ens-browser-title">
-              <p class="ui-panel__head" id="ens-browser-title">Serveurs de collaboration</p>
-              <div class="ui-panel__body">
-                <p class="ens-browser__desc">Choisissez un serveur en ligne, puis créez ou rejoignez un salon.</p>
-                <p class="ens-browser__saved">Serveurs enregistrés</p>
-                <div class="ens-browser__list">
-                  <div class="ens-srv">
-                    <span class="ens-dot" aria-hidden="true"></span>
-                    <span class="ens-srv__name" data-srv="name">Studio des Coquelicots</span>
-                    <span class="ens-srv__status">En ligne</span>
-                    <span class="ens-srv__slots tnum" data-srv="slots">0/20</span>
-                    <span class="ens-srv__motd" data-srv="motd">Séance du jeudi, 20 h</span>
-                    <span class="ens-srv__endpoint tnum" data-srv="endpoint">collaboration.exemple.fr:9050</span>
-                  </div>
-                </div>
+        </section>
+        <section class="ens-pov" data-pov="samir" aria-labelledby="ens-pov-samir">
+          <header class="ens-pov__head">
+            <h3 class="ens-pov__who" id="ens-pov-samir">Samir <span>Comédien</span></h3>
+            <p class="ens-pov__where">son écran</p>
+          </header>
+          <div class="ens-pov__stage">
+            <p class="ens-pov__state" data-pov-state>Pas encore dans le salon</p>
+            <span class="ens-bar ens-bar--thin" data-pov-bar hidden><span class="ens-bar__fill"></span></span>
+            <p class="ens-pov__note" data-pov-note></p>
+            <div class="ens-pov__screen" data-pov-screen hidden>
+              <div class="ens-copy" aria-hidden="true" data-copy>
+                <p class="ens-copy__tc tnum" data-tc>01:00:00:00</p>
+                <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
               </div>
+              <div class="band-host ens-band ens-band--mini" data-ens-band="samir"></div>
             </div>
-
-            <div class="ui-panel ens-dotenv" role="group" aria-labelledby="ens-dotenv-title">
-              <p class="ui-panel__head" id="ens-dotenv-title">.env <span class="ens-dotenv__where">dans le dossier du serveur</span></p>
-              <pre class="ens-dotenv__code tnum" data-ens-dotenv>PORT=9050
-    SERVER_NAME="Studio des Coquelicots"
-    MOTD="Séance du jeudi, 20 h"
-    MAX_SLOTS=20</pre>
+          </div>
+        </section>
+        <section class="ens-pov" data-pov="jade" aria-labelledby="ens-pov-jade">
+          <header class="ens-pov__head">
+            <h3 class="ens-pov__who" id="ens-pov-jade">Jade <span>Comédien</span></h3>
+            <p class="ens-pov__where">son écran</p>
+          </header>
+          <div class="ens-pov__stage">
+            <p class="ens-pov__state" data-pov-state>Pas encore dans le salon</p>
+            <span class="ens-bar ens-bar--thin" data-pov-bar hidden><span class="ens-bar__fill"></span></span>
+            <p class="ens-pov__note" data-pov-note></p>
+            <div class="ens-pov__screen" data-pov-screen hidden>
+              <div class="ens-copy" aria-hidden="true" data-copy>
+                <p class="ens-copy__tc tnum" data-tc>01:00:00:00</p>
+                <img data-mouth src="/icons/detection/rhubarb_lips/P_B_M.png" alt="" width="408" height="334" />
+              </div>
+              <div class="band-host ens-band ens-band--mini" data-ens-band="jade"></div>
             </div>
-
-            <p class="ens-server__limits">
-              Une archive de projet peut peser jusqu’à <strong class="tnum">64&nbsp;Gio</strong>, sur
-              <strong class="tnum">128&nbsp;Gio</strong> réservés au total (<code>PROJECT_MAX_BYTES</code>,
-              <code>PROJECT_STORAGE_MAX_BYTES</code>). Les salons vides libèrent leurs fichiers&nbsp;; redémarrer le serveur ferme
-              les salons en cours. Depuis la version 5.1 et son protocole&nbsp;2, mettez à jour l’app et le serveur ensemble.
-            </p>
-            <p class="ens-server__help">
-              Une question sur l’hébergement&nbsp;?
-              <a class="ui-btn" href="https://discord.gg/fpdsUyWuwN" target="_blank" rel="noopener">Demander sur le Discord</a>
-            </p>
           </div>
         </section>
       </div>
-    </details>
+    </div>
+  </figure>
+  <p class="sr-only" id="ens-band-help">
+    Bande rythmo du DA, simulation. Espace&nbsp;: lecture ou pause. Flèches gauche et droite&nbsp;: image par image. Entrée&nbsp;:
+    sélectionner la ligne à la tête de lecture. Les bandes de Léa, Samir et Jade reprennent la position, la lecture et les
+    modifications du DA.
+  </p>
+
+  <div class="chapter__inner ens">
+
+    <div class="chapter__more" id="ensemble-suite">
+      <!-- ═══════════ Recording online, dropped connections ═══════════ -->
+      <div class="ens__more">
+        <div class="ens__block">
+          <h3 class="h3">Rejoindre un salon</h3>
+          <div class="prose">
+            <p>
+              Tout part du menu <strong>Connexion › Serveurs</strong>&nbsp;: «&nbsp;Choisissez un serveur en ligne, puis créez ou
+              rejoignez un salon.&nbsp;» Le serveur public y est déjà.
+            </p>
+            <p>
+              Le code du salon suffit pour rejoindre. Sous Windows, le lien <code>coquerythmo://</code> ouvre Coquerythmo, demande
+              votre pseudo et rejoint le salon. L’invitation peut aussi demander de charger le même projet avant de rejoindre, ou
+              transférer automatiquement le projet chargé. Dans l’espace Enregistrement, «&nbsp;Mise en place rapide&nbsp;» copie
+              aussi un lien de session&nbsp;: ouvert sur le PC du DA, il charge le projet et crée le salon.
+            </p>
+            <p>
+              Pour une séance guidée, voyez le
+              <a href="https://www.youtube.com/watch?v=rJi6mt2Jax4" target="_blank" rel="noopener">tutoriel vidéo Bande rythmo ensemble</a>.
+            </p>
+          </div>
+        </div>
+        <div class="ens__block">
+          <h3 class="h3">Enregistrer en ligne</h3>
+          <div class="prose">
+            <p>
+              Dans l’espace Enregistrement, choisissez «&nbsp;S’enregistrer en ligne&nbsp;». Le DA lance l’enregistrement pour le
+              salon&nbsp;; chaque comédien enregistre sur son propre micro, capté tel quel, sans gain, normalisation ni filtre, et
+              sa prise part vers la session dès qu’elle est finie. Tant qu’un micro n’est pas prêt, l’enregistrement est bloqué,
+              et l’app dit pour qui.
+            </p>
+            <p>
+              Depuis «&nbsp;Requêtes comédien&nbsp;», le DA peut aussi ouvrir la configuration du micro chez les comédiens, leur
+              transférer le projet ou les réglages d’affichage de la bande.
+            </p>
+          </div>
+          <button class="ui-btn ui-btn--lg ens__tab" type="button" data-tab="recording">Ouvrir l’espace Enregistrement</button>
+        </div>
+        <div class="ens__block">
+          <h3 class="h3">Si la connexion saute</h3>
+          <div class="prose">
+            <p>
+              Coquerythmo se reconnecte seul au salon, et le DA retrouve son rôle tant que le salon existe. Les modifications
+              manquées sont rattrapées, et un téléchargement coupé reprend là où il s’était arrêté.
+            </p>
+            <p>
+              Chaque archive est vérifiée avant sa publication et après son téléchargement. Si le DA décroche, le projet reste
+              disponible pour ceux qui sont encore là. Quand le dernier participant quitte le salon, le serveur efface le projet
+              de son cache.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

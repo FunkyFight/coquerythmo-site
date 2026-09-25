@@ -1,6 +1,6 @@
 <section class="chapter" id="export" aria-labelledby="export-title">
   <header class="strip">
-    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>4</span></p>
+    <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>5</span></p>
     <h2 class="strip__title" id="export-title">
       <span class="char-label" style="--c: var(--c-purple)">Export</span><span class="sr-only">&nbsp;: </span>
       <span class="strip__line">Tous vos livrables en une seule opération.</span>
@@ -9,19 +9,17 @@
 
   <div class="chapter__inner">
     <p class="chapter__lede">
-      Menu Export, puis « Exporter… », ou <kbd class="kbd">Ctrl</kbd>&nbsp;<kbd class="kbd">M</kbd>&nbsp;: le centre d’export
-      rassemble <strong>la vidéo MP4 avec la bande rythmo sous l’image</strong>, les sous-titres, l’audio et les documents de
-      référence. Cochez ce qu’il vous faut, pour une ou plusieurs langues&nbsp;: un clic sur « Exporter » produit tous les
-      fichiers d’un coup.
+      <kbd class="kbd">Ctrl</kbd>&nbsp;<kbd class="kbd">M</kbd> ouvre le centre d’export. Cochez <strong>la vidéo MP4 avec la
+      bande rythmo sous l’image</strong>, les sous-titres, l’audio et les références, pour une ou plusieurs langues&nbsp;: un
+      clic sur «&nbsp;Exporter&nbsp;» produit tous les fichiers.
     </p>
   </div>
 
   <!-- ═══ The bench: the Export centre (export_modal.rs) and what it would write ═══ -->
   <div class="xp" data-xp>
-    <div class="xp-hub ui-panel" role="group" aria-labelledby="xp-title" aria-describedby="xp-sub" data-xp-hub>
+    <div class="xp-hub ui-panel" role="group" aria-labelledby="xp-title" data-xp-hub>
       <header class="xp-hub__head">
         <h3 class="xp-hub__title" id="xp-title">Exporter…</h3>
-        <p class="xp-hub__sub" id="xp-sub">Configurez plusieurs livrables en une seule opération. Ces choix sont enregistrés dans le projet.</p>
       </header>
 
       <div class="xp-hub__cols">
@@ -60,7 +58,6 @@
               </div>
             </div>
 
-            <p class="xp-res tnum" data-res>1920 × 1080 px</p>
             <div class="xp-dims" data-dims hidden>
               <input class="xp-dims__field tnum" type="text" inputmode="numeric" autocomplete="off" maxlength="5" aria-label="Largeur vidéo" data-dim="w" value="1920" />
               <span class="xp-dims__x" aria-hidden="true">×</span>
@@ -150,23 +147,14 @@
         <!-- languages panel: one row per language, O / I / O+ / I+ audio versions -->
         <section class="xp-langs" aria-labelledby="xp-langs-title">
           <h4 class="xp-langs__title" id="xp-langs-title">Langues à exporter</h4>
-          <p class="xp-langs__key">O = original · I = instru · O+ / I+ = avec annonceur</p>
           <ul class="xp-langs__list" role="list" data-langs></ul>
+          <p class="xp-langs__key"><b>O</b> son d’origine, <b>I</b> instrumental, <b>+</b> avec annonceur (Windows)</p>
         </section>
       </div>
 
       <footer class="xp-hub__foot">
-        <button class="ui-btn ui-btn--lg xp-hub__close" type="button" data-xp-close>Fermer</button>
         <a class="ui-btn ui-btn--lg xp-hub__go" href="#telecharger" data-action="goto-downloads">Télécharger pour exporter</a>
       </footer>
-    </div>
-
-    <!-- shown after « Fermer » -->
-    <div class="xp-closed ui-panel" data-xp-closed hidden>
-      <p>Centre d’export fermé. Vos choix restent enregistrés dans le projet.</p>
-      <button class="ui-btn ui-btn--lg ui-btn--accent" type="button" data-xp-open>
-        Exporter… <span class="xp-closed__kbd"><kbd class="kbd">Ctrl</kbd> <kbd class="kbd">M</kbd></span>
-      </button>
     </div>
 
     <!-- ── What « Exporter » writes, in the app ── -->
@@ -185,11 +173,7 @@
             <p class="xp-frame__off" data-frame-off hidden>Pas de vidéo MP4 dans cet export</p>
           </div>
         </div>
-        <figcaption class="xp-preview__cap">
-          <span class="xp-preview__dims tnum" data-cap-dims>1920 × 1080 px</span>
-          <span data-cap-line>La bande rythmo occupe 37 % de la hauteur, sous l’image.</span>
-          <span data-cap-extra hidden></span>
-        </figcaption>
+        <figcaption class="xp-preview__cap tnum" data-cap-dims>1920 × 1080 px, 60 FPS</figcaption>
       </figure>
 
       <div class="xp-files">
@@ -198,11 +182,8 @@
           <p class="xp-files__count tnum" data-count>12 fichiers</p>
         </div>
 
-        <div class="xp-files__scroll" tabindex="0" role="region" aria-labelledby="xp-out-title" data-files-scroll>
-          <div data-files></div>
-          <p class="xp-files__empty" data-files-empty hidden>Aucun livrable coché&nbsp;: cochez au moins un format.</p>
-        </div>
-        <p class="xp-files__base">Nom de base choisi à l’export&nbsp;: <span class="tnum">demo_episode_12</span></p>
+        <div data-files></div>
+        <p class="xp-files__empty" data-files-empty hidden>Aucun livrable coché&nbsp;: cochez au moins un format.</p>
       </div>
       </div>
     </aside>
@@ -210,38 +191,30 @@
 
   <div class="xp-notes">
     <p class="xp-notes__demo">
-      Démonstration sur le projet fictif de la page&nbsp;: les options, les noms de fichiers et l’aperçu suivent les règles de
-      l’app. L’export lui-même se fait dans Coquerythmo.
+      Démonstration sur le projet fictif de la page, selon les règles de l’app. L’export lui-même se fait dans Coquerythmo.
     </p>
-    <details class="boucle" id="export-suite" data-close-label="Enrouler la boucle 4">
-      <summary class="boucle__head">
-        <span class="boucle__mark" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg>4</span>
-        <span class="boucle__line"><span class="icon boucle__icon" style="--src: url(/icons/resume.svg)"></span><span class="boucle__verb--open">Dérouler la boucle 4</span><span class="boucle__verb--close">Enrouler la boucle 4</span></span>
-        <span class="boucle__list">Encodage vidéo · Audio · Annonceur (O+ / I+) · Plusieurs langues</span>
-      </summary>
-      <div class="boucle__body">
-        <dl class="xp-notes__list">
-          <div class="xp-note">
-            <dt>Encodage vidéo</dt>
-            <dd>
-              H.264 avec NVENC quand une carte NVIDIA le permet, sinon libx264. Le son d’origine est recopié tel quel&nbsp;; il passe
-              en AAC dès que l’export le modifie (instrumental, pré-roll, compte à rebours, annonceur).
-            </dd>
-          </div>
-          <div class="xp-note">
-            <dt>Audio</dt>
-            <dd>WAV et stems BWF en PCM 24 bits à 48 kHz, les stems avec leurs métadonnées BEXT. MP3 à 320 kb/s.</dd>
-          </div>
-          <div class="xp-note">
-            <dt>Annonceur (O+ / I+)</dt>
-            <dd>Sur Windows, une voix de synthèse annonce le personnage quand il change, juste avant ses répliques en karaoké.</dd>
-          </div>
-          <div class="xp-note">
-            <dt>Plusieurs langues</dt>
-            <dd>Chaque langue possède sa propre bande rythmo et son propre instrumental. Cochez-en plusieurs&nbsp;: un seul export produit les fichiers de chacune.</dd>
-          </div>
-        </dl>
-      </div>
-    </details>
+    <div class="chapter__more" id="export-suite">
+      <dl class="xp-notes__list">
+        <div class="xp-note">
+          <dt>Encodage vidéo</dt>
+          <dd>
+            H.264 avec NVENC quand une carte NVIDIA le permet, sinon libx264. Le son d’origine est recopié tel quel&nbsp;; il passe
+            en AAC dès que l’export le modifie (instrumental, pré-roll, compte à rebours, annonceur).
+          </dd>
+        </div>
+        <div class="xp-note">
+          <dt>Audio</dt>
+          <dd>WAV et stems BWF en PCM 24 bits à 48 kHz, les stems avec leurs métadonnées BEXT. MP3 à 320 kb/s.</dd>
+        </div>
+        <div class="xp-note">
+          <dt>Annonceur (O+ / I+)</dt>
+          <dd>Sur Windows, une voix de synthèse annonce le personnage quand il change, juste avant ses répliques en karaoké.</dd>
+        </div>
+        <div class="xp-note">
+          <dt>Plusieurs langues</dt>
+          <dd>Chaque langue possède sa propre bande rythmo et son propre instrumental. Cochez-en plusieurs&nbsp;: un seul export produit les fichiers de chacune.</dd>
+        </div>
+      </dl>
+    </div>
   </div>
 </section>

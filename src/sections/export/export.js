@@ -1,4 +1,4 @@
-// Export (boucle 4): the Export centre of the app (menu Export › « Exporter… »,
+// Export (boucle 5): the Export centre of the app (menu Export › « Exporter… »,
 // Ctrl+M) rebuilt from src/ui/export_modal.rs with its four pages, its
 // languages panel and its keyboard model, next to the files one « Exporter »
 // would write. File names follow src/configured_export.rs; output dimensions
@@ -153,36 +153,20 @@ function buildFiles() {
     used.add(prefix.toLowerCase());
     const tracks = tracksFor(lang);
     const files = [];
-    const add = (name, meta, weight, cat) => files.push({ name, prefix, meta, weight, cat });
-    if (cfg.video) {
-      for (const t of tracks) {
-        // pipeline.rs:248-262: the source audio is copied unless it has to be
-        // remuxed (AAC 192k, audio.rs:82); the countdown pass re-encodes too
-        const aac = t.label !== 'original' || cfg.preRoll > 0 || cfg.countdown;
-        const meta = `H.264 · ${aac ? 'AAC' : 'son d’origine'}${t.ann ? ' · annonceur' : ''}`;
-        add(`${prefix}_${t.label}.mp4`, meta, 2600 + (cfg.countdown ? 450 : 0) + (t.ann ? 400 : 0), 'video');
-      }
-    }
-    const subs = [
-      ['json', 'Données de la bande'],
-      ['srt', 'Sous-titres'],
-      ['ass', 'Sous-titres stylés'],
-      ['detx', 'Cappella'],
-    ];
-    for (const [ext, meta] of subs) if (cfg.subs[ext]) add(`${prefix}.${ext}`, meta, 320, 'subs');
+    const add = (name, cat) => files.push({ name, prefix, cat });
+    if (cfg.video) for (const t of tracks) add(`${prefix}_${t.label}.mp4`, 'video');
+    for (const ext of ['json', 'srt', 'ass', 'detx']) if (cfg.subs[ext]) add(`${prefix}.${ext}`, 'subs');
     const audio = [
-      ['mp3', 'mp3', 'MP3 320 kb/s', 700],
-      ['wav', 'wav', 'PCM 24 bits · 48 kHz', 560],
-      ['bwf', 'wav', 'BWF · BEXT', 650],
+      ['mp3', 'mp3'],
+      ['wav', 'wav'],
+      ['bwf', 'wav'],
     ];
     for (const t of tracks) {
-      for (const [key, ext, meta, weight] of audio) {
-        if (cfg.audio[key]) add(`${prefix}_${t.label}_${key}.${ext}`, t.ann ? `${meta} · annonceur` : meta, weight + (t.ann ? 450 : 0), 'audio');
-      }
+      for (const [key, ext] of audio) if (cfg.audio[key]) add(`${prefix}_${t.label}_${key}.${ext}`, 'audio');
     }
-    if (cfg.refs.csv) add(`${prefix}_cross_reference.csv`, 'Croisées · tableur', 300, 'refs');
-    if (cfg.refs.pdf) add(`${prefix}_cross_reference.pdf`, 'Croisées · à imprimer', 480, 'refs');
-    if (cfg.refs.grid) add(`${prefix}_presence_grid.pdf`, 'Présence par boucle', 480, 'refs');
+    if (cfg.refs.csv) add(`${prefix}_cross_reference.csv`, 'refs');
+    if (cfg.refs.pdf) add(`${prefix}_cross_reference.pdf`, 'refs');
+    if (cfg.refs.grid) add(`${prefix}_presence_grid.pdf`, 'refs');
     if (files.length) groups.push({ lang, files });
   }
   return groups;
@@ -251,9 +235,7 @@ export function init(ctx) {
   const $$ = (sel, el = root) => [...el.querySelectorAll(sel)];
 
   const tabs = $$('[role="tab"]', hub);
-  const closedBar = $('[data-xp-closed]');
   const langList = $('[data-langs]');
-  const resEl = $('[data-res]');
   const dimsEl = $('[data-dims]');
   const countStep = $('[data-step="countdownStart"]');
   const box = $('[data-preview-box]');
@@ -263,15 +245,12 @@ export function init(ctx) {
   const tcEl = $('[data-frame-tc]');
   const offEl = $('[data-frame-off]');
   const capDims = $('[data-cap-dims]');
-  const capLine = $('[data-cap-line]');
-  const capExtra = $('[data-cap-extra]');
   const filesEl = $('[data-files]');
   const emptyEl = $('[data-files-empty]');
   const countEl = $('[data-count]');
   const reduce = () => ctx.settings.get().reduceMotion;
 
   let page = 'video';
-  let closed = false;
 
   /* ── languages panel rows ── */
   langList.innerHTML = LANGS.map(
@@ -280,7 +259,6 @@ export function init(ctx) {
       <label class="xp-lang__pick">
         <input class="xp-box" type="checkbox" data-lang-pick />
         <span class="xp-lang__name">${esc(l.name)}</span>
-        <span class="xp-lang__meta">${l.instrumental ? 'avec instrumental' : 'sans instrumental'}</span>
       </label>
       <div class="xp-lang__audio" role="group" aria-label="Versions audio, ${esc(l.name)}">
         ${TOGGLES.map(
@@ -336,15 +314,7 @@ export function init(ctx) {
   function syncPreviewText() {
     const s = stack();
     const pct = Math.round((s.brEven / s.outH) * 100);
-    capDims.textContent = `${s.w} × ${s.h} px · ${cfg.fps} FPS`;
-    capLine.textContent = `La bande rythmo occupe ${pct} % de la hauteur, sous l’image.`;
-    const pre = cfg.preRoll > 0 ? `${fr1(cfg.preRoll).replace('.', ',')} s de pré-roll` : '';
-    let extra = '';
-    if (cfg.countdown && pre) extra = `Démarre par un compte à rebours de ${cfg.countdownStart} s, puis ${pre}.`;
-    else if (cfg.countdown) extra = `Démarre par un compte à rebours de ${cfg.countdownStart} s.`;
-    else if (pre) extra = `Démarre par ${pre} : la bande défile avant l’image.`;
-    capExtra.textContent = extra;
-    capExtra.hidden = !extra;
+    capDims.textContent = `${s.w} × ${s.h} px, ${cfg.fps} FPS`;
     offEl.hidden = cfg.video;
     frame.toggleAttribute('data-off', !cfg.video);
     frame.setAttribute(
@@ -520,42 +490,19 @@ export function init(ctx) {
     update();
   });
 
-  /* ── hub keyboard: Enter toggles checkboxes, Échap closes (like the app) ── */
+  /* ── hub keyboard: Enter toggles checkboxes (like the app) ── */
   hub.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && e.target.matches('input[type="checkbox"]')) {
       e.preventDefault();
       e.target.click();
-    } else if (e.key === 'Escape') {
-      e.preventDefault();
-      closeHub();
     }
   });
-
-  /* ── open / close ── */
-  function closeHub() {
-    closed = true;
-    hub.hidden = true;
-    closedBar.hidden = false;
-    closedBar.querySelector('button').focus();
-    ctx.announce('Centre d’export fermé');
-  }
-  function openHub({ focus = true, silent = false } = {}) {
-    closed = false;
-    hub.hidden = false;
-    closedBar.hidden = true;
-    layoutPreview();
-    if (focus) tabs[PAGES.indexOf(page)].focus();
-    if (!silent) ctx.announce('Exporter…');
-  }
-  $('[data-xp-close]').addEventListener('click', closeHub);
-  $('[data-xp-open]').addEventListener('click', () => openHub());
 
   // Ctrl+M: « Ouvrir l’export du projet » (RACCOURCIS_CLAVIER.md)
   document.addEventListener('keydown', (e) => {
     if (!e.ctrlKey || e.altKey || e.shiftKey || e.metaKey || e.key.toLowerCase() !== 'm') return;
     if (e.target.closest?.('input, textarea, select, [contenteditable="true"]')) return;
     e.preventDefault();
-    if (closed) openHub({ focus: false, silent: true });
     root.scrollIntoView({ behavior: reduce() ? 'auto' : 'smooth', block: 'start' });
     tabs[PAGES.indexOf(page)].focus({ preventScroll: true });
     ctx.announce('Exporter…');
@@ -565,7 +512,6 @@ export function init(ctx) {
   document.querySelectorAll('[data-export-page]').forEach((a) =>
     a.addEventListener('click', () => {
       const name = a.dataset.exportPage;
-      if (closed) openHub({ focus: false, silent: true });
       setPage(name);
       requestAnimationFrame(() => {
         tabs[PAGES.indexOf(name)].focus();
@@ -581,19 +527,17 @@ export function init(ctx) {
     const groups = buildFiles();
     const n = groups.reduce((a, g) => a + g.files.length, 0);
     const langs = groups.length;
-    countEl.textContent = n ? `${plural(n, 'fichier', 'fichiers')}${langs > 1 ? ` · ${langs} langues` : ''}` : 'aucun fichier';
+    countEl.textContent = n ? `${plural(n, 'fichier', 'fichiers')}${langs > 1 ? ` pour ${langs} langues` : ''}` : 'aucun fichier';
     filesEl.innerHTML = groups
       .map(
         (g) => `
       <section class="xp-group" aria-label="${esc(g.lang.name)}">
-        <h4 class="xp-group__title">${esc(g.lang.name)}<span>${plural(g.files.length, 'fichier', 'fichiers')}</span></h4>
+        <h4 class="xp-group__title">${esc(g.lang.name)} <span class="xp-group__prefix">${esc(g.files[0].prefix)}…</span></h4>
         <ol class="xp-group__list" role="list">
           ${g.files
             .map(
-              (f) => `<li class="xp-file" data-state="pending" data-cat="${f.cat}">
-            <span class="xp-file__dot" aria-hidden="true"></span>
-            <span class="xp-file__name"><span>${esc(f.prefix)}</span><wbr />${esc(f.name.slice(f.prefix.length))}</span>
-            <span class="xp-file__meta">${esc(f.meta)}</span>
+              (f) => `<li class="xp-file" data-cat="${f.cat}">
+            <span class="xp-file__name"><span class="sr-only">${esc(f.prefix)}</span>${esc(f.name.slice(f.prefix.length))}</span>
           </li>`,
             )
             .join('')}
@@ -624,9 +568,6 @@ export function init(ctx) {
       }
     });
     const custom = cfg.quality === 'custom';
-    const [w, h] = resolveDims();
-    resEl.hidden = custom;
-    resEl.textContent = `${w} × ${h} px`;
     dimsEl.hidden = !custom;
     for (const input of $$('[data-dim]', hub)) {
       const v = String(input.dataset.dim === 'w' ? cfg.customW : cfg.customH);

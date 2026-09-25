@@ -19,61 +19,15 @@
     <div class="dl__band-wrap">
       <div class="band-host dl__band" id="final-band" aria-describedby="final-band-help"></div>
       <p class="sr-only" id="final-band-help">
-        Bande rythmo de téléchargement. Les mêmes liens sont listés juste après, par système.
+        Bande rythmo de téléchargement&nbsp;: une ligne par fichier, votre système en premier. Chaque ligne est un lien,
+        accessible avec Tabulation.
       </p>
     </div>
 
-    <ul class="dl__list" role="list" data-dl-list>
-      <li class="dl__item" data-os="windows">
-        <h3 class="dl__os"><span class="char-label" style="--c: var(--c-blue)">Windows</span></h3>
-        <p class="dl__meta tnum"><span data-f="version">5.1.0</span> · publiée le <span data-f="date">10 septembre 2026</span></p>
-        <p class="dl__desc">
-          La plateforme principale : lecture vocale avec le lecteur d’écran, projets <code>.coquerythmo</code> dans « Ouvrir avec »,
-          liens d’invitation <code>coquerythmo://</code>.
-        </p>
-        <p class="dl__first">
-          Au premier lancement, la lecture vocale est coupée&nbsp;: <kbd class="kbd">Ctrl</kbd>&nbsp;+&nbsp;<kbd class="kbd">Maj</kbd>&nbsp;+&nbsp;<kbd class="kbd">N</kbd>
-          l’active, et l’app retient votre choix.
-        </p>
-        <div class="dl__actions">
-          <a class="ui-btn ui-btn--accent ui-btn--lg" data-f="installer" href="https://github.com/FunkyFight/coquerythmo-releases/releases/download/v5.1.0/Coquerythmo-Installer.exe">
-            Installeur .exe <span class="dl__size tnum" data-f="installer-size">65 Mo</span>
-          </a>
-          <a class="ui-btn ui-btn--lg" data-f="portable" href="https://github.com/FunkyFight/coquerythmo-releases/releases/download/v5.1.0/coquerythmo-v5.1.0-windows-portable.zip">
-            Version portable .zip <span class="dl__size tnum" data-f="portable-size">97 Mo</span>
-          </a>
-        </div>
-      </li>
-      <li class="dl__item" data-os="macos">
-        <h3 class="dl__os"><span class="char-label" style="--c: #e6e6eb">macOS</span></h3>
-        <p class="dl__meta tnum"><span data-f="version">3.5.1</span> · publiée le <span data-f="date">17 juillet 2026</span> · Apple Silicon</p>
-        <p class="dl__desc">Lecture vocale interne par la voix du système. App signée ad hoc, non notarisée par Apple.</p>
-        <div class="dl__actions">
-          <a class="ui-btn ui-btn--lg" data-f="app" href="https://github.com/FunkyFight/coquerythmo-releases/releases/download/v3.5.1/coquerythmo-v3.5.1-macos-aarch64-app.zip">
-            Coquerythmo.app .zip <span class="dl__size tnum" data-f="app-size">49 Mo</span>
-          </a>
-        </div>
-      </li>
-      <li class="dl__item" data-os="linux">
-        <h3 class="dl__os"><span class="char-label" style="--c: var(--c-yellow)">Linux</span></h3>
-        <p class="dl__meta tnum"><span data-f="version">3.5.1</span> · publiée le <span data-f="date">17 juillet 2026</span> · x86_64</p>
-        <p class="dl__desc">Version portable. La lecture vocale n’est pas disponible sur Linux.</p>
-        <div class="dl__actions">
-          <a class="ui-btn ui-btn--lg" data-f="portable" href="https://github.com/FunkyFight/coquerythmo-releases/releases/download/v3.5.1/coquerythmo-v3.5.1-linux-portable.zip">
-            Portable .zip <span class="dl__size tnum" data-f="portable-size">58 Mo</span>
-          </a>
-        </div>
-      </li>
-    </ul>
-
-    <blockquote class="dl__warning">
-      <p>
-        « Cette version de Coquerythmo n’a pas pu être testée correctement, car je n’ai pas d’appareil Linux ni macOS pour la
-        tester. Elle peut fonctionner comme prévu, mais elle peut aussi ne pas fonctionner ou comporter des bugs spécifiques à
-        cette plateforme. »
-      </p>
-      <footer>Le message que l’app affiche au démarrage sur macOS et Linux.</footer>
-    </blockquote>
+    <p class="dl__later">
+      Les versions macOS et Linux en sont restées à la 3.5.1, faute d’appareil pour les tester. S’il y a suffisamment de
+      demande et de personnes prêtes à tester, elles pourront être mises à jour&nbsp;: dites-le sur le Discord.
+    </p>
 
     <div class="dl__after">
       <p>

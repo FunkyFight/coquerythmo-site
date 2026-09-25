@@ -281,7 +281,7 @@ Corners are small and app-true. Controls use 4px. Panels, toasts and warnings us
 The buttons are the app's TextButton and IconButton, taken literally.
 - **Shape:** gently squared (4px).
 - **TextButton:** Button Graphite fill with a 1px translucent grey border and Label type. The standard height is 24px with 12px side padding. The large variant is 36px with 16px padding at 0.875rem.
-- **Accent TextButton:** Violet Well fill, a 90% violet border and light violet text. Hover deepens the well and brightens the border to accent-strong. Only one or two appear per screen: "Télécharger" in the topbar and the download actions.
+- **Accent TextButton:** Violet Well fill, a 90% violet border and light violet text. Hover deepens the well and brightens the border to accent-strong. Only one or two appear per screen: "Télécharger" in the topbar and the download actions. On the first screen, "Lire la suite" is the large variant (48px, body type, 8px radius, Toast shadow) floating under the band. It fades once the page scrolls.
 - **Hover / Press:** background and border step to the hover or press values in 80ms. Disabled buttons drop to 45% opacity.
 - **IconButton:** 32px (28px in the topbar), transparent, with the app's black-filled SVG icons tinted through a mask (20px). On hover it gets an 8% white veil and the icon turns white. When pressed, the Selection Veil appears with a violet inset ring.
 

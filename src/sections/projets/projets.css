@@ -339,8 +339,11 @@
 .pj-tree__bar .kbd {
   font-size: 0.72rem;
 }
-.pj-tree__reset {
-  margin-left: auto;
+/* « Réinitialiser la démo », above the tree */
+.pj-tree__top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--s3);
 }
 
 /* Context menu: the app's dropdown, narrower (MENU_W 190, SUBMENU_W 200) */
@@ -662,21 +665,29 @@
 }
 .pj-auto__head {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--s3);
-  height: 32px;
-  padding: 0 var(--s3);
+  gap: var(--s2) var(--s3);
+  min-height: 48px;
+  padding: var(--s2) var(--s2) var(--s2) var(--s3);
   background: var(--topbar);
   border-bottom: 1px solid #26262e;
   color: var(--text-dim);
   font-size: var(--fs-ui);
 }
+/* the graph's state, as a chip: grey while off, green once on */
 .pj-auto__state {
   margin-left: auto;
-  color: var(--text-dim);
+  padding: 3px var(--s2);
+  background: #26262e;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--r-sm);
+  color: var(--text);
   font-weight: 600;
 }
 .pj-auto__state[data-on] {
+  background: rgb(82 204 148 / 0.14);
+  border-color: rgb(82 204 148 / 0.6);
   color: #52cc94;
 }
 .pj-auto__scroll {
@@ -1045,25 +1056,26 @@
 .pj-auto__band {
   border-top: 1px solid var(--toolbar-border);
 }
-.pj-auto__foot {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--s2) var(--s4);
-  min-height: 44px;
-  padding: var(--s2) var(--s3);
-  background: var(--toolbar);
-  border-top: 1px solid var(--toolbar-border);
-}
+/* What the graph does right now, right under its title bar. While it is
+   off, the hint that switches it on stands out. */
 .pj-auto__status {
-  flex: 1 1 24rem;
-  color: var(--text-dim);
-  font-size: 0.8125rem;
+  padding: var(--s3) var(--s4);
+  background: var(--toolbar);
+  border-bottom: 1px solid var(--toolbar-border);
+  color: var(--text);
+  font-size: var(--fs-small);
   line-height: 1.45;
 }
+.pj-auto__status[data-off] {
+  padding-left: calc(var(--s4) - 4px);
+  border-left: 4px solid var(--read-word);
+  background: rgb(255 225 77 / 0.07);
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
 .pj-auto__status b {
-  color: var(--text);
-  font-weight: 600;
+  color: #fff;
+  font-weight: 700;
 }
 
 /* ═══════════ Rien ne se perd ═══════════ */
