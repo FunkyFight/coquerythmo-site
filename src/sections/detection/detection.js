@@ -382,17 +382,14 @@ function initBench(ctx) {
     card.img.alt = `Bouche dessinée : ${MOUTH_ALT[sign.mouth]}.`;
   };
 
-  /* ── palette: roving focus, hover selects like the app ── */
+  /* ── palette: every sign is a Tab stop, arrows move too, hover selects like the app ── */
   const visible = () => items.filter((b) => !b.hidden);
   const quickOf = (b) => (b.dataset.sign ? SIGNS[b.dataset.sign].quick : MARKS[b.dataset.mark].quick);
   const setCurrent = (i, { focus = false, speak = false } = {}) => {
     const vis = visible();
     current = clamp(i, 0, vis.length - 1);
     const item = vis[current];
-    for (const b of items) {
-      b.toggleAttribute('data-current', b === item);
-      b.tabIndex = b === item ? 0 : -1;
-    }
+    for (const b of items) b.toggleAttribute('data-current', b === item);
     tip.textContent = quickOf(item);
     if (item.dataset.sign) showCard(item.dataset.sign);
     if (focus) item.focus();
@@ -421,9 +418,8 @@ function initBench(ctx) {
     selected = sign;
     for (const x of signs) {
       x.el.setAttribute('aria-pressed', String(x === sign));
-      x.el.tabIndex = x === sign ? 0 : -1;
+      x.el.tabIndex = 0;
     }
-    if (!sign && signs.length) sorted()[0].el.tabIndex = 0;
     if (sign) {
       showCard(sign.kind);
       const idx = visible().findIndex((b) => b.dataset.sign === sign.kind);
@@ -538,6 +534,12 @@ function initBench(ctx) {
   pal.addEventListener('pointerover', (e) => {
     const b = e.target.closest('.det-pal__item');
     if (b && e.pointerType === 'mouse') setCurrent(visible().indexOf(b));
+  });
+  // Tab lands on any sign: it becomes the current one, as with the arrows
+  pal.addEventListener('focusin', (e) => {
+    const b = e.target.closest('.det-pal__item');
+    const i = b ? visible().indexOf(b) : -1;
+    if (i >= 0 && i !== current) setCurrent(i);
   });
   pal.addEventListener('keydown', (e) => {
     const n = visible().length;
@@ -774,7 +776,6 @@ function initLane(ctx) {
     for (const r of radios) {
       const on = r.dataset.lang === code;
       r.setAttribute('aria-checked', String(on));
-      r.tabIndex = on ? 0 : -1;
       if (on && focus) r.focus();
     }
     clear();

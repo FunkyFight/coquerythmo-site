@@ -53,6 +53,7 @@ export class Band {
    *   startFrame, stopAt (frame where playback parks)
    *   interactive (default true), editable (default true)
    *   label     accessible name
+   *   transcript (default true) screen-reader list of what the canvas draws
    *   settings  store with get()/subscribe(): scrollSpeed, highlightWord, charColorText, reduceMotion
    *   announce  (text, {priority}) => void
    */
@@ -95,6 +96,15 @@ export class Band {
     this.hits = document.createElement('div');
     this.hits.className = 'band__hits';
     host.append(this.canvas, this.hits);
+    this.transcript = null;
+    this.transcriptKey = null;
+    if (opts.interactive !== false && opts.transcript !== false) {
+      // the canvas is invisible to screen readers: browse mode reads this list instead
+      this.transcript = document.createElement('ol');
+      this.transcript.className = 'sr-only band__transcript';
+      this.transcript.setAttribute('aria-label', 'Contenu de la bande');
+      host.insertBefore(this.transcript, this.hits);
+    }
     this.ctx = this.canvas.getContext('2d');
     this.anchors = new Map();
 
@@ -365,6 +375,7 @@ export class Band {
     if (this.pendingStroke) this.drawStroke(this.pendingStroke);
     this.drawPlayhead();
     this.syncAnchors(geo);
+    this.syncTranscript();
     void s;
   }
 
@@ -786,6 +797,31 @@ export class Band {
 
   anchorFor(id) {
     return this.anchors.get(id);
+  }
+
+  /* ───────────── transcript: the band as text, in time order ─────────────
+     Lines and markers, rebuilt only when they change. Action lines are left
+     out: their own links already sit in the hit layer. */
+  syncTranscript() {
+    if (!this.transcript) return;
+    const MARKERS = { boucle: 'Boucle', out: 'Out', scene: 'Changement de scène' };
+    const items = [
+      ...this.project.lines
+        .filter((l) => !l.action)
+        .map((l) => ({ at: l.start, track: l.track, text: `${this.describe(l)}${l.note ? `, note : ${l.note}` : ''}` })),
+      ...(this.project.markers || []).map((m) => ({ at: m.frame, track: -1, text: MARKERS[m.kind] || 'Marqueur' })),
+    ].sort((a, b) => a.at - b.at || a.track - b.track);
+    const key = items.map((it) => it.text).join('\n');
+    if (key === this.transcriptKey) return;
+    this.transcriptKey = key;
+    this.transcript.hidden = !items.length;
+    this.transcript.replaceChildren(
+      ...items.map((it) => {
+        const li = document.createElement('li');
+        li.textContent = it.text;
+        return li;
+      }),
+    );
   }
 
   /* ───────────── pointer ───────────── */

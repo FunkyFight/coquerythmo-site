@@ -63,9 +63,13 @@ export function makeDropdown(button, panel, { onOpen } = {}) {
       e.preventDefault();
       e.stopPropagation();
       api.close(true);
-    } else if (e.key === 'Tab') {
-      api.close(false);
     }
+  });
+  // Tab walks the items like any list; the menu closes once focus leaves it
+  panel.addEventListener('focusout', (e) => {
+    const to = e.relatedTarget;
+    if (to && (panel.contains(to) || to === button)) return;
+    api.close(false);
   });
   panel.addEventListener('click', (e) => {
     if (e.target.closest('.dropdown__item')) api.close(false);
@@ -139,7 +143,6 @@ export function initTabs() {
     for (const t of tabs) {
       const on = t === tab;
       t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
     }
     if (focus) tab.focus();
@@ -181,10 +184,10 @@ export function initTabs() {
   };
 }
 
-/* ───────────── Toolbars: one Tab stop, arrows move inside ─────────────
-   WAI-ARIA toolbar pattern. Buttons and links rove; sliders and text fields
-   keep their own Tab stop because their arrows already mean something.
-   Toolbars that manage their own focus opt out with data-roving="own". */
+/* ───────────── Toolbars: every control is a Tab stop, arrows as a shortcut ─────────────
+   Tab and Shift+Tab reach each button and link; Left/Right, Home and End
+   still move inside the bar. Sliders and text fields keep their own arrows.
+   Toolbars that manage their own keys opt out with data-roving="own". */
 export function initToolbars(root = document) {
   // hidden inside the bar only: the bar itself may sit in a closed tab panel
   const usable = (el, bar) => {
@@ -196,22 +199,6 @@ export function initToolbars(root = document) {
     [...bar.querySelectorAll('button, a[href]')].filter((el) => !el.closest('.dropdown') && usable(el, bar));
 
   root.querySelectorAll('[role="toolbar"]:not([data-roving="own"])').forEach((bar) => {
-    let current = null;
-    const settle = () => {
-      const items = itemsOf(bar);
-      if (!items.includes(current)) current = items[0] || null;
-      for (const el of bar.querySelectorAll('button, a[href]')) {
-        if (el.closest('.dropdown')) continue;
-        el.tabIndex = el === current ? 0 : -1;
-      }
-    };
-    bar.addEventListener('focusin', (e) => {
-      const el = e.target.closest('button, a[href]');
-      if (el && !el.closest('.dropdown') && bar.contains(el)) {
-        current = el;
-        settle();
-      }
-    });
     bar.addEventListener('keydown', (e) => {
       if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
       const from = e.target.closest('button, a[href]');
@@ -228,9 +215,6 @@ export function initToolbars(root = document) {
       e.preventDefault();
       items[j].focus();
     });
-    // buttons appear, hide or get disabled as the demos run: keep one stop
-    new MutationObserver(settle).observe(bar, { subtree: true, childList: true, attributes: true, attributeFilter: ['disabled', 'hidden'] });
-    settle();
   });
 }
 

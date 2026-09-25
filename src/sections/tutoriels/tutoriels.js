@@ -201,10 +201,7 @@ function initPlayer(root, ctx) {
     current = next;
     const v = videos[current];
     if (embed) stop();
-    tabs.forEach((t, k) => {
-      t.setAttribute('aria-selected', String(k === current));
-      t.tabIndex = k === current ? 0 : -1;
-    });
+    tabs.forEach((t, k) => t.setAttribute('aria-selected', String(k === current)));
     stage.setAttribute('aria-labelledby', tabs[current].id);
     setThumb(img, v.id);
     openLink.href = watchUrl(v.id);

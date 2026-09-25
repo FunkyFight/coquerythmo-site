@@ -487,7 +487,7 @@ export function init(ctx) {
     countEl.textContent = `${n} participants`;
     if (done && running) {
       running = false;
-      sendBtn.disabled = false;
+      sendBtn.removeAttribute('aria-disabled');
     }
   };
 
@@ -510,11 +510,13 @@ export function init(ctx) {
     lastSummary = '';
     simT = 0;
     running = true;
-    sendBtn.disabled = true;
+    // aria-disabled, not disabled: Tab still reaches it while the transfer runs
+    sendBtn.setAttribute('aria-disabled', 'true');
     renderTransfer();
     resumeTransfer();
   };
   sendBtn.addEventListener('click', () => {
+    if (running) return;
     startTransfer();
     ctx.announce('Simulation : envoi du projet au serveur');
   });

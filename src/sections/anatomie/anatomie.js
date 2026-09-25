@@ -58,17 +58,9 @@ function sliceStroke() {
 
 /* ───────────── small helpers ───────────── */
 
-/** Roving tabindex: one tab stop per list, arrows move inside it. */
+/** Every item is a Tab stop; arrows, Home and End move inside the list too. */
 function roving(container, selector, { keys = 'both' } = {}) {
   const items = () => [...container.querySelectorAll(selector)].filter((el) => el.offsetParent !== null || el === document.activeElement);
-  const current = (el) => {
-    for (const it of container.querySelectorAll(selector)) it.tabIndex = it === el ? 0 : -1;
-  };
-  current(container.querySelector(`${selector}[aria-pressed="true"]`) || container.querySelector(selector));
-  container.addEventListener('focusin', (e) => {
-    const it = e.target.closest(selector);
-    if (it) current(it);
-  });
   container.addEventListener('keydown', (e) => {
     const list = items();
     const i = list.indexOf(document.activeElement);

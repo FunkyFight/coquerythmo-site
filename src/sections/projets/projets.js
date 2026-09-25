@@ -241,7 +241,7 @@ function initTree(root, ctx) {
     el.setAttribute('role', 'treeitem');
     el.className = 'pj-row';
     el.dataset.id = row.id;
-    el.tabIndex = -1;
+    el.tabIndex = 0;
     el.innerHTML = '<span class="icon pj-row__icon" aria-hidden="true"></span><span class="pj-row__name"></span><span class="pj-row__badges"></span>';
     return el;
   }
@@ -276,7 +276,6 @@ function initTree(root, ctx) {
     el.setAttribute('aria-selected', String(selectedId === row.id));
     if (row.type === 'group') el.setAttribute('aria-expanded', String(!!p.expanded[row.group]));
     else el.removeAttribute('aria-expanded');
-    el.tabIndex = row.id === focusedId ? 0 : -1;
     if (row.id === focusedId) el.setAttribute('aria-describedby', 'pj-read-text');
     else el.removeAttribute('aria-describedby');
   }
@@ -634,6 +633,11 @@ function initTree(root, ctx) {
   }
 
   /* ── keyboard (handle_tree_keyboard) ── */
+  // every row is a Tab stop: the row Tab lands on becomes the focused one
+  list.addEventListener('focusin', (e) => {
+    const el = e.target.closest('.pj-row');
+    if (el && !renaming && el.dataset.id !== focusedId) focusRow(el.dataset.id, { move: false });
+  });
   list.addEventListener('keydown', (e) => {
     if (renaming) return;
     const i = rows.findIndex((r) => r.id === focusedId);
@@ -1417,7 +1421,6 @@ function initAutomation(root, ctx) {
     b.setAttribute('aria-label', label);
     if (dir === 'in') {
       const ok = pending && pending.kind === kind && canConnect(g, { from: pending.from, kind, branch: pending.branch, to: n.id });
-      b.tabIndex = ok ? 0 : -1;
       if (ok) b.setAttribute('data-target', '');
       else b.setAttribute('aria-disabled', 'true');
     }

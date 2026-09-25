@@ -382,7 +382,6 @@ export function init(ctx) {
     for (const t of tabs) {
       const on = t.dataset.page === name;
       t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
       document.getElementById(t.getAttribute('aria-controls')).toggleAttribute('data-active', on);
     }
     if (focus) tabs[PAGES.indexOf(name)].focus();
@@ -468,9 +467,12 @@ export function init(ctx) {
       }
     });
     row.querySelectorAll('[data-dir]').forEach((b) =>
-      b.addEventListener('click', () => {
+      b.addEventListener('click', (e) => {
         nudge(Number(b.dataset.dir) * def.step);
-        spin.focus({ preventScroll: true });
+        // the pointer lands on the value; from the keyboard, − and + keep focus and say it,
+        // unless the bound just disabled the button under it
+        if (e.detail || b.disabled) spin.focus({ preventScroll: true });
+        if (!e.detail) ctx.announce(spin.getAttribute('aria-valuetext') || spin.textContent);
       }),
     );
   });
@@ -619,7 +621,6 @@ export function init(ctx) {
       for (const opt of $$('[role="radio"]', group)) {
         const on = opt.dataset.value === cfg[group.dataset.seg];
         opt.setAttribute('aria-checked', String(on));
-        opt.tabIndex = on ? 0 : -1;
       }
     });
     const custom = cfg.quality === 'custom';

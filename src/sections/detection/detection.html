@@ -2,7 +2,7 @@
   <header class="strip">
     <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>2</span></p>
     <h2 class="strip__title" id="detection-title">
-      <span class="char-label" aria-hidden="true" style="--c: var(--c-cyan)">Détection</span>
+      <span class="char-label" style="--c: var(--c-cyan)">Détection</span><span class="sr-only">&nbsp;: </span>
       <span class="strip__line">Effectuez facilement le travail de détection.</span>
     </h2>
   </header>
@@ -28,47 +28,47 @@
             <button class="det-pal__item" type="button" data-sign="labial" aria-label="Labiale (P, B, M)" data-current>
               <span class="icon" style="--src: url(/icons/detection/labial.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="semi" aria-label="Semi-labiale (F, V)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="semi" aria-label="Semi-labiale (F, V)">
               <span class="icon" style="--src: url(/icons/detection/semi_labial.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="open" aria-label="Bouche ouverte" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="open" aria-label="Bouche ouverte">
               <span class="icon" style="--src: url(/icons/detection/mouth_open.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="closed" aria-label="Bouche fermée (fermetures, consonnes occlusives)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="closed" aria-label="Bouche fermée (fermetures, consonnes occlusives)">
               <span class="icon" style="--src: url(/icons/detection/mouth_closed.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="teeth" aria-label="Dents visibles (F, V, S, T, EE)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="teeth" aria-label="Dents visibles (F, V, S, T, EE)">
               <span class="icon" style="--src: url(/icons/detection/teeth_visible.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="th" aria-label="TH (TH, T, S appuyés)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="th" aria-label="TH (TH, T, S appuyés)">
               <span class="icon" style="--src: url(/icons/detection/th.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="breath" aria-label="Respiration (souffle, aspiration)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="breath" aria-label="Respiration (souffle, aspiration)">
               <span class="icon" style="--src: url(/icons/detection/breath.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="neutral" aria-label="Neutre / parenthèses (CH, dentales, neutre)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="neutral" aria-label="Neutre / parenthèses (CH, dentales, neutre)">
               <span class="icon" style="--src: url(/icons/detection/neutral.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="reaction" aria-label="Réaction (rires, exclamations, bruits vocaux)" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="reaction" aria-label="Réaction (rires, exclamations, bruits vocaux)">
               <span class="icon" style="--src: url(/icons/detection/reaction.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="pucker" aria-label="Cul de poule" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="pucker" aria-label="Cul de poule">
               <span class="icon" style="--src: url(/icons/cul_de_poule.svg)"></span>
             </button>
-            <button class="det-pal__item" type="button" data-sign="openWave" aria-label="Vague d'ouverture" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="openWave" aria-label="Vague d'ouverture">
               <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8.5Q12 21 21 8.5" /></svg>
             </button>
-            <button class="det-pal__item" type="button" data-sign="forwardWave" aria-label="Vague d'avancée" tabindex="-1">
+            <button class="det-pal__item" type="button" data-sign="forwardWave" aria-label="Vague d'avancée">
               <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15.5Q12 3 21 15.5" /></svg>
             </button>
             <!-- Line marks: only while the reading bar is on the line (palette_signs) -->
-            <button class="det-pal__item" type="button" data-mark="off" aria-label="Marquer la réplique comme OFF (hors caméra)" tabindex="-1" hidden>
+            <button class="det-pal__item" type="button" data-mark="off" aria-label="Marquer la réplique comme OFF (hors caméra)" hidden>
               <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12" stroke-width="1.6" opacity=".6" /><path d="M3 15.5h18" stroke-width="2.6" /></svg>
             </button>
-            <button class="det-pal__item" type="button" data-mark="back" aria-label="Marquer la réplique comme de dos" tabindex="-1" hidden>
+            <button class="det-pal__item" type="button" data-mark="back" aria-label="Marquer la réplique comme de dos" hidden>
               <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12" stroke-width="1.6" opacity=".6" /><path d="M3 15.5h3.5M10.25 15.5h3.5M17.5 15.5h3.5" stroke-width="2.6" /></svg>
             </button>
-            <button class="det-pal__item" type="button" data-mark="on" aria-label="Retirer le soulignage" tabindex="-1" hidden>
+            <button class="det-pal__item" type="button" data-mark="on" aria-label="Retirer le soulignage" hidden>
               <svg class="det-glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5L4.5 9.5 9 14" /><path d="M4.5 9.5H14a5.5 5.5 0 010 11h-3" /></svg>
             </button>
           </div>
@@ -130,8 +130,8 @@
                 <span class="det-lane__label" id="det-lang-label">Langue de découpe des syllabes</span>
                 <div class="det-seg" role="radiogroup" aria-labelledby="det-lang-label" data-langs>
                   <button class="det-seg__opt" type="button" role="radio" aria-checked="true" data-lang="fr">Français</button>
-                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="en" tabindex="-1">Anglais</button>
-                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="es" tabindex="-1">Espagnol</button>
+                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="en">Anglais</button>
+                  <button class="det-seg__opt" type="button" role="radio" aria-checked="false" data-lang="es">Espagnol</button>
                 </div>
                 <span class="det-lane__accent" data-accent></span>
               </div>

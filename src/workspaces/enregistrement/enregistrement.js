@@ -677,7 +677,6 @@ export function init(ctx) {
     root.querySelectorAll('[data-rec-tool]').forEach((b) => {
       const on = b.dataset.recTool === state.tool;
       b.setAttribute('aria-checked', String(on));
-      b.tabIndex = on ? 0 : -1;
     });
     els.del.disabled = !state.selected.size;
     const a = armed();

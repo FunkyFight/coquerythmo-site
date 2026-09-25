@@ -36,21 +36,42 @@
   margin-top: var(--s3);
 }
 
-/* ═══════════ Remerciements: a panel, the name as a character label ═══════════ */
+/* ═══════════ Remerciements: the photo edge to edge, the name as a large character label ═══════════ */
 .acc-thanks {
   display: grid;
-  gap: var(--s4);
-  max-width: 44rem;
-  margin-top: var(--s6);
-  padding: var(--s5);
+  grid-template-columns: clamp(220px, 32%, 360px) minmax(0, 1fr);
+  margin-top: var(--s7);
+  overflow: hidden;
+}
+/* height 100% keeps the photo filling the row when the text runs taller than 4:5 */
+.acc-thanks__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border-right: 1px solid var(--panel-border);
+}
+.acc-thanks__body {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--s5);
+  padding: var(--s7) clamp(var(--s5), 4vw, var(--s8));
 }
 .acc-thanks__title {
-  font-size: var(--fs-h3);
+  font-size: var(--fs-h2);
   line-height: 1;
 }
 .acc-thanks__text {
+  max-width: 44ch;
   color: var(--text);
-  line-height: 1.55;
+  font-size: clamp(1.125rem, 0.98rem + 0.55vw, 1.5rem);
+  line-height: 1.45;
+}
+.acc-thanks__link {
+  margin-top: var(--s1);
 }
 
 /* ═══════════ Séance type + journal ═══════════ */
@@ -803,7 +824,18 @@ html.reduce-motion .acc-step__say::after {
 
 @media (max-width: 720px) {
   .acc-thanks {
-    padding: var(--s4);
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .acc-thanks__photo {
+    height: auto;
+    aspect-ratio: 1;
+    object-position: 50% 25%;
+    border-right: 0;
+    border-bottom: 1px solid var(--panel-border);
+  }
+  .acc-thanks__body {
+    gap: var(--s4);
+    padding: var(--s5) var(--s4);
   }
   .acc-voice {
     margin-top: var(--s7);

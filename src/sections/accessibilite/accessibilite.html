@@ -2,7 +2,7 @@
   <header class="strip">
     <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>6</span></p>
     <h2 class="strip__title" id="accessibilite-title">
-      <span class="char-label" aria-hidden="true" style="--c: var(--c-green)">Lecture vocale</span>
+      <span class="char-label" style="--c: var(--c-green)">Lecture vocale</span><span class="sr-only">&nbsp;: </span>
       <span class="strip__line">Toute la bande rythmo au clavier, annoncée sous Windows.</span>
     </h2>
   </header>
@@ -19,13 +19,29 @@
 
     <!-- ═══════════ Remerciements ═══════════ -->
     <aside class="acc-thanks ui-panel" aria-labelledby="acc-thanks-title">
-      <h3 class="acc-thanks__title" id="acc-thanks-title">
-        <span class="char-label" style="--c: var(--c-green)">Gaëtan DMC</span>
-      </h3>
-      <p class="acc-thanks__text">
-        Merci énormément à Gaëtan pour son temps, sa patience, sa bienveillance et ses précieux conseils qui ont permis de
-        faire devenir Coquerythmo un logiciel de bande rythmo accessible (et donc libre) pour les personnes malvoyantes&nbsp;!
-      </p>
+      <img
+        class="acc-thanks__photo"
+        src="/gaetan-800.webp"
+        srcset="/gaetan-400.webp 400w, /gaetan-800.webp 800w, /gaetan-1200.webp 1200w"
+        sizes="(max-width: 720px) calc(100vw - 32px), 360px"
+        width="800"
+        height="1000"
+        loading="lazy"
+        decoding="async"
+        alt="Gaëtan, souriant, avec des lunettes rondes à monture sombre et un polo rouge à col blanc, devant un mur clair."
+      />
+      <div class="acc-thanks__body">
+        <h3 class="acc-thanks__title" id="acc-thanks-title">
+          <span class="char-label" style="--c: var(--c-green)">Gaëtan DMC</span>
+        </h3>
+        <p class="acc-thanks__text">
+          Merci énormément à Gaëtan pour son temps, sa patience, sa bienveillance et ses précieux conseils qui ont permis de
+          faire devenir Coquerythmo un logiciel de bande rythmo accessible (et donc libre) pour les personnes malvoyantes&nbsp;!
+        </p>
+        <a class="ui-btn ui-btn--lg acc-thanks__link" href="https://www.youtube.com/@Gaetan_DMC" target="_blank" rel="noopener"
+          >La chaîne YouTube de Gaëtan</a
+        >
+      </div>
     </aside>
 
     <!-- ═══════════ Séance type + journal de la page ═══════════ -->
@@ -179,28 +195,28 @@
                 <button class="acc-cat" role="tab" type="button" id="acc-cat-all" aria-selected="true" aria-controls="acc-keys-list" data-cat="all">
                   <span>Tous</span> <span class="acc-cat__n tnum"><span data-n>91</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-nav" aria-selected="false" aria-controls="acc-keys-list" data-cat="nav" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-nav" aria-selected="false" aria-controls="acc-keys-list" data-cat="nav">
                   <span>Navigation commune</span> <span class="acc-cat__n tnum"><span data-n>9</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-projet" aria-selected="false" aria-controls="acc-keys-list" data-cat="projet" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-projet" aria-selected="false" aria-controls="acc-keys-list" data-cat="projet">
                   <span>Barre supérieure et projet</span> <span class="acc-cat__n tnum"><span data-n>18</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-outils" aria-selected="false" aria-controls="acc-keys-list" data-cat="outils" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-outils" aria-selected="false" aria-controls="acc-keys-list" data-cat="outils">
                   <span>Outils et lecture</span> <span class="acc-cat__n tnum"><span data-n>18</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-bande" aria-selected="false" aria-controls="acc-keys-list" data-cat="bande" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-bande" aria-selected="false" aria-controls="acc-keys-list" data-cat="bande">
                   <span>Bande rythmo</span> <span class="acc-cat__n tnum"><span data-n>17</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-export" aria-selected="false" aria-controls="acc-keys-list" data-cat="export" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-export" aria-selected="false" aria-controls="acc-keys-list" data-cat="export">
                   <span>Export et proxy</span> <span class="acc-cat__n tnum"><span data-n>11</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-texte" aria-selected="false" aria-controls="acc-keys-list" data-cat="texte" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-texte" aria-selected="false" aria-controls="acc-keys-list" data-cat="texte">
                   <span>Champs texte, panneaux et modales</span> <span class="acc-cat__n tnum"><span data-n>13</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-secondaire" aria-selected="false" aria-controls="acc-keys-list" data-cat="secondaire" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-secondaire" aria-selected="false" aria-controls="acc-keys-list" data-cat="secondaire">
                   <span>Fenêtre secondaire</span> <span class="acc-cat__n tnum"><span data-n>2</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
-                <button class="acc-cat" role="tab" type="button" id="acc-cat-vocale" aria-selected="false" aria-controls="acc-keys-list" data-cat="vocale" tabindex="-1">
+                <button class="acc-cat" role="tab" type="button" id="acc-cat-vocale" aria-selected="false" aria-controls="acc-keys-list" data-cat="vocale">
                   <span>Lecture vocale interne</span> <span class="acc-cat__n tnum"><span data-n>3</span><span class="sr-only" data-n-unit> raccourcis</span></span>
                 </button>
               </div>

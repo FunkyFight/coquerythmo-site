@@ -605,7 +605,6 @@ export function init(ctx) {
       update(el) {
         el.style.left = `${(p.x * w).toFixed(1)}px`;
         el.style.top = `${(p.y * h).toFixed(1)}px`;
-        el.tabIndex = k === Math.min(ui.handle, n - 1) ? 0 : -1; // one Tab stop, Page↑/↓ roves
         el.setAttribute(
           'aria-label',
           `Sommet ${k + 1} sur ${n}${view === 'vx' ? `, pose à ${fmtMs(vx?.at ?? 0)}` : ''}. Flèches : déplacer. Page précédente ou suivante : autre sommet.`,
@@ -801,7 +800,6 @@ export function init(ctx) {
     $$('[data-cd-align]').forEach((el) => {
       const on = b.align === el.dataset.cdAlign;
       el.setAttribute('aria-checked', String(on));
-      el.tabIndex = on ? 0 : -1;
     });
     const idx = page.bubbles.indexOf(b);
     $('[data-cd-order="-1"]').disabled = idx <= 0;
@@ -820,7 +818,6 @@ export function init(ctx) {
     $$('[data-cd-media]').forEach((t) => {
       const on = t.dataset.cdMedia === ui.mediaTab;
       t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
     });
     $('#cd-list-images').hidden = ui.mediaTab !== 'images';
     $('#cd-list-audios').hidden = ui.mediaTab !== 'audios';
@@ -1266,7 +1263,7 @@ export function init(ctx) {
     flushNudge();
     if (ui.kb) renderStage();
   });
-  // vertex handles: arrows move one vertex
+  // vertex handles: each one is a Tab stop, arrows move it, Page↑/↓ jump to the next
   function roveHandle(layer, e, n) {
     if (e.key !== 'PageUp' && e.key !== 'PageDown') return false;
     e.preventDefault();

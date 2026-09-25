@@ -2,7 +2,7 @@
   <header class="strip">
     <p class="strip__boucle" aria-hidden="true"><svg viewBox="0 0 18 18"><path d="M4 4l10 10M14 4L4 14" stroke="currentColor" stroke-width="2.5"/></svg><span>4</span></p>
     <h2 class="strip__title" id="export-title">
-      <span class="char-label" aria-hidden="true" style="--c: var(--c-purple)">Export</span>
+      <span class="char-label" style="--c: var(--c-purple)">Export</span><span class="sr-only">&nbsp;: </span>
       <span class="strip__line">Tous vos livrables en une seule opération.</span>
     </h2>
   </header>
@@ -28,9 +28,9 @@
         <!-- page rail: ↑/↓ or ←/→ switch pages, like the app -->
         <div class="xp-nav" role="tablist" aria-orientation="vertical" aria-label="Pages de l’export">
           <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-video" aria-controls="xp-page-video" aria-selected="true" data-page="video">Vidéo</button>
-          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-subs" aria-controls="xp-page-subs" aria-selected="false" tabindex="-1" data-page="subs">Sous-titres</button>
-          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-audio" aria-controls="xp-page-audio" aria-selected="false" tabindex="-1" data-page="audio">Audio</button>
-          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-refs" aria-controls="xp-page-refs" aria-selected="false" tabindex="-1" data-page="refs">Références</button>
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-subs" aria-controls="xp-page-subs" aria-selected="false" data-page="subs">Sous-titres</button>
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-audio" aria-controls="xp-page-audio" aria-selected="false" data-page="audio">Audio</button>
+          <button class="xp-nav__tab" type="button" role="tab" id="xp-tab-refs" aria-controls="xp-page-refs" aria-selected="false" data-page="refs">Références</button>
         </div>
 
         <div class="xp-pages">
@@ -44,19 +44,19 @@
               <p class="xp-field__label" id="xp-aspect-label">Pré-format</p>
               <div class="xp-seg" role="radiogroup" aria-labelledby="xp-aspect-label" data-seg="aspect">
                 <button class="xp-seg__opt" type="button" role="radio" aria-checked="true" data-value="source">Vidéo source</button>
-                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="16:9">16:9</button>
-                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="9:16">9:16</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" data-value="16:9">16:9</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" data-value="9:16">9:16</button>
               </div>
             </div>
 
             <div class="xp-field">
               <p class="xp-field__label" id="xp-quality-label">Qualité</p>
               <div class="xp-seg xp-seg--5" role="radiogroup" aria-labelledby="xp-quality-label" data-seg="quality">
-                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="720">720p</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" data-value="720">720p</button>
                 <button class="xp-seg__opt" type="button" role="radio" aria-checked="true" data-value="1080">1080p</button>
-                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="1440">1440p</button>
-                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="8k">8K</button>
-                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" tabindex="-1" data-value="custom">Custom</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" data-value="1440">1440p</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" data-value="8k">8K</button>
+                <button class="xp-seg__opt" type="button" role="radio" aria-checked="false" data-value="custom">Custom</button>
               </div>
             </div>
 
@@ -71,33 +71,33 @@
               <div class="xp-step" data-step="fps">
                 <span class="xp-step__name" id="xp-step-fps">FPS de la bande rythmo</span>
                 <div class="xp-step__ctl">
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer FPS de la bande rythmo">−</button>
+                  <button class="xp-step__btn" type="button" data-dir="-1" aria-label="Diminuer FPS de la bande rythmo">−</button>
                   <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-fps">60</div>
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter FPS de la bande rythmo">+</button>
+                  <button class="xp-step__btn" type="button" data-dir="1" aria-label="Augmenter FPS de la bande rythmo">+</button>
                 </div>
               </div>
               <div class="xp-step" data-step="brScale">
                 <span class="xp-step__name" id="xp-step-br">Zoom bande rythmo</span>
                 <div class="xp-step__ctl">
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Zoom bande rythmo">−</button>
+                  <button class="xp-step__btn" type="button" data-dir="-1" aria-label="Diminuer Zoom bande rythmo">−</button>
                   <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-br">100%</div>
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Zoom bande rythmo">+</button>
+                  <button class="xp-step__btn" type="button" data-dir="1" aria-label="Augmenter Zoom bande rythmo">+</button>
                 </div>
               </div>
               <div class="xp-step" data-step="karaoke">
                 <span class="xp-step__name" id="xp-step-kara">Taille texte karaoké</span>
                 <div class="xp-step__ctl">
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Taille texte karaoké">−</button>
+                  <button class="xp-step__btn" type="button" data-dir="-1" aria-label="Diminuer Taille texte karaoké">−</button>
                   <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-kara">100%</div>
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Taille texte karaoké">+</button>
+                  <button class="xp-step__btn" type="button" data-dir="1" aria-label="Augmenter Taille texte karaoké">+</button>
                 </div>
               </div>
               <div class="xp-step" data-step="preRoll">
                 <span class="xp-step__name" id="xp-step-pre">Pré-roll de bande rythmo</span>
                 <div class="xp-step__ctl">
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Pré-roll de bande rythmo">−</button>
+                  <button class="xp-step__btn" type="button" data-dir="-1" aria-label="Diminuer Pré-roll de bande rythmo">−</button>
                   <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-pre">0.0 s</div>
-                  <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Pré-roll de bande rythmo">+</button>
+                  <button class="xp-step__btn" type="button" data-dir="1" aria-label="Augmenter Pré-roll de bande rythmo">+</button>
                 </div>
               </div>
             </div>
@@ -108,9 +108,9 @@
             <div class="xp-step" data-step="countdownStart" hidden>
               <span class="xp-step__name" id="xp-step-count">Durée du compte à rebours (secondes)</span>
               <div class="xp-step__ctl">
-                <button class="xp-step__btn" type="button" tabindex="-1" data-dir="-1" aria-label="Diminuer Durée du compte à rebours">−</button>
+                <button class="xp-step__btn" type="button" data-dir="-1" aria-label="Diminuer Durée du compte à rebours">−</button>
                 <div class="xp-step__val tnum" role="spinbutton" tabindex="0" aria-labelledby="xp-step-count">3</div>
-                <button class="xp-step__btn" type="button" tabindex="-1" data-dir="1" aria-label="Augmenter Durée du compte à rebours">+</button>
+                <button class="xp-step__btn" type="button" data-dir="1" aria-label="Augmenter Durée du compte à rebours">+</button>
               </div>
             </div>
           </div>

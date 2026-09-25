@@ -443,7 +443,6 @@ function initShortcuts(ctx, root) {
     for (const t of tabs) {
       const on = t.dataset.cat === name;
       t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
       if (on) {
         listEl.setAttribute('aria-labelledby', t.id);
         if (focus) t.focus();
