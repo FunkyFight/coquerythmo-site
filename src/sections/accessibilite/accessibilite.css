@@ -747,7 +747,8 @@ html.reduce-motion .acc-step__say::after {
 [data-v='oui'] > .acc-v {
   color: #fff;
 }
-[data-v='non'] > .acc-v {
+[data-v='non'] > .acc-v,
+[data-v='beta'] > .acc-v {
   color: var(--text-dim);
 }
 [data-v='na'] > .acc-v {
