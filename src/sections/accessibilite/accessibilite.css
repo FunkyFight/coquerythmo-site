@@ -36,6 +36,23 @@
   margin-top: var(--s3);
 }
 
+/* ═══════════ Remerciements: a panel, the name as a character label ═══════════ */
+.acc-thanks {
+  display: grid;
+  gap: var(--s4);
+  max-width: 44rem;
+  margin-top: var(--s6);
+  padding: var(--s5);
+}
+.acc-thanks__title {
+  font-size: var(--fs-h3);
+  line-height: 1;
+}
+.acc-thanks__text {
+  color: var(--text);
+  line-height: 1.55;
+}
+
 /* ═══════════ Séance type + journal ═══════════ */
 .acc-voice {
   margin-top: var(--s8);
@@ -784,6 +801,9 @@ html.reduce-motion .acc-step__say::after {
 }
 
 @media (max-width: 720px) {
+  .acc-thanks {
+    padding: var(--s4);
+  }
   .acc-voice {
     margin-top: var(--s7);
   }
